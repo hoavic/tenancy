@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,43 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+})->name('home');
+
+Route::group([
+    'middleware' => ['auth', 'verified'],
+    'prefix'    =>  'ai-admin',
+    'name'      =>  'backend.'
+], function() {
+
+    Route::get('/', function() {
+        return redirect(route('dashboard'));
+    });
+
+    Route::get('/dashboard', function () {
+        return view('backend.dashboard');
+    })->name('dashboard');
+
+    Route::get('/setting', function() {
+        return view('backend.setting');
+    })->name('setting');
+
+    Route::resource('projects', ProjectController::class);
+
 });
+
+Route::group([
+    'middleware' => 'auth',
+    'prefix'    =>  'ai-admin',
+    'name'      =>  'backend.'
+], function() {
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile/update-password', [ProfileController::class, 'editPass'])->name('profile.pass.edit');
+    Route::get('/profile/delete-account', [ProfileController::class, 'editDel'])->name('profile.del.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+});
+
+require __DIR__.'/auth.php';

@@ -1,0 +1,100 @@
+<x-app-layout>
+
+    <x-slot name="header">
+        <h1 class="app-title">Danh sách dự án</h1>
+    </x-slot>
+
+    <div class="my-4 p-8 bg-white rounded-2xl shadow">
+        <h2 class="font-bold text-xl text-yellow-600">Tạo dự án mới</h2>
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form action="{{ route('projects.store') }}" method="POST">
+            @csrf
+            <div class="flex gap-4 my-4 items-center">
+                <label class="font-bold">Nhập vào tên dự án</label>
+                <input class="rounded-2xl" type="text" name="project_name"/>
+            </div>
+            <div class="flex gap-4 my-4 items-center">
+                <span class="font-bold">Chọn loại tên miền</span>
+                <input type="radio" id="subdomain" name="domain_type" value="subdomain" checked/><label for="subdomain">Subdomain - Miễn phí</label>
+                <span>|</span>
+                <input type="radio"  id="domain" name="domain_type" value="domain"/><label for="domain">Domain riêng</label>
+            </div>
+            <div class="flex gap-4 my-4 items-center">
+                <label class="font-bold">Tên miền</label>
+                <input class="rounded-2xl" type="text" name="project_domain"/>
+            </div>
+            <div class="flex gap-4 my-4 items-center">
+                
+                <input class="py-2 px-6 rounded-lg shadow-2xl uppercase bg-yellow-500 text-white font-bold"
+                    type="submit" value="Tạo dự án"/>
+            </div>
+            <div class="my-4"><p class="text-md text-gray-600">Số lượng dự án tối đa có thể khởi tại là: 2</p></div>
+        </form>
+    </div>
+
+    <h2 class="my-8 font-bold text-xl">Danh sách Tenancy</h2>
+
+    <div class="my-4 p-8 bg-white rounded-2xl shadow">
+        <table class="">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tên dự án</th>
+                    <th>Địa chỉ</th>
+                    <th>Tình trạng</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+{{--                 <tr>
+                    <td>1</td>
+                    <td>Dự án demo</td>
+                    <td><a href="https://foo.tenancy.test" target="_blank">foo.tenancy.test</a></td>
+                    <td>Hoạt động</td>
+                    <td>
+                        <a href="#" class="p-2 inline-block bg-gray-200 text-gray-500 font-bold text-sm shadow rounded-2xl">Ẩn</a>
+                        <a href="#" class="p-2 inline-block bg-gray-200 text-gray-500 font-bold text-sm shadow rounded-2xl">Hiện</a>
+                        <a href="#" class="p-2 inline-block bg-gray-200 text-gray-500 font-bold text-sm shadow rounded-2xl">Xóa</a>
+                    </td>
+                </tr> --}}
+
+                @if (empty($tenants))
+                    <tr><td colspan="5">Bạn chưa có dự án nào. Hãy tạo dự án đầu tiên.</td></tr>
+                @endif
+
+                @foreach ($tenants as $tenant)
+
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $tenant->name }}</td>
+                        <td><a href="https://foo.tenancy.test" target="_blank">foo.tenancy.test</a></td>
+                        <td>Hoạt động</td>
+                        <td>
+                            <a href="#" class="p-2 inline-block bg-gray-200 text-gray-500 font-bold text-sm shadow rounded-2xl">Ẩn</a>
+                            <a href="#" class="p-2 inline-block bg-gray-200 text-gray-500 font-bold text-sm shadow rounded-2xl">Hiện</a>
+                            <a href="#" class="p-2 inline-block bg-gray-200 text-gray-500 font-bold text-sm shadow rounded-2xl">Xóa</a>
+                        </td>
+                    </tr>
+
+                @endforeach
+
+            </tbody>
+        </table>
+    </div>
+    <p></p>
+
+</x-app-layout>
+
+
+
+
