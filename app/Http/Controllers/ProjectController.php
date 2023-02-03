@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Stancl\Tenancy\Database\Models\Domain;
 
 class ProjectController extends Controller
 {
@@ -16,9 +17,23 @@ class ProjectController extends Controller
     public function index()
     {
         //
+        $tenants = Tenant::with('user')->latest()->get();
+        
         return view('backend.projects.index',[
-            'tenants' => Tenant::with('user')->latest()->get(),
+            'tenants' => $tenants,
         ]);
+    }
+
+    public static function getDomain($tenant_id) {
+        $domain_arr = Domain::where('tenant_id', $tenant_id)->first();
+
+        if (empty($domain_arr)) {return;}
+
+        $domain = $domain_arr->domain;
+        if ($domain_arr->domain_type === "subdomain") {
+            $domain = $domain_arr->domain.'.'.config('tenancy.central_domains')[0];
+        }
+        return 'http://'.$domain;
     }
 
     /**
@@ -44,26 +59,52 @@ class ProjectController extends Controller
             'project_name' => 'required|string|max:255',
             'domain_type' => 'required|string|max:255',
             'project_domain' => 'required|string|max:255',
+            'plan' => 'required|string|max:255',
         ]);
 
         $id = $validated['project_domain'];
         $domain = $validated['project_domain'];
 
-        $domain_type = $validated['domain_type'];
+        // check tentant id
 
-        if ($domain_type === 'subdomain') {
+        $tenantIsExist = Tenant::select("*")
+            ->where("id", $id)
+            ->exists();
+
+        if ($tenantIsExist) {
+            return redirect(route('projects.index'))->withErrors(['msg' => 'Dự án đã tồn tại.']);
+        }
+
+        
+/*         $domainIsExist = Domain::select("*")
+            ->where("domain", $domain)
+            ->exist();
+
+        if ($domainIsExist) {
+            return redirect(route('projects.index'))->withErrors(['msg' => 'Tên miền đã tồn tại.']);
+        }   */  
+
+        $domain_type = $validated['domain_type'];
+        $plan = $validated['plan'];
+
+/*         if ($domain_type === 'subdomain') {
             $domain = $validated['project_domain'].'.tenancy.test';
-        } 
+        }  */
 
         $tenant = $request->user()->tenants()->create([
             'id' => $id,
             'name' => $validated['project_name'],
+            'status' => 'publish',
+            'plan' => $plan,
             'user_id' => Auth::id()
         ]);
 
-        $tenant->domains()->create(['domain' => $domain]);
+        $tenant->domains()->create([
+            'domain' => $domain,
+            'domain_type' => $domain_type,
+        ]);
  
-        return redirect(route('projects.index'));
+        return redirect(route('projects.index'))->withErrors(['msg' => 'Khởi tạo dự án thành công.']);;
     }
 
     /**

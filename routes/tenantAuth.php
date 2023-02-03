@@ -13,47 +13,47 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [TenantRegisteredUserController::class, 'create'])
-                ->name('tenant.register');
+                ->name('ten.register');
 
     Route::post('register', [TenantRegisteredUserController::class, 'store']);
 
     Route::get('login', [TenantAuthenticatedSessionController::class, 'create'])
-                ->name('login');
+                ->name('ten.login');
 
     Route::post('login', [TenantAuthenticatedSessionController::class, 'store']);
 
     Route::get('forgot-password', [TenantPasswordResetLinkController::class, 'create'])
-                ->name('tenant.password.request');
+                ->name('ten.password.request');
 
     Route::post('forgot-password', [TenantPasswordResetLinkController::class, 'store'])
-                ->name('tenant.password.email');
+                ->name('ten.password.email');
 
     Route::get('reset-password/{token}', [TenantNewPasswordController::class, 'create'])
-                ->name('tenant.password.reset');
+                ->name('ten.password.reset');
 
     Route::post('reset-password', [TenantNewPasswordController::class, 'store'])
-                ->name('tenant.password.store');
+                ->name('ten.password.store');
 });
 
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', [TenantEmailVerificationPromptController::class, '__invoke'])
-                ->name('tenant.verification.notice');
+                ->name('ten.verification.notice');
 
     Route::get('verify-email/{id}/{hash}', [TenantVerifyEmailController::class, '__invoke'])
                 ->middleware(['signed', 'throttle:6,1'])
-                ->name('tenant.verification.verify');
+                ->name('ten.verification.verify');
 
     Route::post('email/verification-notification', [TenantEmailVerificationNotificationController::class, 'store'])
                 ->middleware('throttle:6,1')
-                ->name('tenant.verification.send');
+                ->name('ten.verification.send');
 
     Route::get('confirm-password', [TenantConfirmablePasswordController::class, 'show'])
-                ->name('tenant.password.confirm');
+                ->name('ten.password.confirm');
 
     Route::post('confirm-password', [TenantConfirmablePasswordController::class, 'store']);
 
-    Route::put('password', [TenantPasswordController::class, 'update'])->name('tenant.password.update');
+    Route::put('password', [TenantPasswordController::class, 'update'])->name('ten.password.update');
 
     Route::post('logout', [TenantAuthenticatedSessionController::class, 'destroy'])
-                ->name('tenant.logout');
+                ->name('ten.logout');
 });

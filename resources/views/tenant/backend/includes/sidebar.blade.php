@@ -14,8 +14,19 @@
                 </div>
                 <!-- Navigation Links -->
                 <ul class="menu">
-                    <li class="menu-item">Dashboard</li>
-                    <li class="menu-item">Thiết lập</li>
+                    <li class="menu-item"><a href="{{ route('ten.dashboard') }}">Bảng tin</a></li>
+                    <li class="menu-item"><a href="{{ route('ten.setting') }}">Thiết lập</a></li>
+                </ul>
+            </div>
+
+            <div class="">
+                <div class="menu-label">
+                    <a href="#">Giao diện</a>
+                </div>
+                <!-- Navigation Links -->
+                <ul class="menu">
+                    <li class="menu-item"><a href="{{ route('ten.dashboard') }}">Quản lý giao diện</a></li>
+                    <li class="menu-item"><a href="{{ route('ten.setting') }}">Chỉnh sửa</a></li>
                 </ul>
             </div>
 
@@ -69,6 +80,19 @@
                     <li class="menu-item">Thêm bài viết mới</li>
                     <li class="menu-item">Chuyên mục</li>
                     <li class="menu-item">Từ khóa</li>
+                </ul>
+            </div>
+
+            <!-- Tài khoản -->
+            <div class="">
+                <div class="menu-label">
+                    <a href="#">Tài khoản</a>
+                </div>
+                <!-- Navigation Links -->
+                <ul class="menu">
+                    <li class="menu-item"><a href="{{ route('ten.profile.edit') }}">Cập nhật thông tin</a></li>
+                    <li class="menu-item"><a href="{{ route('ten.profile.pass.edit') }}">Thay đổi Mật khẩu</a></li>
+                    <li class="menu-item"><a href="{{ route('ten.profile.del.edit') }}">Xóa tài khoản</a></li>
                 </ul>
             </div>
         </div>

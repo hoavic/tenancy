@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Tenant\ProfileController;
 use Illuminate\Support\Facades\Route;
 /* use Stancl\Tenancy\Middleware\InitializeTenancyByDomain; */
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
@@ -33,20 +34,28 @@ Route::middleware([
     Route::group([
         'middleware' => ['auth', 'verified'],
         'prefix'    =>  'web-admin',
-        'name'      =>  'tenback.'
     ], function() {
     
         Route::get('/', function() {
-            return redirect(route('dashboard'));
+            return redirect(route('ten.dashboard'));
         });
     
         Route::get('/dashboard', function () {
             return view('tenant.backend.dashboard');
-        })->name('dashboard');
-    
-        Route::resource('projects', ProjectController::class);
+        })->name('ten.dashboard');
+
+        Route::get('/setting', function () {
+            return view('tenant.backend.setting');
+        })->name('ten.setting');
+
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('ten.profile.edit');
+        Route::get('/profile/update-password', [ProfileController::class, 'editPass'])->name('ten.profile.pass.edit');
+        Route::get('/profile/delete-account', [ProfileController::class, 'editDel'])->name('ten.profile.del.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('ten.profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('ten.profile.destroy');
     
     });
 
+    require __DIR__.'/tenantAuth.php';
 
 });

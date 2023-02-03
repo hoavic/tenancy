@@ -22,7 +22,6 @@ Route::get('/', function () {
 Route::group([
     'middleware' => ['auth', 'verified'],
     'prefix'    =>  'ai-admin',
-    'name'      =>  'backend.'
 ], function() {
 
     Route::get('/', function() {

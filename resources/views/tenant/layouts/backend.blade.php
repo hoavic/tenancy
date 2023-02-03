@@ -15,11 +15,11 @@
     </head>
     <body class="font-sans antialiased">
             <div class="app-top-nav">
-                @include('backend.includes.nav')
+                @include('tenant.backend.includes.nav')
             </div>
             <div class="app-grid">
 
-                @include('backend.includes.sidebar')
+                @include('tenant.backend.includes.sidebar')
 
                 <div class="app-container bg-gray-100">
 
@@ -37,7 +37,7 @@
                         {{ $slot }}
                     </main>
 
-                    @include('backend.includes.footer')
+                    @include('tenant.backend.includes.footer')
                 </div>
             </div>
 

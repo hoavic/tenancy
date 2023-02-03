@@ -17,6 +17,8 @@ class Tenant extends BaseTenant implements TenantWithDatabase
             'id',
             'user_id',
             'name',
+            'status', // active, unactive, block,
+            'plan', // free, startup, higer, professional
         ];
     }
 
@@ -24,4 +26,7 @@ class Tenant extends BaseTenant implements TenantWithDatabase
     {
         return $this->belongsTo(User::class);
     }
+
+
+
 }

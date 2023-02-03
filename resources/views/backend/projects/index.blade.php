@@ -8,7 +8,7 @@
         <h2 class="font-bold text-xl text-yellow-600">Tạo dự án mới</h2>
 
         @if ($errors->any())
-            <div class="alert alert-danger">
+            <div class="my-4 p-4 bg-gray-100 text-gray-500 rounded-2xl shadow">
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -17,27 +17,52 @@
             </div>
         @endif
 
+
+
+        @if (!empty($mess))
+            <div class="m-4 p-4 bg-gray-100 text-gray-500 rounded-2xl shadow">
+                <span>{{ $mess }}</span>
+            </div>
+        @endif
+
         <form action="{{ route('projects.store') }}" method="POST">
+
             @csrf
+
             <div class="flex gap-4 my-4 items-center">
                 <label class="font-bold">Nhập vào tên dự án</label>
                 <input class="rounded-2xl" type="text" name="project_name"/>
             </div>
+
             <div class="flex gap-4 my-4 items-center">
                 <span class="font-bold">Chọn loại tên miền</span>
                 <input type="radio" id="subdomain" name="domain_type" value="subdomain" checked/><label for="subdomain">Subdomain - Miễn phí</label>
                 <span>|</span>
                 <input type="radio"  id="domain" name="domain_type" value="domain"/><label for="domain">Domain riêng</label>
             </div>
+
             <div class="flex gap-4 my-4 items-center">
                 <label class="font-bold">Tên miền</label>
                 <input class="rounded-2xl" type="text" name="project_domain"/>
             </div>
+
+            <div class="flex gap-4 my-4 items-center">
+                <span class="font-bold">Chọn gói:</span>
+                <input type="radio" id="free" name="plan" value="free" checked/><label for="free"><strong>Cơ bản (Miễn phí)</strong></label>
+                <span>|</span>
+                <input type="radio"  id="startup" name="plan" value="startup"/><label for="startup">Startup (1$/tháng)</label>
+                <span>|</span>
+                <input type="radio"  id="higher" name="plan" value="higher"/><label for="higher">Higher (5$/tháng)</label>
+                <span>|</span>
+                <input type="radio"  id="professional" name="plan" value="professional"/><label for="professional">Professional (9$/tháng)</label>
+            </div>
+
             <div class="flex gap-4 my-4 items-center">
                 
                 <input class="py-2 px-6 rounded-lg shadow-2xl uppercase bg-yellow-500 text-white font-bold"
                     type="submit" value="Tạo dự án"/>
             </div>
+
             <div class="my-4"><p class="text-md text-gray-600">Số lượng dự án tối đa có thể khởi tại là: 2</p></div>
         </form>
     </div>
@@ -71,13 +96,16 @@
                 @if (empty($tenants))
                     <tr><td colspan="5">Bạn chưa có dự án nào. Hãy tạo dự án đầu tiên.</td></tr>
                 @endif
-
+                
                 @foreach ($tenants as $tenant)
-
+                    {{-- {{ dd($tenant) }} --}}
+                    @php
+                        $domain = App\Http\Controllers\ProjectController::getDomain($tenant->id);
+                    @endphp
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $tenant->name }}</td>
-                        <td><a href="https://foo.tenancy.test" target="_blank">foo.tenancy.test</a></td>
+                        <td><a href="{{ $domain }}" target="_blank">{{ $domain }}</a></td>
                         <td>Hoạt động</td>
                         <td>
                             <a href="#" class="p-2 inline-block bg-gray-200 text-gray-500 font-bold text-sm shadow rounded-2xl">Ẩn</a>
@@ -87,6 +115,12 @@
                     </tr>
 
                 @endforeach
+
+{{--                 @foreach ($domains as $domain)
+                    {{ dd($domain) }}
+    
+
+                @endforeach --}}
 
             </tbody>
         </table>

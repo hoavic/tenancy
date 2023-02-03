@@ -1,11 +1,11 @@
-<nav x-data="{ open: false }" class="bg-gray-900 text-gray-300 border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-green-900 text-gray-300 border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-8">
 
             <!-- Navigation Links -->
             <ul class="flex">
-                <li class="top-item">Website</li>
+                <li class="top-item"><a href="{{ route('home') }}">AI Bán hàng</a></li>
                 <li class="top-item">Kho hàng</li>
                 <li class="top-item">Tính tiền</li>
             </ul>
@@ -28,15 +28,15 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('ten.profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
+                        <form method="POST" action="{{ route('ten.logout') }}">
                             @csrf
 
-                            <x-dropdown-link :href="route('logout')"
+                            <x-dropdown-link :href="route('ten.logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
