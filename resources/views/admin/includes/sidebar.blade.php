@@ -1,4 +1,4 @@
-<aside x-data="{ open: false }" class="sidebar min-h-screen">
+<aside x-data="{ open: false }" class="sidebar">
     <!-- Primary Navigation Menu -->
     <div class="">
         <!-- Logo -->

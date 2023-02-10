@@ -7,6 +7,10 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 class RolesAndPermissionsSeeder extends Seeder
 {
     /**
@@ -38,5 +42,11 @@ class RolesAndPermissionsSeeder extends Seeder
 
         $role = Role::create(['name' => 'super-admin']);
         $role->givePermissionTo(Permission::all());
+
+        $oriUser = Auth::user();
+
+        $user = User::create(['name' => $oriUser->name, 'email' => $oriUser->email, 'password' => Hash::make('doimatkhaumacdinh')]);
+
+        $user->assignRole($role);
     }
 }
