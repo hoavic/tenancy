@@ -6,7 +6,6 @@ use App\Models\Tenant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Stancl\Tenancy\Database\Models\Domain;
-use Stancl\Tenancy\Database\Models\Tenant as ModelsTenant;
 
 class ProjectController extends Controller
 {
@@ -148,13 +147,13 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ModelsTenant $project)
+    public function destroy(Tenant $project)
     {
         //
         $this->authorize('delete', $project);
 
         $project->delete();
 
-        return redirect(route('client.projects.index'))->withErrors(['msg' => 'Xóa dự án thành công.']);
+        return redirect(route('client.projects.index'))->withErrors(['msg' => 'Xóa dự án '.$project->name.' thành công.']);
     }
 }
