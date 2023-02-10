@@ -44,4 +44,8 @@
             </x-primary-button>
         </div>
     </form>
+    <div class="w-full sm:max-w-md mt-6 px-6 py-4 text-center text-gray-500">
+        <p>Bạn chưa có tài khoản? <a class="text-blue-600" href="{{ route('ten.register') }}">Đăng ký ngay</a></p>
+        <p><<-- <a href="{{ route('ten.home') }}">Trở về trang chủ</a></p>
+    </div>
 </x-tenguest-layout>

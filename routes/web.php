@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\AccountsController;
+use App\Http\Controllers\Admin\CustomersController;
+use App\Http\Controllers\Admin\PermissionsController;
+use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
@@ -19,39 +23,113 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+
+// by Prefix
 Route::group([
-    'middleware' => ['auth', 'verified'],
-    'prefix'    =>  'ai-admin',
+    'prefix' => 'ai-client',
+], function() {
+
+    // by Middleware
+    Route::group([
+        'middleware' => 'auth',
+    
+    ], function() {
+    
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::get('/profile/update-password', [ProfileController::class, 'editPass'])->name('profile.pass.edit');
+        Route::get('/profile/delete-account', [ProfileController::class, 'editDel'])->name('profile.del.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        
+    });
+
+    Route::group([
+        'middleware' => ['auth', 'verified'],
+    
+    ], function() {
+    
+        Route::get('/', function() {
+            return redirect(route('dashboard'));
+        });
+    
+        Route::get('/dashboard', function () {
+            return view('client.dashboard');
+        })->name('dashboard');
+    
+        Route::get('/setting', function() {
+            return view('client.setting');
+        })->name('setting');
+    
+        Route::resource('projects', ProjectController::class, [
+            'names' => [
+                'index' => 'client.projects.index',
+                'store' => 'client.projects.store',
+                'edit' => 'client.projects.edit', 
+                'update' => 'client.projects.update', 
+                'destroy' => 'client.projects.destroy'
+            ]
+        ]);
+    
+    });
+    
+});
+
+Route::group([
+    'prefix' => 'ai-admin',
+    'middleware' => ['auth', 'verified', 'role:Super Admin|Admin|Manager'],
 ], function() {
 
     Route::get('/', function() {
-        return redirect(route('dashboard'));
+        return redirect(route('admin.dashboard'));
     });
 
     Route::get('/dashboard', function () {
-        return view('backend.dashboard');
-    })->name('dashboard');
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
 
-    Route::get('/setting', function() {
-        return view('backend.setting');
-    })->name('setting');
+    Route::resource('roles', RolesController::class, [
+        'names' => [
+            'index' => 'admin.roles.index',
+            'store' => 'admin.roles.store',
+            'edit' => 'admin.roles.edit', 
+            'update' => 'admin.roles.update', 
+            'destroy' => 'admin.roles.destroy'
+        ]
+    ]);
 
-    Route::resource('projects', ProjectController::class);
+    Route::resource('permissions', PermissionsController::class, [
+        'names' => [
+            'index' => 'admin.permissions.index', 
+            'store' => 'admin.permissions.store', 
+            'edit' => 'admin.permissions.edit', 
+            'update' => 'admin.permissions.update', 
+            'destroy' => 'admin.permissions.destroy'
+        ]
+    ]);
 
-});
+    Route::resource('customer-manager', CustomersController::class, [
+        'names' => [
+            'index' => 'admin.customer-manager.index', 
+            'store' => 'admin.customer-manager.store', 
+            'edit' => 'admin.customer-manager.edit', 
+            'update' => 'admin.customer-manager.update', 
+            'destroy' => 'admin.customer-manager.destroy'
+        ]
+    ]);
 
-Route::group([
-    'middleware' => 'auth',
-    'prefix'    =>  'ai-admin',
-    'name'      =>  'backend.'
-], function() {
+    Route::resource('accounts', AccountsController::class, [
+        'names' => [
+            'index' => 'admin.accounts.index', 
+            'store' => 'admin.accounts.store', 
+            'edit' => 'admin.accounts.edit', 
+            'update' => 'admin.accounts.update', 
+            'destroy' => 'admin.accounts.destroy'
+        ]
+    ]);
+    
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::get('/profile/update-password', [ProfileController::class, 'editPass'])->name('profile.pass.edit');
-    Route::get('/profile/delete-account', [ProfileController::class, 'editDel'])->name('profile.del.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
 });
+
 
 require __DIR__.'/auth.php';

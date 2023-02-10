@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-clientapp-layout>
     <x-slot name="header">
         <h1 class="app-title">Cài đặt chung</h1>
     </x-slot>
@@ -288,4 +288,4 @@
 
     </div>
 
-</x-app-layout>
+</x-clientapp-layout>

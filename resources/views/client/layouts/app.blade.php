@@ -15,29 +15,27 @@
     </head>
     <body class="font-sans antialiased">
             <div class="app-top-nav">
-                @include('backend.includes.nav')
+                @include('includes.nav')
             </div>
             <div class="app-grid">
 
-                @include('backend.includes.sidebar')
+                @include('client.includes.sidebar')
 
-                <div class="app-container bg-gray-100">
+                <div class="app-container">
 
                     
 
                     <main class="app-main">
                         <!-- Page Heading -->
                         @if (isset($header))
-                            <header class="">
-                                <div class="py-6">
+                            <header class="">                       
                                     {{ $header }}
-                                </div>
                             </header>
                         @endif
                         {{ $slot }}
                     </main>
 
-                    @include('backend.includes.footer')
+                    @include('includes.footer')
                 </div>
             </div>
 

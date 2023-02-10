@@ -38,10 +38,15 @@
                     {{ __('Quên mật khẩu?') }}
                 </a>
             @endif
-
+            
             <x-primary-button class="ml-3">
                 {{ __('Đăng nhập') }}
             </x-primary-button>
+        </div>
+
+        
+        <div class="text-center  mt-2">
+            <p class="text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Bạn chưa có tài khoản? <a class="underline " href="{{ route('register') }}">Đăng ký ngay</a></p>
         </div>
     </form>
 </x-guest-layout>

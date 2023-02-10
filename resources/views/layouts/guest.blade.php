@@ -25,8 +25,7 @@
                 {{ $slot }}
             </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 text-center text-gray-500">
-                <p>Bạn chưa có tài khoản? <a class="text-blue-600" href="{{ route('register') }}">Đăng ký ngay</a></p>
+            <div class="w-full sm:max-w-md mt-4 px-6 py-4 text-center text-gray-500">
                 <p><<-- <a href="{{ route('home') }}">Trở về trang chủ</a></p>
             </div>
         </div>

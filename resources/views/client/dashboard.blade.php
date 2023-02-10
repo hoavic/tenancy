@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-clientapp-layout>
 
     <x-slot name="header">
         <h1 class="app-title">Bảng tin</h1>
@@ -24,4 +24,4 @@
 
 
 
-</x-app-layout>
+</x-clientapp-layout>

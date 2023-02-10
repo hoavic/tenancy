@@ -6,6 +6,7 @@ use App\Models\Tenant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Stancl\Tenancy\Database\Models\Domain;
+use Stancl\Tenancy\Database\Models\Tenant as ModelsTenant;
 
 class ProjectController extends Controller
 {
@@ -19,7 +20,7 @@ class ProjectController extends Controller
         //
         $tenants = Tenant::with('user')->latest()->get();
         
-        return view('backend.projects.index',[
+        return view('client.projects.index',[
             'tenants' => $tenants,
         ]);
     }
@@ -72,7 +73,7 @@ class ProjectController extends Controller
             ->exists();
 
         if ($tenantIsExist) {
-            return redirect(route('projects.index'))->withErrors(['msg' => 'Dự án đã tồn tại.']);
+            return redirect(route('client.projects.index'))->withErrors(['msg' => 'Dự án đã tồn tại.']);
         }
 
         
@@ -104,7 +105,7 @@ class ProjectController extends Controller
             'domain_type' => $domain_type,
         ]);
  
-        return redirect(route('projects.index'))->withErrors(['msg' => 'Khởi tạo dự án thành công.']);;
+        return redirect(route('client.projects.index'))->withErrors(['msg' => 'Khởi tạo dự án thành công.']);
     }
 
     /**
@@ -147,8 +148,13 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ModelsTenant $project)
     {
         //
+        $this->authorize('delete', $project);
+
+        $project->delete();
+
+        return redirect(route('client.projects.index'))->withErrors(['msg' => 'Xóa dự án thành công.']);
     }
 }

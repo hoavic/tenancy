@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+}
+
 table {
     display: table;
     border-collapse: collapse;
@@ -16,41 +22,104 @@ p {
     margin: 1em 0;
 }
 
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top:0;
+    width: 100%;
+    z-index: 999;
+    font-size: 0.95em;;
+    background: #4776E6;
+    background: linear-gradient(to right, #8E54E9, #4776E6);
+}
+
+.top-nav a {
+    color: azure;
+}
+
 .top-item {
     padding: 0.3em 1em;
 }
 
+.nav-link {
+    padding: 3px 10px;
+    border-radius: 8px;
+    display: block;
+    color: #515154;
+}
+
+.top-nav .nav-link:hover,
+.top-nav .nav-link-active {
+    background: rgb(255 255 255 / 15%);
+}
+
 .app-title {
     font-size: 1.3em;
-    
+    padding-top: 1em;
+    font-weight: bold;
+    color: #333;
 }
 
 .app-grid {
     display: grid;
-    grid-template-columns: 300px auto;
-
+    grid-template-columns: 265px auto;
+    margin-top: 38px;
 }
+
+.app-container {background-color: #f8f7fa;}
 
 .app-main {
     padding: 0 2em;
     min-height: calc(100vh - 125px);
-    background-color: #f3f4f6;
 }
 
 .sidebar {
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+    box-shadow: 0 0 21px 0 rgb(89 102 122 / 10%);
     color: gray;
+    padding: 0 0.5em;
+    z-index: 9;
+}
+
+.block-menu {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.5em;
 }
 
 .menu-label {
     text-transform: uppercase;
     font-weight: bold;
-    background-color:  #f5f5f5;
     display: block;
     padding: 0.5em 1em;
+    color: #1d1d1f;
 }
 
-.menu-item {
-    padding: 0.3em 1em;
-    
+.sidebar .nav-item {
+    padding: 0.1em 0.5em;
 }
+
+.sidebar .nav-link {
+    padding: 5px 10px;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link-active {
+    background: #4776E6;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #8E54E9, #4776E6);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #8E54E9, #4776E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    font-weight: bold;
+    color: #fff;
+    padding: 5px 15px;
+}
+
+.app-box {
+    margin: 1em 0;
+    padding: 2em;
+    background-color: #fff;
+    display: inline-block;
+    box-shadow: 0px 9px 20px rgb(46 35 94 / 7%);
+    border-radius: 15px;
+}
+
+.app-footer {    text-align: center;}

@@ -28,8 +28,8 @@ Route::middleware([
     Route::get('/', function () {
         /* dd(\App\Models\User::all()); */
         /* return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id'); */
-        return view('tenant.welcome');
-    });
+        return view('tenant.home');
+    })->name('ten.home');
 
     Route::group([
         'middleware' => ['auth', 'verified'],

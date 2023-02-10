@@ -16,21 +16,21 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('backend.profile.info', [
+        return view('client.profile.info', [
             'user' => $request->user(),
         ]);
     }
 
     public function editPass(Request $request): View
     {
-        return view('backend.profile.pass', [
+        return view('client.profile.pass', [
             'user' => $request->user(),
         ]);
     }
 
     public function editDel(Request $request): View
     {
-        return view('backend.profile.del', [
+        return view('client.profile.del', [
             'user' => $request->user(),
         ]);
     }

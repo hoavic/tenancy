@@ -1,8 +1,8 @@
-<x-app-layout>
+<x-clientapp-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h1 class="app-title">
             {{ __('Quản lý Tài khoản') }}
-        </h2>
+        </h1>
     </x-slot>
 
     <div class="py-12">
@@ -10,10 +10,10 @@
             
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
-                    @include('backend.profile.partials.delete-user-form')
+                    @include('client.profile.partials.delete-user-form')
                 </div>
             </div>
 
         </div>
     </div>
-</x-app-layout>
+</x-clientapp-layout>
