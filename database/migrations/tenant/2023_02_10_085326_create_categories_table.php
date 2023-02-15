@@ -20,6 +20,10 @@ return new class extends Migration
 
             $table->unsignedBigInteger('parent_id')->default(0);
             /* $table->foreign('parent_id')->default(0)->references('id')->on('categories')->onDelete('cascade'); */
+/*             $table->nestedSet();
+            $table->dropNestedSet();
+            $table->unsignedInteger('_lft');
+            $table->unsignedInteger('_rgt'); */
 
             $table->bigInteger('count')->default(0);
             $table->string('slug');

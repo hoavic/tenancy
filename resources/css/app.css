@@ -179,6 +179,9 @@ input[type="submit"] {
 
 .sub-item {
     visibility: hidden;
+    display: flex;
+    align-items: center;
+    gap: 1em
 }
 
 .has-sub:hover .sub-item {

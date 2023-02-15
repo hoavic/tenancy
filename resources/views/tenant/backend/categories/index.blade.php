@@ -27,10 +27,10 @@
                         <option value="0">Không có</option>
 
                         @if ($categories)
-
-                            @foreach ($categories as $categorie)
+                            @include('tenant.backend.categories.recursive-select', ['categories' => $categories, 'prefix'       => ''])
+{{--                             @foreach ($categories as $categorie)
                                     <option value="{{ $categorie->id }}">{{ $categorie->title }}</option>            
-                            @endforeach
+                            @endforeach --}}
                             
                         @endif 
 
@@ -58,9 +58,9 @@
                 <input class="inline-block py-2 px-4 bg-blue-600 text-white rounded" type="submit" value="Áp dụng"/>
             </form>
             <table class="table border w-full bg-white shadow">
-                <thead>
+                <thead class="text-left">
                     <tr class="border-b border-gray-300">
-                        <th>#</th>
+                        <th><input type="checkbox" name="" class="rounded"/></th>
                         <th>Tên</th>
                         <th>Mô tả</th>
                         <th>Slug</th>
@@ -69,8 +69,24 @@
                 </thead>
                 <tbody>
                     @if ($categories)
-        
-                        @foreach ($categories as $categorie)
+                        {{-- {{ dd($categories) }} --}}
+                        @include('tenant.backend.categories.recursive', [
+                                'categories' => $categories,
+                                'prefix'       => '',
+                            ])
+{{--                         @php
+                            $traverse = function ($categories, $prefix = '-') use (&$traverse) {
+                                foreach ($categories as $category) {
+
+                                    echo $prefix.' '.$category->title;
+
+                                    $traverse($category->children, $prefix.'-');
+                                }
+                            };
+
+                            $traverse($categories);
+                        @endphp   --}}   
+{{--                         @foreach ($categories as $categorie)
                             
                             <tr class="border-b border-gray-200">
                                 <td>{{ $loop->iteration }}</td>
@@ -90,7 +106,7 @@
                                 <td>{{ $categorie->count }}</td>
                             </tr>
                             
-                        @endforeach
+                        @endforeach --}}
                         
                     @endif 
                 </tbody>

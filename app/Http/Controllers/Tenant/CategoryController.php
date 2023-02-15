@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Tenant\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -17,7 +18,7 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        $categories = Category::all();
+        $categories = Category::where('parent_id', '=', 0)->get();
         return view('tenant.backend.categories.index',[
             'categories' => $categories,
         ]);
@@ -57,6 +58,9 @@ class CategoryController extends Controller
         if (empty($validated['slug'])) {
             $validated['slug'] = $validated['title'];
         }
+
+        $validated['slug'] = Str::slug($validated['slug'], '-');
+
 
         $validated['guid'] = tenant('id').'/'.$validated['slug'];
 

@@ -53,46 +53,16 @@
                 {{-- Category --}}
                 <div class="create-bar-block">
                     <span class="font-bold">Chuyên mục</span>
-                    <div class="p-2 max-h-28 overflow-auto">
-{{--                         <div class="my-2 flex gap-2 items-center">
-                            <input id="default" class="" type="checkbox" name="categories" value="default"><label>Mặc định</label>
-                        </div>
-                        <div class="my-2 flex gap-2 items-center">
-                            <input id="cat1" class="" type="checkbox" name="categories" value="cat1"><label>Chuyên mục 1</label>
-                        </div>
-                        <div class="my-2 flex gap-2 items-center">
-                            <input id="cat2" class="" type="checkbox" name="categories" value="cat2"><label>Chuyên mục 2</label>
-                        </div>
-                        <div class="my-2 flex gap-2 items-center">
-                            <input id="cat3" class="" type="checkbox" name="categories" value="cat3"><label>Chuyên mục 3</label>
-                        </div>
-                        <div class="my-2 flex gap-2 items-center">
-                            <input id="cat4" class="" type="checkbox" name="categories" value="cat4"><label>Chuyên mục 4</label>
-                        </div> --}}
+                    <div class="my-2 py-2 max-h-32 overflow-auto">
 
-                        @if (!empty($data))
 
-{{--                             @foreach ($categories_tree as $categorie_tree)
+                        @if (!empty($categories))
 
-                                {{ dd($categorie_tree) }}
-
-                                <div class="my-2 flex gap-2 items-center">
-                                    <input id="cat4" class="" type="checkbox" name="categories" value="cat4"><label>Chuyên mục 4</label>
-                                </div>
-                                
-                            @endforeach --}}
-
-{{--                             @foreach($data as $categories)
-                                <optgroup label="{{ $categories->title }}">
-                                    @foreach($categories->children as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </optgroup>
-                            @endforeach --}}
+                            @include('tenant.backend.posts.recursive-category', ['categories' => $categories])
                             
                         @endif
                     </div>
-                    <a href="#">Thêm chuyên mục</a>
+                    <a href="{{ route('ten.categories.index') }}">Thêm chuyên mục</a>
                 </div>
 
                 {{-- Tags --}}

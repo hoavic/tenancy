@@ -4,6 +4,8 @@ namespace App\Models\Tenant;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kalnoy\Nestedset\NodeTrait;
+use \Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
@@ -17,15 +19,20 @@ class Category extends Model
         'guid',
     ];
 
+/*     public static function resetActionsPerformed()
+    {
+        static::$actionsPerformed = 0;
+    } */
+
     public function posts() {
         return $this->belongsToMany(Post::class);
     }
 
     public function parent() {
-        return $this->hasOne(Category::class, 'parent_id', 'id');
+        return $this->hasOne(Category::class, 'id', 'parent_id');
     }
 
     public function children() {
-        return $this->hasMany(Category::class, 'id', 'parent_id');
+        return $this->hasMany(Category::class, 'parent_id', 'id');
     }
 }

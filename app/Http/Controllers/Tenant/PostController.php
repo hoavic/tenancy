@@ -34,41 +34,10 @@ class PostController extends Controller
     {
         //
        /*  $categories_tree = $this->getCategoriesTree(); */
-       $data = Category::all();
-        return view('tenant.backend.posts.create', compact('data'));
-    }
-
-    protected function getCategoriesTree()
-    {
-        $categories = Category::where('parent_id',0)->get();
-
-        if($categories->count())
-        {
-            foreach ($categories as $category) 
-            {
-                $categories_tree[$category->id] = $this->getChildCategories($category);
-            }
-        }
-
-        return $categories_tree;
-    }
-
-    private function getChildCategories($category)
-    {
-        $sub_categories = [];
-
-        $childs = Category::where('parent_id', $category->id)->get();
-
-        $sub_categories = $category;
-
-        $sub_categories['sub_categories'] = [];
-
-        if($childs->count())
-        {
-            $sub_categories['sub_categories'] = $childs;
-        }
-
-        return $sub_categories;
+       $categories = Category::where('parent_id', '=', 0)->get();
+        return view('tenant.backend.posts.create', [
+            'categories' => $categories,
+        ]);
     }
 
     /**
