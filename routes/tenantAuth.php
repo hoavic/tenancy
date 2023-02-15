@@ -11,7 +11,7 @@ use App\Http\Controllers\TenantAuth\TenantRegisteredUserController;
 use App\Http\Controllers\TenantAuth\TenantVerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('guest')->group(function () {
+Route::middleware('ten.guest')->group(function () {
     Route::get('register', [TenantRegisteredUserController::class, 'create'])
                 ->name('ten.register');
 
@@ -21,7 +21,7 @@ Route::middleware('guest')->group(function () {
                 ->name('ten.login');
 
     Route::post('login', [TenantAuthenticatedSessionController::class, 'store']);
-
+    
     Route::get('forgot-password', [TenantPasswordResetLinkController::class, 'create'])
                 ->name('ten.password.request');
 
@@ -35,7 +35,7 @@ Route::middleware('guest')->group(function () {
                 ->name('ten.password.store');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('ten.auth')->group(function () {
     Route::get('verify-email', [TenantEmailVerificationPromptController::class, '__invoke'])
                 ->name('ten.verification.notice');
 

@@ -15,14 +15,17 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('author');
-            $table->longText('content');
+            $table->bigInteger('user_id');
+            $table->longText('content')->nullable();
             $table->text('title');
             $table->text('excerpt')->nullable();
             $table->string('status');
             $table->string('password')->nullable();
             $table->string('name');
+            $table->bigInteger('parent')->default(0);
             $table->string('guid');
+            $table->integer('menu_order')->default(0);
+            $table->string('type')->default('post');
             $table->timestamps();
 
             $table->string('comment_status')->default('open');

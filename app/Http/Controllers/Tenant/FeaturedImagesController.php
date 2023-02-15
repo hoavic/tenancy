@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Tenant;
 
-use App\Models\Tenant\Comment;
+use App\Http\Controllers\Controller;
+use App\Models\Tenant\FeaturedImages;
 use Illuminate\Http\Request;
 
-class CommentController extends Controller
+class FeaturedImagesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Tenant\Comment  $comment
+     * @param  \App\Models\Tenant\FeaturedImages  $featuredImages
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comment)
+    public function show(FeaturedImages $featuredImages)
     {
         //
     }
@@ -52,10 +53,10 @@ class CommentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Tenant\Comment  $comment
+     * @param  \App\Models\Tenant\FeaturedImages  $featuredImages
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comment $comment)
+    public function edit(FeaturedImages $featuredImages)
     {
         //
     }
@@ -64,10 +65,10 @@ class CommentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tenant\Comment  $comment
+     * @param  \App\Models\Tenant\FeaturedImages  $featuredImages
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, FeaturedImages $featuredImages)
     {
         //
     }
@@ -75,10 +76,10 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Tenant\Comment  $comment
+     * @param  \App\Models\Tenant\FeaturedImages  $featuredImages
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy(FeaturedImages $featuredImages)
     {
         //
     }

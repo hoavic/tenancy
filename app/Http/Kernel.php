@@ -63,6 +63,18 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        //ten auth
+        'ten.auth' => \App\Http\Middleware\Tenant\TenantAuthenticate::class,
+        'ten.auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'ten.auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
+        'ten.cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        'ten.can' => \Illuminate\Auth\Middleware\Authorize::class,
+        'ten.guest' => \App\Http\Middleware\Tenant\TenantRedirectIfAuthenticated::class,
+        'ten.password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
+        'ten.signed' => \App\Http\Middleware\Tenant\TenantValidateSignature::class,
+        'ten.throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'ten.verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,

@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Tenant;
 
+use App\Http\Controllers\Controller;
 use App\Models\Tenant\Category;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class CategoryController extends Controller
 {
@@ -15,6 +17,11 @@ class CategoryController extends Controller
     public function index()
     {
         //
+        $categories = Category::all();
+        return view('tenant.backend.categories.index',[
+            'categories' => $categories,
+        ]);
+
     }
 
     /**
@@ -36,6 +43,26 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
+        $validated = $request->validate([
+            'title'     => 'required|string|max:255',
+            'description'   =>  'nullable|string',
+            'slug'      =>  'nullable|string',
+            'parent_id'    =>  'integer',
+        ]);
+
+/*         if ($validated['parent_id'] == 0) {
+            $validated['parent_id'] = NULL;
+        } */
+
+        if (empty($validated['slug'])) {
+            $validated['slug'] = $validated['title'];
+        }
+
+        $validated['guid'] = tenant('id').'/'.$validated['slug'];
+
+        Category::create($validated);
+
+        return redirect(route('ten.categories.index'));
     }
 
     /**
@@ -78,8 +105,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Tenant\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category): RedirectResponse
     {
         //
+        $category->delete();
+        return redirect(route('ten.categories.index'));
     }
 }

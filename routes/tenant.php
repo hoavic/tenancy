@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Tenant\PostController;
+use App\Http\Controllers\Tenant\CategoryController;
 use App\Http\Controllers\Tenant\ProfileController;
 use Illuminate\Support\Facades\Route;
 /* use Stancl\Tenancy\Middleware\InitializeTenancyByDomain; */
@@ -32,7 +34,7 @@ Route::middleware([
     })->name('ten.home');
 
     Route::group([
-        'middleware' => ['auth', 'verified'],
+        'middleware' => ['ten.auth', 'ten.verified'],
         'prefix'    =>  'web-admin',
     ], function() {
     
@@ -53,6 +55,28 @@ Route::middleware([
         Route::get('/profile/delete-account', [ProfileController::class, 'editDel'])->name('ten.profile.del.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('ten.profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('ten.profile.destroy');
+
+        Route::resource('posts', PostController::class, [
+            'names' => [
+                'index' => 'ten.posts.index',
+                'create' => 'ten.posts.create',
+                'store' => 'ten.posts.store',
+                'edit' => 'ten.posts.edit', 
+                'update' => 'ten.posts.update', 
+                'destroy' => 'ten.posts.destroy'
+            ]
+        ]);
+
+        Route::resource('categories', CategoryController::class, [
+            'names' => [
+                'index' => 'ten.categories.index',
+                'create' => 'ten.categories.create',
+                'store' => 'ten.categories.store',
+                'edit' => 'ten.categories.edit', 
+                'update' => 'ten.categories.update', 
+                'destroy' => 'ten.categories.destroy'
+            ]
+        ]);
     
     });
 

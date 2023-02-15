@@ -22,6 +22,18 @@ p {
     margin: 1em 0;
 }
 
+label {color: #6b7280}
+
+input,
+select {
+    border-radius: 8px;
+    border-color: #d1d5db;
+}
+
+input[type="submit"] {
+    cursor: pointer;
+}
+
 .top-nav {
     display: flex;
     justify-content: space-between;
@@ -67,11 +79,13 @@ p {
     margin-top: 38px;
 }
 
-.app-container {background-color: #f8f7fa;}
+.app-container {
+    background-color: #f8f7fa;
+    min-height: calc(100vh - 125px);
+}
 
 .app-main {
     padding: 0 2em;
-    min-height: calc(100vh - 125px);
 }
 
 .sidebar {
@@ -133,3 +147,40 @@ p {
 }
 
 .app-footer {    text-align: center;}
+
+
+
+/*
+** Tenant css*/
+
+.create-grid {
+    display: grid;
+    grid-template-columns: auto 300px;
+    gap:1em
+}
+
+.create-bar {
+    height: calc(100vh - 88px);
+    overflow-y: auto;
+}
+
+.create-bar-block {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1em;
+    padding-bottom: 1em;
+}
+
+.cate-grid {
+    margin: 2em 0;
+    display: grid;
+    grid-template-columns: 300px auto;
+    gap: 2em
+}
+
+.sub-item {
+    visibility: hidden;
+}
+
+.has-sub:hover .sub-item {
+    visibility: visible;
+}

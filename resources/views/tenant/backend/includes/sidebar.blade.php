@@ -4,7 +4,7 @@
         <!-- Logo -->
         <div class="text-center p-4 h-16">
             <a class="font-bold text-2xl uppercase text-blue-800" href="{{ route('home') }}">
-                AI Bán hàng
+                WEB ADMIN
             </a>
         </div>
         <div class="flex flex-col">
@@ -76,9 +76,9 @@
                 </div>
                 <!-- Navigation Links -->
                 <ul class="menu">
-                    <li class="menu-item">Tất cả bài viết</li>
-                    <li class="menu-item">Thêm bài viết mới</li>
-                    <li class="menu-item">Chuyên mục</li>
+                    <li class="menu-item"><a href="{{ route('ten.posts.index') }}">Tất cả bài viết</a></li>
+                    <li class="menu-item"><a href="{{ route('ten.posts.create') }}">Thêm bài viết mới</a></li>
+                    <li class="menu-item"><a href="{{ route('ten.categories.index') }}">Chuyên mục</a></li>
                     <li class="menu-item">Từ khóa</li>
                 </ul>
             </div>

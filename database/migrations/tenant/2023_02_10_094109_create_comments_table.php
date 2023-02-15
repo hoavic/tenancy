@@ -22,9 +22,20 @@ return new class extends Migration
             $table->string('author_IP');
             $table->text('content');
             $table->integer('karma')->default(0);
-            $table->string('approved')->default(0);
-            $table->bigInteger('parent')->default(0);
-            $table->foreignId('user_id');
+            $table->string('approved')->default(1);
+            $table->string('agent');
+
+            $table->string('type')->default('comment');
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->index(['parent_id']);
+            $table
+                ->foreign('parent_id')
+                ->references('id')
+                ->on('comments')
+                ->onDelete('set null')
+                ->onUpdate('set null');
+
+            $table->foreignId('user_id')->default(0);
 
             $table->timestamps();
 

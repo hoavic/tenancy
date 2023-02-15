@@ -10,15 +10,21 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = [
-        'author',
         'content',
         'title',
         'excerpt',
         'status',
         'password',
         'name',
-        'guid'
+        'parent',
+        'guid',
+        'menu_order',
+        'type',
     ];
+
+    public function featured_images() {
+        return $this->hasOne(FeaturedImages::class);
+    }
 
     public function users() {
         return $this->hasMany(User::class); 

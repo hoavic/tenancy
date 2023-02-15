@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\TenantAuth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Tenant\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -47,5 +47,6 @@ class TenantRegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
+        /* return redirect()->back(); */
     }
 }

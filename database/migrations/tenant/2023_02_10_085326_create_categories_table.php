@@ -17,11 +17,15 @@ return new class extends Migration
             $table->id();
             $table->text('title');
             $table->text('description')->nullable();
-            $table->bigInteger('parent')->default(0);
+
+            $table->unsignedBigInteger('parent_id')->default(0);
+            /* $table->foreign('parent_id')->default(0)->references('id')->on('categories')->onDelete('cascade'); */
+
             $table->bigInteger('count')->default(0);
             $table->string('slug');
             $table->string('guid');
             $table->timestamps();
+
         });
     }
 
