@@ -47,7 +47,11 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
-        $request->user()->save();
+        $user = $request->user()->save();
+
+        if($request->hasFile('avatar') && $request->file('avatar')->isValid()){
+            $user->addMediaFromRequest('avatar')->toMediaCollection('avatar');
+        }
 
         return Redirect::route('ten.profile.edit')->with('status', 'profile-updated');
     }

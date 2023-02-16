@@ -9,13 +9,19 @@
         </p>
     </header>
 
-    <form id="send-verification" method="post" action="{{ route('verification.send') }}">
+    <form id="send-verification" method="post" action="{{ route('ten.verification.send') }}">
         @csrf
     </form>
 
     <form method="post" action="{{ route('ten.profile.update') }}" class="mt-6 space-y-6">
         @csrf
         @method('patch')
+        
+        <img src=" {{ dd($user->getFirstMediaUrl('avatar', 'thumb')) }} " / width="120px">
+        <div class="mb-3">
+            <label>Image:</label>
+            <input type="file" name="avatar" class="form-control">
+        </div>
 
         <div>
             <x-input-label for="name" :value="__('Họ và Tên / Công ty')" />

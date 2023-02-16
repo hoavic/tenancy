@@ -18,7 +18,7 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = Post::all();
+        $posts = Post::get();
 
         return view('tenant.backend.posts.index', [
             'posts' => $posts,
@@ -75,7 +75,9 @@ class PostController extends Controller
             $validated['name'] = $validated['title'];
         }
 
-        $request->user()->posts()->create($validated);
+        $post = $request->user()->posts()->create($validated);
+
+        $post->addMediaFromRequest('featured_image')->toMediaCollection();
 
         return redirect(route('ten.posts.index'));
 

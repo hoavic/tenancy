@@ -63,7 +63,10 @@
                     type="submit" value="Tạo dự án"/>
             </div>
 
-            <div class="my-4"><p class="text-md text-gray-600">Số lượng dự án tối đa có thể khởi tại là: 2</p></div>
+            <div class="my-4">
+                <p class="text-md text-gray-600">Số lượng dự án tối đa có thể khởi tại là: 2</p>
+                <p class="text-md text-gray-600">Tài khoản mặc định: email hiện tại  -  Mật khẩu mặc định: doimatkhaumacdinh</p>
+            </div>
         </form>
     </div>
 

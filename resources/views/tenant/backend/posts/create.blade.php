@@ -2,7 +2,7 @@
 
     <x-slot name="title">Đăng bài viết</x-slot>
 
-    <form method="POST" action="{{ route('ten.posts.store') }}" class="relative">
+    <form method="POST" action="{{ route('ten.posts.store') }}" class="relative" enctype="multipart/form-data">
         @csrf
         <div class="sticky top-8 p-4 h-14 bg-white text-right border-b border-gray-100">
             <button type="submit" class="py-2 px-4 bg-blue-600 text-gray-50">Đăng</button>

@@ -24,12 +24,16 @@
             @if ($posts)
 
                 @foreach ($posts as $post)
-                    {{ dd($post) }}
+                    {{-- {{ dd($post) }} --}}
                     <tr>
                         <td>{{ $loop->count }}</td>
                         <td>{{ $post->title }}</td>
-                        <td>{{ $post->title }}</td>
-                        <td>{{ $post->title }}</td>
+                        <td>{{ $post->user_id }}</td>
+                        <td>
+                            
+                                <img src="{{ $post->getFirstMediaUrl('default','thumbnail') }}" width="120px"></td>
+
+                            
                         <td>{{ $post->title }}</td>
                     </tr>
                     
