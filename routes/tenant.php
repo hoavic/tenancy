@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Tenant\MediaController;
 use App\Http\Controllers\Tenant\PostController;
 use App\Http\Controllers\Tenant\CategoryController;
 use App\Http\Controllers\Tenant\ProfileController;
@@ -55,6 +56,17 @@ Route::middleware([
         Route::get('/profile/delete-account', [ProfileController::class, 'editDel'])->name('ten.profile.del.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('ten.profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('ten.profile.destroy');
+
+        Route::resource('media', MediaController::class, [
+            'names' => [
+                'index' => 'ten.media.index',
+                'create' => 'ten.media.create',
+                'store' => 'ten.media.store',
+                'edit' => 'ten.media.edit', 
+                'update' => 'ten.media.update', 
+                'destroy' => 'ten.media.destroy'
+            ]
+        ]);
 
         Route::resource('posts', PostController::class, [
             'names' => [

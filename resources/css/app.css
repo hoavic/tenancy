@@ -187,3 +187,25 @@ input[type="submit"] {
 .has-sub:hover .sub-item {
     visibility: visible;
 }
+
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 1em;
+}
+
+.media-item {
+
+}
+
+.media-title {
+    font-size: 0.9em;
+    color: #6b7280;
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* number of lines to show */
+            line-clamp: 1; 
+    -webkit-box-orient: vertical;
+}

@@ -77,7 +77,7 @@ class PostController extends Controller
 
         $post = $request->user()->posts()->create($validated);
 
-        $post->addMediaFromRequest('featured_image')->toMediaCollection();
+        $post->addMediaFromRequest('featured_image')->toMediaCollection('images');
 
         return redirect(route('ten.posts.index'));
 
