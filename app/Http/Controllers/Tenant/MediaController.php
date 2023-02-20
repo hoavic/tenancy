@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
 use App\Models\Tenant\Media;
+use App\Models\Tenant\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MediaController extends Controller
 {
@@ -30,6 +32,7 @@ class MediaController extends Controller
     public function create()
     {
         //
+        return view('tenant.backend.media.create');
     }
 
     /**
@@ -41,6 +44,28 @@ class MediaController extends Controller
     public function store(Request $request)
     {
         //
+/*         $validated = $request->validate([
+            'file' => 'required|mimes:png,jpg,jpeg|max:2048'
+        ]); */
+ 
+        $title = now()->timestamp.".{$request->file->getClientOriginalName()}";
+
+        $custom_data = [
+            'title' => $title,
+            'name' => $title,
+            'status' => 'public',
+            'type' => 'image',
+            'guid' => tenant('id').'/'.$title,
+        ];
+        $user = auth()->user();
+        $custom_data['user_id']=$user->id;
+
+        $post = Post::create($custom_data);
+
+        $post->addMediaFromRequest('file')->toMediaCollection('images');
+
+        return redirect(route('ten.media.index'));
+
     }
 
     /**

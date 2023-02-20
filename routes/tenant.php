@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Tenant\Api\MediaController as ApiMediaController;
 use App\Http\Controllers\Tenant\MediaController;
 use App\Http\Controllers\Tenant\PostController;
 use App\Http\Controllers\Tenant\CategoryController;
@@ -68,6 +69,15 @@ Route::middleware([
             ]
         ]);
 
+        Route::group([
+            'prefix'    =>  'api',
+        ], function() {
+            Route::get('/media', function() {
+                return "API MEDIA INDEX";
+            })->name('ten.media.api');
+            Route::post('media', [ApiMediaController::class, 'byFile'])->name('ten.api.media.store');
+        });
+
         Route::resource('posts', PostController::class, [
             'names' => [
                 'index' => 'ten.posts.index',
@@ -99,4 +109,4 @@ Route::middleware([
 
     require __DIR__.'/tenantAuth.php';
 
-});
+});  

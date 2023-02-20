@@ -30,6 +30,32 @@
                 </ul>
             </div>
 
+            <!-- Media -->
+            <div class="">
+                <div class="menu-label">
+                    <a href="#">Media</a>
+                </div>
+                <!-- Navigation Links -->
+                <ul class="menu">
+                    <li class="nav-item">
+                        <x-nav-link :href="route('ten.media.index')" :active="request()->routeIs('ten.media.index')">
+                            {{ __('Thư viện') }}
+                        </x-nav-link>
+                    </li>
+                    <li class="nav-item">
+                        <x-nav-link :href="route('ten.media.create')" :active="request()->routeIs('ten.media.create')">
+                            {{ __('Tải lên') }}
+                        </x-nav-link>
+                    </li>
+                    <li class="nav-item">
+                        <x-nav-link :href="route('ten.media.api')" :active="request()->routeIs('ten.api.media.index')">
+                            {{ __('Api') }}
+                        </x-nav-link>
+                    </li>
+                    
+                </ul>
+            </div>
+
             <!-- Sản phẩm -->
             <div class="">
                 <div class="menu-label">

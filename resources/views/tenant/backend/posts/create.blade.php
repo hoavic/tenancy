@@ -20,8 +20,13 @@
         
                 <div class="my-4">
                     <label for="name" class="text-gray-600">Nội dung</label>
-                    <textarea class="mt-2 rounded w-full border border-gray-300 h-56" id="content" name="content"></textarea>
+                    <textarea class="mt-2 rounded w-full border border-gray-300 h-56" id="content" name="content" hidden></textarea>
                 </div>
+                @vite(['resources/js/editor.js'])
+                <div id="editorjs"></div>
+                {{-- <script src="{{ global_asset('asset/editor.js') }}"></script> --}}
+                
+                <a href="#" class="" id="save-post">Save</a>
             </div>
             <div class="create-bar bg-white p-4">
 
