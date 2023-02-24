@@ -6,6 +6,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #fff;
+    overflow-x: hidden;
 }
 
 table {
@@ -16,6 +17,11 @@ table {
 th,
 td {
     padding: 1em 2em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    margin: 1em 0;
 }
 
 p {
@@ -208,4 +214,134 @@ input[type="submit"] {
     -webkit-line-clamp: 1; /* number of lines to show */
             line-clamp: 1; 
     -webkit-box-orient: vertical;
+}
+
+.media-model {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    z-index: 9999;
+    margin: 2em;
+    box-shadow: rgb(0 0 0) 0px 0px 5em 3em;
+    display: grid;
+    grid-template-rows: 80px 1fr 80px;
+}
+
+.media-model__top {
+    padding: 0 1em;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#doClose {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #eee;
+    margin-top: 8px;
+}
+.media-model__nav .tab {
+    display: inline-block;
+    background: #fff;
+    padding: 5px 10px;
+}
+.media-model__nav .tab.active {
+    border: 1px solid #eee;
+    border-bottom-color: #fff;
+    margin-bottom: -1px;
+}
+.media-model__upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.media-model__grid {
+    padding: 1em;
+}
+.media-model__bottom {
+    border-top: 1px solid #eee ;
+    padding: 0 1em;
+}
+.setFeatuedImage {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #4776E6;
+    color: #eee;
+}
+/*
+* EDITOR 
+*/
+[contentEditable=true]:empty:before {
+    content: attr(data-placeholder);
+    color: #999;
+}
+.my-editor {
+    background: #fff;
+    margin: 20px 0;
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0px 9px 20px rgb(46 35 94 / 7%);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.me-tool { border: 0; outline: 0;}
+
+.my-editor__toolbar {
+    position: absolute;
+    left: 9999px;
+    display: flex;
+    border: 1px solid #999;
+    gap: 1em;
+}
+
+.my-editor__toolbar span {
+    display: inline-block;
+    padding: 1px 8px;
+}
+
+.my-editor__toolbar span:hover {
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+}
+
+.toolbar-main {
+    display: none;
+}
+
+.toolbar-main.show {
+    position: absolute;
+    top: 29px;
+    right: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    padding: 20px;
+    background: #fff;
+}
+
+.my-editor__inlinetool {
+    position: absolute;
+    left: 9999px;
+    background: #fff;
+    border: 1px solid #999;
+    display: flex;
+}
+
+.my-editor__inlinetool button {
+    padding: 8px 10px;
+    display: inline-block;
+}
+
+.isHover {
+    border: 1px solid #4776E6;
 }

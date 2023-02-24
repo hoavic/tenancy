@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('status');
             $table->string('password')->nullable();
             $table->string('name');
-            $table->bigInteger('parent')->default(0);
+            $table->bigInteger('parent')->nullable()->default(0);
             $table->string('guid');
             $table->integer('menu_order')->default(0);
             $table->string('type')->default('post');

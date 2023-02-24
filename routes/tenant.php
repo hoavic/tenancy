@@ -75,7 +75,7 @@ Route::middleware([
             Route::get('/media', function() {
                 return "API MEDIA INDEX";
             })->name('ten.media.api');
-            Route::post('media', [ApiMediaController::class, 'byFile'])->name('ten.api.media.store');
+            Route::post('/media', [ApiMediaController::class, 'byFile'])->name('ten.api.media.store');
         });
 
         Route::resource('posts', PostController::class, [

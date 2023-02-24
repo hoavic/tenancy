@@ -26,7 +26,7 @@
                 @foreach ($posts as $post)
                     {{-- {{ dd($post) }} --}}
                     <tr>
-                        <td>{{ $loop->count }}</td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $post->title }}</td>
                         <td>{{ $post->user_id }}</td>
                         <td>
@@ -34,7 +34,7 @@
                                 <img src="{{ $post->getFirstMediaUrl('images','thumbnail') }}" width="120px"></td>
 
                             
-                        <td>{{ $post->title }}</td>
+                        <td>{{ $post->updated_at->format('d-m-Y H:i:s') }}</td>
                     </tr>
                     
                 @endforeach

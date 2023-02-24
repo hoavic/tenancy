@@ -2,6 +2,7 @@
 
 namespace App\Models\Tenant;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -25,6 +26,17 @@ class Post extends Model implements HasMedia
         'menu_order',
         'type',
     ];
+
+    //format created_at data
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d\TH:i');
+    }
+    //format updated_at data
+    public function getUpdatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d\TH:i');
+    }
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -51,6 +63,5 @@ class Post extends Model implements HasMedia
     public function comments() {
         return $this->hasMany(Comment::class); 
     }
-
 
 }

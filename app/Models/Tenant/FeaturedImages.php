@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class FeaturedImages extends Model
 {
     use HasFactory;
+
+    public function posts() {
+        return $this->belongsToMany(Post::class);
+    }
 }

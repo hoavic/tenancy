@@ -103,6 +103,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         //
+        return view('tenant.backend.posts.edit', [
+            'post' => $post,
+        ]);
     }
 
     /**
