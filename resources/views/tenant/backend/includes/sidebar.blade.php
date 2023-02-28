@@ -47,11 +47,11 @@
                             {{ __('Tải lên') }}
                         </x-nav-link>
                     </li>
-                    <li class="nav-item">
+{{--                     <li class="nav-item">
                         <x-nav-link :href="route('ten.media.api')" :active="request()->routeIs('ten.api.media.index')">
                             {{ __('Api') }}
                         </x-nav-link>
-                    </li>
+                    </li> --}}
                     
                 </ul>
             </div>

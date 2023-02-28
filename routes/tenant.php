@@ -102,11 +102,12 @@ Route::middleware([
     
     });
 
-    //over write  stancl.tenancy.asset
-    Route::get('/media/{path?}', 'Stancl\Tenancy\Controllers\TenantAssetsController@asset')
-    ->where('path', '(.*)')
-    ->name('stancl.tenancy.asset');
-
     require __DIR__.'/tenantAuth.php';
 
 });  
+
+    //over write  stancl.tenancy.asset
+    Route::get('/upload/{path?}', 'Stancl\Tenancy\Controllers\TenantAssetsController@asset')
+    ->middleware(['universal', InitializeTenancyByDomainOrSubdomain::class])
+    ->where('path', '(.*)')
+    ->name('stancl.tenancy.asset');

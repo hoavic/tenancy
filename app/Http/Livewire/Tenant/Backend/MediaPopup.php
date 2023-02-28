@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Tenant\Backend;
 
-use App\Models\Tenant\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use App\Models\Tenant\Post;
 use Livewire\Component;
 use Livewire\WithFileUploads;

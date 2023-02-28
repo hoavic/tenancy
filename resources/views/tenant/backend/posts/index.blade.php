@@ -34,7 +34,7 @@
                                 <img src="{{ $post->getFirstMediaUrl('images','thumbnail') }}" width="120px"></td>
 
                             
-                        <td>{{ $post->updated_at->format('d-m-Y H:i:s') }}</td>
+                        <td>{{ $post->updated_at }}</td>
                     </tr>
                     
                 @endforeach

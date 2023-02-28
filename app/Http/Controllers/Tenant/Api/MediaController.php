@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Tenant\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tenant\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use App\Models\Tenant\Post;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

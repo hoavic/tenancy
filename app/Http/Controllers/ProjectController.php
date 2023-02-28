@@ -62,17 +62,17 @@ class ProjectController extends Controller
             'plan' => 'required|string|max:255',
         ]);
 
-        $id = $validated['project_domain'];
+        
         $domain = $validated['project_domain'];
 
         // check tentant id
 
-        $tenantIsExist = Tenant::select("*")
-            ->where("id", $id)
+        $domainIsExist = Domain::select("*")
+            ->where("domain", $domain)
             ->exists();
 
-        if ($tenantIsExist) {
-            return redirect(route('client.projects.index'))->withErrors(['msg' => 'Dự án đã tồn tại.']);
+        if ($domainIsExist) {
+            return redirect(route('client.projects.index'))->withErrors(['msg' => 'Tên miền đã tồn tại.']);
         }
 
         
@@ -92,7 +92,6 @@ class ProjectController extends Controller
         }  */
 
         $tenant = $request->user()->tenants()->create([
-            'id' => $id,
             'name' => $validated['project_name'],
             'status' => 'publish',
             'plan' => $plan,
