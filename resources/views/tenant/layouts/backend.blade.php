@@ -32,8 +32,13 @@
                     <main class="app-main">
                         <!-- Page Heading -->
                         @if (isset($header))
-                            <header class="">
+                            <header class="app-header">
+                                 <h2 class="app-title">
                                     {{ $header }}
+                                    @if (isset($header_button))
+                                        <span class="ml-2">{{ $header_button }}</span>
+                                    @endif  
+                                </h2>
                             </header>
                         @endif
                         {{ $slot }}

@@ -40,6 +40,12 @@ input[type="submit"] {
     cursor: pointer;
 }
 
+button:disabled,
+button[disabled] {
+    background: #e3e3e3;
+    color: #fff;
+}
+
 .top-nav {
     display: flex;
     justify-content: space-between;
@@ -155,6 +161,75 @@ input[type="submit"] {
 .app-footer {    text-align: center;}
 
 
+.modal-wrapper {
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 99;
+}
+.modal-body {
+    max-width: 500px;
+    transform: translateY(-100px);
+    transition: all 200ms ease-in-out;
+    width: 100%;
+    z-index: 1;
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+}
+.modal-header {
+	align-items: baseline;
+	display: flex;
+	justify-content: space-between;
+}
+
+.notification {
+    position: fixed;
+    border-radius: 12px;
+    background: #fff;
+    padding: 20px 35px 20px 25px;
+    box-shadow: 0 6px 20px -5px rgb(0 0 0 / 10%);
+    overflow: hidden;
+    animation-duration: 1s;
+    animation-name: slidein;
+    left: 50%;
+    top: 10%;
+    width: 300px;
+    font-weight: bold;
+}
+
+.notification.success {
+    color: #065f46;
+    background: #d1fae5;
+}
+
+.notification.error {
+    color: #9f1239;
+    background-color: #fecdd3;
+}
+
+.notification>span.close {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    cursor: pointer;
+}
+
+@keyframes slidein {
+    from {
+      top: -50%;
+    }
+  
+    to {
+      top: 10%;
+    }
+}
 
 /*
 ** Tenant css*/
@@ -273,28 +348,82 @@ input[type="submit"] {
     background-color: #4776E6;
     color: #eee;
 }
+
+.media-item>img {
+    transition: all 200ms ease-in-out;
+}
+
+.media-item.media-selected>img {
+    border: 3px solid #4776E6;
+}
+
+.editor-featured-image {
+    width: auto;
+    height: 150px;
+    background-color: #eee;
+    margin: 1em 0;
+    background-position: center center;
+    cursor: pointer;
+    background-size: cover;
+    position: relative;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+/* .editor-featured-image:before {
+    content: 'Tải file lên';
+    margin: 0 auto;
+} */
+
 /*
 * EDITOR 
 */
+.editor-section {
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.editor-title {
+    border-radius: 5px;
+    box-shadow: 0px 9px 20px rgb(46 35 94 / 7%);
+    border: 1px solid #eee;
+    width: 100%;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.editor-slug {
+    width: 90%;
+    border: 0;
+    padding: 5px 0px;
+    background: none;
+    color: #6e7171;
+    font-style: italic;
+}
+
+.editor-slug-note {
+    font-size: 0.9em;
+}
+
 [contentEditable=true]:empty:before {
     content: attr(data-placeholder);
     color: #999;
 }
 .my-editor {
     background: #fff;
-    margin: 20px 0;
+    margin: 20px auto;
     padding: 40px;
     border-radius: 5px;
     box-shadow: 0px 9px 20px rgb(46 35 94 / 7%);
     max-width: 800px;
-    margin: 0 auto;
 }
 
 .me-tool { border: 0; outline: 0;}
 
 .my-editor__toolbar {
     position: absolute;
-    left: 9999px;
+    right: 9999px;
     display: flex;
     border: 1px solid #999;
     gap: 1em;

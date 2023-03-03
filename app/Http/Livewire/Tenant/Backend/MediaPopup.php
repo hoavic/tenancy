@@ -17,6 +17,9 @@ class MediaPopup extends Component
     public $photo;
     public $tab = 'upload';
     public $path;
+    public $current_attachment_id = '';
+    public $attachment_seted;
+    public $featured;
 
     public function mount() {
         $this->show = false;
@@ -26,9 +29,25 @@ class MediaPopup extends Component
         'photo' => 'image|max:2048'
     ];
 
+    protected $listeners = ['openUpload'];
+    
+    public function loadMedias() {
+        $this->medias = Media::orderBy('updated_at', 'desc')->get();
+    }
+
     public function doShow() {
         $this->show = true;
-        $this->medias = Media::all();
+        $this->loadMedias();
+    }
+
+    public function openUpload() {
+        $this->tab = 'upload';
+        $this->doShow();
+    }
+
+    public function openGrid() {
+        $this->tab = 'grid';
+        $this->doShow();
     }
 
     public function doClose() {
@@ -57,26 +76,21 @@ class MediaPopup extends Component
 
         $postImage = Post::create($custom_data);
 
-        try {
-    
-            $postImage->addMedia($this->photo)->toMediaCollection('images');
-    
-            $this->tab = 'grid';
+        $postImage->addMedia($this->photo)->toMediaCollection('images');
 
-        } catch (\Exception $ex) {
-            session()->flash('path',$ex);
-        }
+        $this->loadMedias();
 
-/*         try {
-    
-            $postImage->addMediaFromRequest($this->photo)->toMediaCollection();
-    
-            $this->tab = 'grid';
+        $this->tab = 'grid';
 
-        } catch (\Exception $ex) {
-            session()->flash('path',$ex);
-        } */
+    }
 
+    public function setAttachment() {
+
+        $this->featured = Media::where('id', (int)$this->current_attachment_id)->first();
+        /* dd($attachment); */
+        $this->attachment_seted = $this->featured->getUrl('medium');
+        $this->emit('updateFeaturedByEmit', json_encode($this->featured));
+        $this->doClose();
     }
    
     public function render()

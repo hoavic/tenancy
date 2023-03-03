@@ -5,69 +5,108 @@ namespace App\Http\Livewire\Tenant\Backend;
 use App\Models\Tenant\Post;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use PhpParser\Node\Expr\FuncCall;
 
 class PostForm extends Component
 {
-
-    public $title;
-    public $content;
-    public $excerpt;
-    public $status;
-    public $password;
-    public $name;
-    public $parent;
+    public $post;
+    public $categories;
+    public $category_ids;
 
     protected $rules = [
-        'title'     => 'required|string|max:255',
-        'content'   =>  'nullable|string',
-        'excerpt'   =>  'nullable|string',
-        'status'    =>  'string|max:255',
-        'password'  =>  'nullable|string',
-        'name'      =>  'nullable|string',
-        'parent'    =>  'nullable|integer',
+        'post.title'     => 'required|string|max:255',
+        'post.content'   =>  'nullable|string',
+        'post.excerpt'   =>  'nullable|string',
+        'post.status'    =>  'string|max:255',
+        'post.password'  =>  'nullable|string',
+        'post.slug'      =>  'nullable|string',
+        'post.parent'    =>  'nullable|integer',
+        'post.parent'    =>  'nullable|integer',
+        'post.featured'  => 'nullable',
+        'post.updated_at' => 'date:Y-m-d H:i:s',
+        'category_ids' => 'required|array|',
+        'category_ids.*' => 'integer',
     ];
+
+    protected $listeners = ['storePost', 'showPostMeta', 'updateFeaturedByEmit'];
+
+    public function mount() {
+
+        if(empty($this->post)) {
+
+            $this->post = new Post();
+            $this->post->status = 'publish';
+            $this->post->title = '';
+            $this->category_ids = array(1);
+
+        } else {
+
+            $this->post['status'] = 'publish';
+
+            $category_ids = array();
+            foreach($this->post->categories as $post_category) {
+                $category_ids[] = $post_category->id;
+            }
+    
+            $this->category_ids = $category_ids;
+
+        }
+    }
 
     public function updated($propertyName) {
 
         $this->validateOnly($propertyName);
     }
 
-    public function storePost() {
+    public function updateFeaturedByEmit($value) {
+        $this->post['featured'] = $value;
+    }
 
-        $validatedData = $this->validate();
+    public function storePost()
+    {
+
+        $this->validate();
 
         try {
-            if (empty($validatedData['name'])) {
-                $validatedData['name'] = $validatedData['title'];
-            }
-    
-            if (empty($validatedData['excerpt']) && !empty($validatedData['content'])) {
-                $validatedData['excerpt'] = $validatedData['content'];
-            }
-    
-            $validatedData['user_id'] = Auth::user('id')->id;
-    
-            $validatedData['guid'] = tenant('id').'/'.$validatedData['name'];
-    
-            if (empty($validvalidatedDataated['name'])) {
-                $validatedData['name'] = $validatedData['title'];
-            }
-    
-            $post = Post::create($validatedData);
 
-            session()->flash('success','Post Created Successfully!!');
+            if (empty($this->post->title)) {
+                $this->post->title = 'Chưa nhập tiêu đề...';
+            }
 
-            return redirect(route('ten.posts.edit', $post));
+            if (empty($this->post->slug)) {
+                $this->post->slug = $this->post->title;
+            }
     
-            /* $post->addMediaFromRequest('featured_image')->toMediaCollection('images'); */
+            if (empty($this->post->excerpt) && !empty($this->post->content)) {
+                $this->post->excerpt = $this->post->content;
+            }
+
+            if (empty($this->post->user_id)) {
+                $this->post->user_id = Auth::user('id')->id;
+            }
     
-            /* return redirect(route('ten.posts.create'))->withErrors(['msg', 'Content Created Successfully.']); */
-    
+            $this->post->guid = tenant('id').'/'.$this->post->slug;
+
+            $this->post->save();
+            
+            $this->post->categories()->sync($this->category_ids);
+
+            session()->flash('success','Post Update Successfully!!');
+
+            return $this->post;
 
         } catch (\Exception $ex) {
-            session()->flash('error','store: Something goes wrong!!');
+            session()->flash('error','update: Something goes wrong!!\n'.$ex);
         }
        
+    }
+
+    
+    public function showPostMeta() {
+        if(empty($this->post->id)) {
+            $this->storePost();
+        }
+        $this->emit('parentCreate', $this->post->id);
     }
 
     public function render()

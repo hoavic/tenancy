@@ -5,10 +5,13 @@ namespace App\Http\Livewire\Tenant\Backend;
 use App\Models\Tenant\Post;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use PhpParser\Node\Expr\FuncCall;
 
 class UpdatePost extends Component
 {
     public $post;
+    public $categories;
+    public $category_ids;
 
     protected $rules = [
         'post.title'     => 'required|string|max:255',
@@ -18,31 +21,56 @@ class UpdatePost extends Component
         'post.password'  =>  'nullable|string',
         'post.name'      =>  'nullable|string',
         'post.parent'    =>  'nullable|integer',
+        'post.parent'    =>  'nullable|integer',
+        'post.featured'  => 'nullable',
         'post.updated_at' => 'date:Y-m-d H:i:s',
+        'category_ids' => 'required|array|',
+        'category_ids.*' => 'integer',
     ];
+
+    protected $listeners = ['updateFeaturedByEmit'];
+
+    public function mount() {
+        $this->post['status'] = 'publish';
+
+        $category_ids = array();
+        foreach($this->post->categories as $post_category) {
+            $category_ids[] = $post_category->id;
+        }
+
+        $this->category_ids = $category_ids;
+    }
 
     public function updated($propertyName) {
 
         $this->validateOnly($propertyName);
     }
 
+    public function updateFeaturedByEmit($value) {
+        $this->post['featured'] = $value;
+    }
+
     public function updatePost()
     {
+
+        $this->validate();
 
         try {
 
             $this->post->save();
+            
+            $this->post->categories()->sync($this->category_ids);
 
             session()->flash('success','Post Update Successfully!!');
 
         } catch (\Exception $ex) {
-            session()->flash('error','update: Something goes wrong!!');
+            session()->flash('error','update: Something goes wrong!!\n'.$ex);
         }
        
     }
 
     public function render()
     {
-        return view('livewire..tenant.backend.update-post');
+        return view('livewire.tenant.backend.update-post');
     }
 }

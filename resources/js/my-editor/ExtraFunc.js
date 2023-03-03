@@ -47,6 +47,7 @@ class ExtraFunc {
         let rect = focus.getBoundingClientRect();
         /* console.log(rect); */
         inlinetool.style.top = rect.top + window.scrollY - 90 + 'px';
+        inlinetool.style.left = rect.left/2 + window.scrollX  - 15+ 'px';
     }
 
     setToolbarPosition(focus, toolbar) {

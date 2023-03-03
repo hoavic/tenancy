@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('featured_images', function (Blueprint $table) {
-            $table->id();
+        Schema::create('product_productcategory', function (Blueprint $table) {
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedInteger('product_category_id');
+            $table->foreign('product_id')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('featured_images');
+        Schema::dropIfExists('product_productcategory');
     }
 };

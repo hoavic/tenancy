@@ -27,7 +27,19 @@
                     {{-- {{ dd($post) }} --}}
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $post->title }}</td>
+                        <td class="has-sub">
+                            {{ $post->title }}
+                            <div class="sub-item">
+                                <a href="{{ route('ten.posts.edit', $post) }}">Chỉnh sửa</a> 
+                                <form method="POST" action="{{ route('ten.posts.destroy', $post) }}">
+                                    @csrf
+                                    @method('delete')
+                                    <a href="{{ route('ten.posts.destroy', $post) }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                                        {{ __('Xóa') }}
+                                    </a>
+                                </form>
+                            </div></td>
+                        </td>
                         <td>{{ $post->user_id }}</td>
                         <td>
                             

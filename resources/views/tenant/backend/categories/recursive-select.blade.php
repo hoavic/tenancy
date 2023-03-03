@@ -1,6 +1,6 @@
 @foreach ($categories as $category)
                             
-    <option value="{{ $category->id }}">{{  $prefix.' '.$category->title }}</option> 
+    <option value={{ $category->id }}>{{  $prefix.' '.$category->title }}</option> 
 
     @if (!empty($category->children))
         @php

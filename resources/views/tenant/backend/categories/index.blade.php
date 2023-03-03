@@ -69,45 +69,10 @@
                 </thead>
                 <tbody>
                     @if ($categories)
-                        {{-- {{ dd($categories) }} --}}
                         @include('tenant.backend.categories.recursive', [
                                 'categories' => $categories,
                                 'prefix'       => '',
-                            ])
-{{--                         @php
-                            $traverse = function ($categories, $prefix = '-') use (&$traverse) {
-                                foreach ($categories as $category) {
-
-                                    echo $prefix.' '.$category->title;
-
-                                    $traverse($category->children, $prefix.'-');
-                                }
-                            };
-
-                            $traverse($categories);
-                        @endphp   --}}   
-{{--                         @foreach ($categories as $categorie)
-                            
-                            <tr class="border-b border-gray-200">
-                                <td>{{ $loop->iteration }}</td>
-                                <td class="has-sub">{{ $categorie->title }}
-                                    <div class="sub-item">
-                                        <a href="{{ route('ten.categories.index').'\\'.$categorie->id }}">Chỉnh sửa</a> | 
-                                        <form method="POST" action="{{ route('ten.categories.destroy', $categorie) }}">
-                                            @csrf
-                                            @method('delete')
-                                            <x-dropdown-link :href="route('ten.categories.destroy', $categorie)" onclick="event.preventDefault(); this.closest('form').submit();">
-                                                {{ __('Delete') }}
-                                            </x-dropdown-link>
-                                        </form>
-                                    </div></td>
-                                <td>{{ $categorie->description }}</td>
-                                <td>{{ $categorie->slug }}</td>
-                                <td>{{ $categorie->count }}</td>
-                            </tr>
-                            
-                        @endforeach --}}
-                        
+                            ])  
                     @endif 
                 </tbody>
             </table>

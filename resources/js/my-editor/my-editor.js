@@ -282,6 +282,7 @@ class MyEditor {
         });
         /* return output */
         console.log(output);
+        document.getElementById('content').innerHTML = output;
     }
 
 }

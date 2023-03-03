@@ -19,31 +19,27 @@
         </div>
     @endif
 
-    <form wire:submit.prevent="updatePost({{ $post->id }})" method="POST" class="relative">
+    <form wire:submit.prevent="updatePost" method="POST" class="relative">
         @csrf
         <div class="sticky top-8 p-4 h-14 bg-white text-right border-b border-gray-100">
-            <button type="submit" class="py-2 px-4 bg-blue-600 text-gray-50">Cập nhật</button>
+            <button type="submit" id="save-post" class="py-2 px-4 bg-blue-600 text-gray-50">Cập nhật</button>
         </div>
     
         <div class="create-grid">
             <div class="create-main">
-                <div class="my-4">
-                    <label for="title" class="text-gray-600">Tiêu đề</label>
-                    <input type="text" wire:model.defer="post.title" id="title" name="title" class="mt-2 rounded w-full border border-gray-300">
-                </div>
-                <div class="my-4">
-                    <label for="name" class="text-gray-600">Slug</label>
-                    <input type="text" wire:model.defer="post.name" id="name" name="name" class="mt-2 rounded w-full border border-gray-300">
+                <div class="editor-section">
+{{--                     <label for="title" class="text-gray-600">Tiêu đề</label> --}}
+                    <input type="text" wire:model="post.title" id="title" name="title" class="editor-title" placeholder="Tiêu đề...">
                 </div>
         
                 <div class="my-4">
-                    <label for="name" class="text-gray-600">Nội dung</label>
+                    {{-- <label for="name" class="text-gray-600">Nội dung</label> --}}
                     <textarea class="mt-2 rounded w-full border border-gray-300 h-56" wire:model.defer="post.content" id="content" name="content" hidden></textarea>
                 </div>
     
                 <div>
-                    <div id="myeditor"></div>
-                    <a href="#" class="" id="save-post">Save</a>
+                    <div id="myeditor" wire:ignore></div>
+                    {{-- <a href="#" class="" id="save-post">Save</a> --}}
                 </div>
             </div>
             
@@ -65,20 +61,28 @@
                     </div>
     
                 </div>
+
+                <div class="create-bar-block">
+
+                    <label for="name" class="font-bold text-gray-600">Đường dẫn</label>
+                    <input type="text" wire:model.="post.name" id="name" name="name" class="editor-slug" placeholder="Trống...">
+
+                </div>
                 
                 {{-- Category --}}
                 <div class="create-bar-block">
                     <span class="font-bold">Chuyên mục</span>
                     <div class="my-2 py-2 max-h-32 overflow-auto">
-    
+                        
     
                         @if (!empty($categories))
     
-                            @include('tenant.backend.posts.recursive-category', ['categories' => $categories])
+                            @include('livewire.tenant.backend.update-post-category-select', ['categories' => $categories])
                             
                         @endif
                     </div>
                     <a href="{{ route('ten.categories.index') }}">Thêm chuyên mục</a>
+                    <p>Varrexport: {{ var_export($category_ids) }}</p>
                 </div>
     
                 {{-- Tags --}}
@@ -94,7 +98,13 @@
                 {{-- Featured iamge --}}
                 <div class="create-bar-block">
                     <span class="font-bold">Ảnh đại diện</span>
-
+                    <input wire:model="post.featured" type="text" id="featured" name="featured" hidden/>
+                    @if (!empty($post->featured))
+                        <div wire:click.prevent="openUpload()" class="editor-featured-image" style="background-image: url('{{ dd($post->featured) }}')"></div>
+                    @else
+                        <div wire:click.prevent="openUpload()" class="editor-featured-image">Click để tải file lên</div>
+                    @endif  
+                    @livewire('tenant.backend.media-popup', ['featured' => $post->featured])
                 </div>
     
                 {{-- Excerpt --}}
@@ -111,5 +121,5 @@
         </div>
     
     </form>
-    @livewire('tenant.backend.media-popup')
+    
 </div>

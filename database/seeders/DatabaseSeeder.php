@@ -5,6 +5,8 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use Database\Seeders\Tenant\RolesAndPermissionsSeeder;
+use Database\Seeders\Tenant\CategorySeeder;
+use Database\Seeders\Tenant\ProductCategorySeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,5 +26,8 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call(RolesAndPermissionsSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(ProductCategorySeeder::class);
+        
     }
 }

@@ -18,7 +18,7 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = Post::get();
+        $posts = Post::with('categories')->get();
 
         return view('tenant.backend.posts.index', [
             'posts' => $posts,
@@ -34,7 +34,7 @@ class PostController extends Controller
     {
         //
        /*  $categories_tree = $this->getCategoriesTree(); */
-       $categories = Category::where('parent_id', '=', 0)->get();
+        $categories = Category::where('parent_id', '=', 0)->get();
         return view('tenant.backend.posts.create', [
             'categories' => $categories,
         ]);
@@ -77,6 +77,10 @@ class PostController extends Controller
 
         $post = $request->user()->posts()->create($validated);
 
+        if (!empty($validated['category_id'])) {
+            $post->categories()->sync([$validated['category_id']], false);
+        }
+
         $post->addMediaFromRequest('featured_image')->toMediaCollection('images');
 
         return redirect(route('ten.posts.index'));
@@ -103,8 +107,10 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         //
+        $categories = Category::where('parent_id', '=', 0)->get();
         return view('tenant.backend.posts.edit', [
             'post' => $post,
+            'categories' => $categories,
         ]);
     }
 

@@ -63,9 +63,21 @@
                 </div>
                 <!-- Navigation Links -->
                 <ul class="menu">
-                    <li class="menu-item">Tất cả sản phẩm</li>
-                    <li class="menu-item">Thêm sản phẩm mới</li>
-                    <li class="menu-item">Danh mục</li>
+                    <li class="nav-item">
+                        <x-nav-link :href="route('ten.products.index')" :active="request()->routeIs('ten.products.index')">
+                            {{ __('Tất cả sản phẩm') }}
+                        </x-nav-link>
+                    </li>
+                    <li class="nav-item">
+                        <x-nav-link :href="route('ten.products.create')" :active="request()->routeIs('ten.products.create')">
+                            {{ __('Thêm sản phẩm mới') }}
+                        </x-nav-link>
+                    </li>
+                    <li class="nav-item">
+                        <x-nav-link :href="route('ten.product_categories.index')" :active="request()->routeIs('ten.product_categories.index')">
+                            {{ __('Danh mục sản phẩm') }}
+                        </x-nav-link>
+                    </li>
                     <li class="menu-item">Từ khóa</li>
                 </ul>
             </div>

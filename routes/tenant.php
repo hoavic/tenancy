@@ -7,6 +7,10 @@ use App\Http\Controllers\Tenant\MediaController;
 use App\Http\Controllers\Tenant\PostController;
 use App\Http\Controllers\Tenant\CategoryController;
 use App\Http\Controllers\Tenant\ProfileController;
+
+use App\Http\Livewire\Tenant\Backend\Product\ShowProducts;
+use App\Http\Livewire\Tenant\Backend\Product\CreateProduct;
+use App\Http\Livewire\Tenant\Backend\Product\ShowProductCategories;
 use Illuminate\Support\Facades\Route;
 /* use Stancl\Tenancy\Middleware\InitializeTenancyByDomain; */
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
@@ -99,6 +103,13 @@ Route::middleware([
                 'destroy' => 'ten.categories.destroy'
             ]
         ]);
+
+        Route::get('products', ShowProducts::class)->name('ten.products.index');
+        Route::get('products/create', CreateProduct::class)->name('ten.products.create');
+        Route::get('products/{id}/edit', CreateProduct::class)->name('ten.products.edit');
+
+        Route::get('product_categories', ShowProductCategories::class)->name('ten.product_categories.index');
+        Route::get('product_categories/{id}/edit', ShowProductCategories::class)->name('ten.product_categories.edit');
     
     });
 
