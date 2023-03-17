@@ -1,11 +1,9 @@
 <x-tenapp-layout>
 
-    <x-slot name="title">Chỉnh sửa</x-slot>
-    <x-slot name="header">
-        <h1 class="app-title">Chỉnh sửa
-            <span><a class="m-2 py-1 px-2 inline-block text-gray-600 border border-gray-300 text-sm font-normal rounded" 
-                href="{{ route('ten.media.index') }}"><- Trở về Media</a></span>
-        </h1>
+    <x-slot name="title">Chỉnh sửa Media</x-slot>
+    <x-slot name="header">Chỉnh sửa</x-slot>
+    <x-slot name="header_button">
+        <x-button href="{{ route('ten.media.index') }}">< Trở về</x-button>
     </x-slot>
 
     @if ($media)

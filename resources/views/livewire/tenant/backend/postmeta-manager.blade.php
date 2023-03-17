@@ -6,7 +6,7 @@
     </div>
     @if ($showCreateModal)
         <div class="modal-wrapper">
-            <div class="modal-body">
+            <div class="modal-container">
                 <form wire:submit="save">
                     <div max-width="lg">
             
@@ -52,7 +52,7 @@
 
     @if ($confirmingPostMetaDeletion)
         <div class="confirm-modal modal-wrapper">
-            <div class="modal-body">
+            <div class="modal-container">
                 <form wire:submit="confirmingPostMetaDeletion">
                     <div class="confirm-title">
                         Please confirm your action!

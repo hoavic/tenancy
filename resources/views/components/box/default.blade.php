@@ -1,3 +1,3 @@
-<div class="app-box">
+<div class="web-box">
     {{ $slot }}
 </div>

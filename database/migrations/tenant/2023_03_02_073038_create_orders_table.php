@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Tenant\Backend\Commerce\Customer;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,22 +17,21 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('status'); 
-            $table->string('status_update_by'); 
-            $table->string('details');
-            $table->float('coupon')->nullable();
+            $table->foreignIdFor(Customer::class)->nullable()->constrained();
 
-            $table->bigInteger('product_id');
+            $table->smallInteger('type')->default(0);
+            $table->string('status');
+            $table->string('status_update_by');
 
-            $table->double('sub_total');
-            $table->double('total');
-            $table->double('paid');
+            $table->float('sub_total')->nullable()->default(0);
+            $table->float('item_discount')->nullable()->default(0);
+            $table->float('tax')->nullable()->default(0);
+            $table->float('shipping')->nullable()->default(0);
 
-            $table->bigInteger('customer_id');
-
-            $table->bigInteger('payment_id');
-
-            $table->bigInteger('shipper_id'); 
+            $table->float('total')->nullable()->default(0);
+            $table->string('promo')->nullable()->default(null);
+            $table->float('discount')->nullable()->default(0);
+            $table->float('grand_total')->nullable()->default(0);
 
             $table->timestamps();
         });

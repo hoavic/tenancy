@@ -43,8 +43,7 @@
                         <td>{{ $post->user_id }}</td>
                         <td>
                             
-                                <img src="{{ $post->getFirstMediaUrl('images','thumbnail') }}" width="120px"></td>
-
+                            <img src="{{ $post->featuredImage->getUrl('thumbnail') }}" alt="{{ $post->title }}" width="120"/></td>
                             
                         <td>{{ $post->updated_at }}</td>
                     </tr>

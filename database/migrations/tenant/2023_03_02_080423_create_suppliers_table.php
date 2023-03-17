@@ -18,16 +18,22 @@ return new class extends Migration
 
             $table->string('company_name');
             $table->string('logo')->nullable();
+
+            $table->string('field')->nullable();
+            $table->string('ranking')->nullable();
+
             $table->string('contact_name')->nullable();
+            $table->string('contact_title')->nullable();
+
             $table->string('address')->nullable();
+            $table->integer('province_id')->nullable();
+            $table->integer('district_id')->nullable();
+            $table->integer('ward_id')->nullable();
+
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('website')->nullable();
 
-            $table->string('payment_method')->nullable();
-            $table->string('type_goods')->nullable();
-
-            $table->string('raning')->nullable();
             $table->string('note')->nullable();
 
             $table->timestamps();

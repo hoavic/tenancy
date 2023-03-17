@@ -18,7 +18,7 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = Post::with('categories')->get();
+        $posts = Post::with('categories')->where('type', '=', 'post')->get();
 
         return view('tenant.backend.posts.index', [
             'posts' => $posts,

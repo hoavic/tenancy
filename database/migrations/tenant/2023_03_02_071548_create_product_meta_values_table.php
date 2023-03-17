@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Tenant\Backend\Product\Product;
-use App\Models\Tenant\ProductMeta;
+use App\Models\Tenant\Backend\Commerce\Product;
+use App\Models\Tenant\Backend\Commerce\ProductMeta;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

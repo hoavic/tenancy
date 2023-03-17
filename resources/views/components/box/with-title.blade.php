@@ -1,8 +1,8 @@
 <x-box.default>
-    <div class="app-box__title">
+    <div class="web-box__title">
         {{ $title }}
     </div>
-    <div class="app-box__content">
+    <div class="web-box__content">
         {{ $content }}
     </div>
 </x-box.default>

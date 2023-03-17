@@ -1,6 +1,6 @@
 <div>
     
-    <p><button wire:click.prevent="openGrid()">Thư viện</button></p>
+    <p><x-button.secondary wire:click.prevent="openGrid()">Thư viện</x-button.secondary></p>
     @if (!empty($show))
         <div x-data="{ 
             handleClick($event) {
@@ -62,7 +62,7 @@
             @endif
             <div class="media-model__bottom">
                 <p class="text-right">
-                    <button class="setFeatuedImage" @click="$wire.setAttachment()"
+                    <button class="setFeatuedImage" @click.prevent="$wire.setAttachment()"
                         @if (empty($current_attachment_id) || $current_attachment_id == '')
                             disabled
                         @endif

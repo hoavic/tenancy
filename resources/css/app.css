@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 body {
+    font-size: 16px;
     margin: 0;
     padding: 0;
     background-color: #fff;
@@ -30,9 +31,23 @@ p {
 
 label {color: #6b7280}
 
-input,
-select {
-    border-radius: 8px;
+[type='text'], 
+[type='email'], 
+[type='url'], 
+[type='password'], 
+[type='number'], 
+[type='date'], 
+[type='datetime-local'], 
+[type='month'], 
+[type='search'], 
+[type='tel'], 
+[type='time'], 
+[type='week'], 
+[multiple], 
+textarea, 
+select,
+.form-select {
+    border-radius: 4px;
     border-color: #d1d5db;
 }
 
@@ -46,12 +61,41 @@ button[disabled] {
     color: #fff;
 }
 
+.form-row {
+    margin: 1em 0;
+    align-items: center;
+    align-items: center;
+    gap: 1em;
+}
+
+.form-row-flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.form-row-grid {
+    display: grid;
+    grid-template-columns: 30% 1fr;
+}
+
+.form-row-error label,
+.form-row-error,
+.form-error {
+    color: red;
+}
+
+.form-row-error input,
+.form-row-error select {
+    border-color: red;
+}
+
 .top-nav {
     display: flex;
     justify-content: space-between;
     position: fixed;
     top:0;
     width: 100%;
+    height: 35px;
     z-index: 999;
     font-size: 0.95em;;
     background: #4776E6;
@@ -71,6 +115,7 @@ button[disabled] {
     border-radius: 8px;
     display: block;
     color: #515154;
+    transition: background, padding 200ms ease-in-out;
 }
 
 .top-nav .nav-link:hover,
@@ -80,7 +125,6 @@ button[disabled] {
 
 .app-title {
     font-size: 1.3em;
-    padding-top: 1em;
     font-weight: bold;
     color: #333;
 }
@@ -88,7 +132,7 @@ button[disabled] {
 .app-grid {
     display: grid;
     grid-template-columns: 265px auto;
-    margin-top: 38px;
+    margin-top: 35px;
 }
 
 .app-container {
@@ -158,8 +202,27 @@ button[disabled] {
     border-radius: 15px;
 }
 
+.web-box {
+    background-color: #fff;
+    margin: 1.5em 0;
+    padding: 1em;
+    border: 1px solid #eee;
+    border-radius: 4px;
+}
+.web-box__title {
+    margin-bottom: 1em;
+    font-weight: bold;
+}
+
 .app-footer {    text-align: center;}
 
+.default-sup {
+    white-space: nowrap;
+    background: #ffe784;
+    padding: 0 5px;
+    border-radius: 4px;
+    font-size: 0.6rem;
+}
 
 .modal-wrapper {
     align-items: center;
@@ -173,11 +236,9 @@ button[disabled] {
     top: 0;
     z-index: 99;
 }
-.modal-body {
-    max-width: 500px;
-    transform: translateY(-100px);
+.modal-container {
+    position: relative;
     transition: all 200ms ease-in-out;
-    width: 100%;
     z-index: 1;
     background: #fff;
     border-radius: 20px;
@@ -189,48 +250,120 @@ button[disabled] {
 	justify-content: space-between;
 }
 
+.modal-small {
+    max-width: 300px;
+}
+
+.modal-medium {
+    max-width: 500px;
+}
+
+.modal-large {
+    max-width: 800px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #eee;
+    color: #666;
+    border: 1px solid;
+    border-radius: 4px;
+    transition: all 200ms ease-in-out;
+    font-size: 16px;
+    font-weight: normal;
+    box-shadow: inset 0 0 0 0 rgba(0, 0, 0, 0);
+    overflow: hidden;
+}
+
+.btn:hover {
+    box-shadow: inset 0px 0px 50px rgb(0 0 0 / 16%);
+}
+
+.btn.btn-primary {
+    background-color: #2563eb;
+    color: #fff;
+    border-color: #2563eb;
+}
+
+.btn.btn-secondary {
+    background-color: #fff;
+    color: #2563eb;
+}
+
+.alert {
+    background-color: #eee;
+    color: #666;
+    margin: 1em 0;
+    padding: 1em;
+    border-radius: 8px;
+    border: 1px solid;
+    transition: all 200ms ease-in-out;
+}
+
 .notification {
     position: fixed;
     border-radius: 12px;
     background: #fff;
     padding: 20px 35px 20px 25px;
     box-shadow: 0 6px 20px -5px rgb(0 0 0 / 10%);
-    overflow: hidden;
-    animation-duration: 1s;
+    animation-duration: 500ms;
     animation-name: slidein;
     left: 50%;
-    top: 10%;
-    width: 300px;
+    top: 5%;
     font-weight: bold;
-}
-
-.notification.success {
-    color: #065f46;
-    background: #d1fae5;
-}
-
-.notification.error {
-    color: #9f1239;
-    background-color: #fecdd3;
-}
-
-.notification>span.close {
-    position: absolute;
-    right: 10px;
-    top: 5px;
-    cursor: pointer;
+    z-index: 9999;
 }
 
 @keyframes slidein {
     from {
-      top: -50%;
+      top: -5%;
     }
   
     to {
-      top: 10%;
+      top: 5%;
     }
 }
 
+.warning {
+    background-color: #fef9c3;
+    color: #854d0e;
+}
+
+.success {
+    color: #065f46;
+    background: #d1fae5;
+}
+
+.error {
+    color: #9f1239;
+    background-color: #fecdd3;
+}
+
+.close-icon {
+    position: absolute;
+    right: -8px;
+    top: -9px;
+    cursor: pointer;
+    background: rgb(0 0 0 / 30%);
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+}
+
+.blank-image {
+    background: #eee;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    border-radius: 40px;
+}
 /*
 ** Tenant css*/
 
@@ -473,4 +606,31 @@ button[disabled] {
 
 .isHover {
     border: 1px solid #4776E6;
+}
+
+/* Setting */
+
+.setting-header {
+    display: flex;
+    gap: 1em;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.setting-header>.tab.active {
+    border-bottom: 1px solid #4776e6;
+    margin-bottom: -1px;
+    font-weight: bold;
+}
+
+.block-setting {
+    margin: 1em 0;
+    border-top: 1px solid #eee;
+}
+
+.setting-row {
+    margin: 1em 0; 
+    display: grid;
+    grid-template-columns: 20% 1fr;
+    gap: 1em;
+    align-items: center;
 }

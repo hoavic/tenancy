@@ -1,11 +1,9 @@
 <x-tenapp-layout>
 
-    <x-slot name="title">Tải lên</x-slot>
-    <x-slot name="header">
-        <h1 class="app-title">Tải lên
-            <span><a class="m-2 py-1 px-2 inline-block text-gray-600 border border-gray-300 text-sm font-normal rounded" 
-                href="{{ route('ten.media.store') }}"><- Trở về Media</a></span>
-        </h1>
+    <x-slot name="title">Tải lên Media</x-slot>
+    <x-slot name="header">Tải lên</x-slot>
+    <x-slot name="header_button">
+        <x-button href="{{ route('ten.media.index') }}">< Trở về</x-button>
     </x-slot>
 
    

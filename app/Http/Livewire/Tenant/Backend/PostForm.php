@@ -6,12 +6,14 @@ use App\Models\Tenant\Post;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use PhpParser\Node\Expr\FuncCall;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class PostForm extends Component
 {
     public $post;
     public $categories;
     public $category_ids;
+    public Media $featured_image;
 
     protected $rules = [
         'post.title'     => 'required|string|max:255',
@@ -22,7 +24,7 @@ class PostForm extends Component
         'post.slug'      =>  'nullable|string',
         'post.parent'    =>  'nullable|integer',
         'post.parent'    =>  'nullable|integer',
-        'post.featured'  => 'nullable',
+        'post.featured'  => 'nullable|integer',
         'post.updated_at' => 'date:Y-m-d H:i:s',
         'category_ids' => 'required|array|',
         'category_ids.*' => 'integer',
@@ -50,6 +52,10 @@ class PostForm extends Component
     
             $this->category_ids = $category_ids;
 
+            if(!empty($this->post->featured)) {
+                $this->featured_image = Media::find($this->post->featured);
+            }
+
         }
     }
 
@@ -58,8 +64,9 @@ class PostForm extends Component
         $this->validateOnly($propertyName);
     }
 
-    public function updateFeaturedByEmit($value) {
-        $this->post['featured'] = $value;
+    public function updateFeaturedByEmit(Media $value) {
+        $this->featured_image = $value;
+        $this->post->featured = $this->featured_image->id;
     }
 
     public function storePost()

@@ -3,6 +3,7 @@
 namespace App\Models\Tenant;
 
 use App\Models\Tenant\PostMetaValue;
+use Attribute;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +11,9 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Post extends Model implements HasMedia
 {
@@ -40,6 +43,11 @@ class Post extends Model implements HasMedia
     public function getUpdatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('Y-m-d\TH:i');
+    }
+
+    public function featuredImage(): BelongsTo
+    {
+        return $this->belongsTo(Media::class, 'featured');
     }
 
     public function registerMediaConversions(Media $media = null): void

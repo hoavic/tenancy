@@ -89,7 +89,7 @@ class MediaPopup extends Component
         $this->featured = Media::where('id', (int)$this->current_attachment_id)->first();
         /* dd($attachment); */
         $this->attachment_seted = $this->featured->getUrl('medium');
-        $this->emit('updateFeaturedByEmit', json_encode($this->featured));
+        $this->emit('updateFeaturedByEmit', $this->featured);
         $this->doClose();
     }
    

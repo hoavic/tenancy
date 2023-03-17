@@ -1,23 +1,7 @@
 <div>
     {{-- {{ dd($post) }} --}}
-    @if ($errors->any())
-        <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-        </ul>
-    @endif
 
-    @if(session()->has('success'))
-        <div class="p-4 m-4 block text-center bg-green-200 text-green-800 border border-green-600 rounded" role="alert">
-            {{ session()->get('success') }}
-        </div>
-    @endif
-    @if(session()->has('error'))
-        <div class="alert alert-danger" role="alert">
-            {{ session()->get('error') }}
-        </div>
-    @endif
+    @include('tenant.backend.includes.notification')
 
     <form wire:submit.prevent="storePost" method="POST" class="relative">
         @csrf
@@ -106,12 +90,14 @@
                 {{-- Featured iamge --}}
                 <div class="create-bar-block">
                     <span class="font-bold">Ảnh đại diện</span>
-                    <input wire:model="post.featured" type="text" id="featured" name="featured" hidden/>
+                    <input wire:model="post.featured" type="number" id="featured" name="featured" hidden/>
                     @if (!empty($post->featured))
-                        <div wire:click.prevent="emit(openUpload())" class="editor-featured-image" style="background-image: url('{{ $post->featured['original_url'] }}')"></div>
+                        <div wire:click.prevent="$emit('openUpload')" class="editor-featured-image">
+                            {{ $featured_image('thumbnail') }}
+                        </div>
                         @livewire('tenant.backend.media-popup', ['featured' => $post->featured])
                     @else
-                        <div wire:click.prevent="emit(openUpload())" class="editor-featured-image">Click để tải file lên</div>
+                        <div wire:click.prevent="$emit('openUpload')" class="editor-featured-image">Click để tải file lên</div>
                         @livewire('tenant.backend.media-popup', ['featured' => ''])
                     @endif  
                     

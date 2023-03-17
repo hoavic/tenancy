@@ -7,10 +7,17 @@ use App\Http\Controllers\Tenant\MediaController;
 use App\Http\Controllers\Tenant\PostController;
 use App\Http\Controllers\Tenant\CategoryController;
 use App\Http\Controllers\Tenant\ProfileController;
+use App\Http\Livewire\Tenant\Backend\Commerce\BrandManager;
+use App\Http\Livewire\Tenant\Backend\Commerce\CreateProduct;
+use App\Http\Livewire\Tenant\Backend\Commerce\ShowProductCategories;
+use App\Http\Livewire\Tenant\Backend\Commerce\ShowProducts;
+use App\Http\Livewire\Tenant\Backend\GlobalSetting;
+use App\Http\Livewire\Tenant\Backend\Inventory\LocationManager;
+use App\Http\Livewire\Tenant\Backend\Inventory\PurchaseOrderManager;
+use App\Http\Livewire\Tenant\Backend\Inventory\SupplierManager;
+use App\Http\Livewire\Tenant\Backend\Reporting;
 
-use App\Http\Livewire\Tenant\Backend\Product\ShowProducts;
-use App\Http\Livewire\Tenant\Backend\Product\CreateProduct;
-use App\Http\Livewire\Tenant\Backend\Product\ShowProductCategories;
+
 use Illuminate\Support\Facades\Route;
 /* use Stancl\Tenancy\Middleware\InitializeTenancyByDomain; */
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
@@ -52,9 +59,12 @@ Route::middleware([
             return view('tenant.backend.dashboard');
         })->name('ten.dashboard');
 
-        Route::get('/setting', function () {
-            return view('tenant.backend.setting');
-        })->name('ten.setting');
+        Route::get('/setting', GlobalSetting::class)->name('ten.setting');
+        Route::get('/reporting', Reporting::class)->name('ten.reporting');
+
+        Route::get('/location', LocationManager::class)->name('ten.location');
+        Route::get('/supplier', SupplierManager::class)->name('ten.supplier');
+        Route::get('/purchase-order', PurchaseOrderManager::class)->name('ten.purchase.order');
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('ten.profile.edit');
         Route::get('/profile/update-password', [ProfileController::class, 'editPass'])->name('ten.profile.pass.edit');
@@ -110,6 +120,8 @@ Route::middleware([
 
         Route::get('product_categories', ShowProductCategories::class)->name('ten.product_categories.index');
         Route::get('product_categories/{id}/edit', ShowProductCategories::class)->name('ten.product_categories.edit');
+
+        Route::get('brands', BrandManager::class)->name('ten.brands.index');
     
     });
 
