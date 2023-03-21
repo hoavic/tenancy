@@ -12,6 +12,7 @@ use App\Http\Livewire\Tenant\Backend\Commerce\CreateProduct;
 use App\Http\Livewire\Tenant\Backend\Commerce\ShowProductCategories;
 use App\Http\Livewire\Tenant\Backend\Commerce\ShowProducts;
 use App\Http\Livewire\Tenant\Backend\GlobalSetting;
+use App\Http\Livewire\Tenant\Backend\Inventory\InventoryManager;
 use App\Http\Livewire\Tenant\Backend\Inventory\LocationManager;
 use App\Http\Livewire\Tenant\Backend\Inventory\PurchaseOrderManager;
 use App\Http\Livewire\Tenant\Backend\Inventory\SupplierManager;
@@ -62,6 +63,7 @@ Route::middleware([
         Route::get('/setting', GlobalSetting::class)->name('ten.setting');
         Route::get('/reporting', Reporting::class)->name('ten.reporting');
 
+        Route::get('/inventory', InventoryManager::class)->name('ten.inventory');
         Route::get('/location', LocationManager::class)->name('ten.location');
         Route::get('/supplier', SupplierManager::class)->name('ten.supplier');
         Route::get('/purchase-order', PurchaseOrderManager::class)->name('ten.purchase.order');

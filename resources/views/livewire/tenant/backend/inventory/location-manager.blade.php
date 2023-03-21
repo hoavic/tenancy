@@ -21,7 +21,9 @@
                     <th>Tên địa điểm</th>
                     <th>Loại địa điểm</th>
                     <th>Địa chỉ</th>
-                    <th>Tồn kho</th>
+                    <th>Mặt hàng</th>
+                    <th>Tổng số lượng</th>
+                    <th>Tổng giá trị</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,7 +46,9 @@
                                 </div></td>
                             <td>{{ json_decode($location_item->type)->label }}</td>
                             <td>{{ $location_item->addressFull() }}</td>
-                            <td>{{ ($location_item->items->sum('quantity') - $location_item->items->sum('sold')) ?? 'Trống' }}</td>
+                            <td>{{ $location_item->items->count() ?? 0 }}</td>
+                            <td>{{ $location_item->items->sum('quantity') ?? 0 }}</td>
+                            <td>{{ hCurrency(($location_item->items->sum('price') * $location_item->items->sum('quantity')) ?? 0) }}</td>
                         </tr>
                         
                     @endforeach

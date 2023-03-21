@@ -39,6 +39,11 @@
                 </div>
                 <ul class="menu">
                     <li class="nav-item">
+                        <x-nav-link :href="route('ten.inventory')" :active="request()->routeIs('ten.inventory')">
+                            {{ __('Tồn kho') }}
+                        </x-nav-link>
+                    </li>
+                    <li class="nav-item">
                         <x-nav-link :href="route('ten.location')" :active="request()->routeIs('ten.location')">
                             {{ __('Quản lý Địa điểm') }}
                         </x-nav-link>

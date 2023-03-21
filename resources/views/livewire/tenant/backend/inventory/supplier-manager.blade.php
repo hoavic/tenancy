@@ -22,7 +22,8 @@
                     <th>Nhà cung cấp</th>
                     <th>Phân loại</th>
                     <th>Tỉnh\Thành</th>
-                    <th>Hàng đã nhập</th>
+                    <th>Mặt hàng</th>
+                    <th>Tổng số lượng</th>
                     <th>Tổng giá trị</th>
                 </tr>
             </thead>
@@ -47,7 +48,8 @@
                             <td>{{ $supplier_item->ranking }}</td>
                             <td>{{ $supplier_item->province->name ?? 'chưa thiết lập' }}</td>
                             <td>{{ $supplier_item->items->count() ?? 0 }}</td>
-                            <td>{{ hCurrency($supplier_item->items->sum('price') ?? 0) }}</td>
+                            <td>{{ $supplier_item->items->sum('quantity') ?? 0 }}</td>
+                            <td>{{ hCurrency(($supplier_item->items->sum('price') * $supplier_item->items->sum('quantity')) ?? 0) }}</td>
                         </tr>
                         
                     @endforeach

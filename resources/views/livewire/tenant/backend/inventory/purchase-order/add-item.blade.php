@@ -18,7 +18,12 @@
     <h2> Sản phẩm đã chọn</h2>
         <p>Tên sản phẩm: {{ $product_selected->name }}</p>
         <p>Mã SKU: {{ $product_selected->SKU }}</p>
-        @livewire('tenant.backend.inventory.item-manager', ['product' => $product_selected, 'order' => $order])
+        @livewire('tenant.backend.inventory.item-manager', [
+            'product' => $product_selected, 
+            'order' => $order, 
+            'supplier_id' => $supplier_id,
+            'location_id' => $location_id,
+        ])
     @endif
 
 </x-new-modal>

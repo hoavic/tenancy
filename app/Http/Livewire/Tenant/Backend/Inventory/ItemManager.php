@@ -15,8 +15,10 @@ class ItemManager extends Component
     public Item $item;
     public Order $order;
     public Item $itemBeingDeleted;
-    public $locations;
-    public $suppliers;
+    /* public $locations; */
+/*     public $suppliers; */
+    public $supplier_id;
+    public $location_id;
     public bool $confirmingItemDeletion = false;
 
     protected $rules = [
@@ -24,7 +26,7 @@ class ItemManager extends Component
         'item.brand_id'  => 'required|integer',
         'item.order_id'  => 'required|integer',
         'item.supplier_id'  => 'required|integer',
-        'item.location_id'  => 'nullable|integer',
+        /* 'item.location_id'  => 'nullable|integer', */
         'item.SKU'  => 'nullable|string',
 
         'item.MRP'  => 'required|min_digits:0',
@@ -38,10 +40,10 @@ class ItemManager extends Component
     public function mount()
     {
         $this->item = new Item();
-        $this->suppliers = Supplier::all();
-        $this->locations = Location::all();
-        $this->item->supplier_id = 1;
-        $this->item->location_id = 1;
+/*         $this->suppliers = Supplier::all(); */
+       /*  $this->locations = Location::all(); */
+        $this->item->supplier_id = $this->supplier_id;
+        $this->item->location_id = $this->location_id;
         $this->item->quantity = 1;
         $this->item->discount = 0;
     }

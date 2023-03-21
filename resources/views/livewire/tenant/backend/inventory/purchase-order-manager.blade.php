@@ -21,6 +21,7 @@
                     <th><input type="checkbox" name="" class="rounded"/></th>
                     <th>Thời gian</th>
                     <th>Mã phiếu</th>
+                    <th>Trạng thái</th>
                     <th>Số lượng</th>
                     <th>Thành tiền</th>
                 </tr>
@@ -40,9 +41,16 @@
             
 
                                 </div></td>
-                            <td>{{ $order_item->id }}</td>
-                            <td>{{ count($order_item->items) }}</td>
-                            <td>{{ hCurrency($order_item->grand_total) }}</td>
+                            <td>#{{ $order_item->id }}</td>
+                            <td>{{ $order_item->status }}</td>
+                            <td>
+                                {{ $order_item->getTotalQuantity() }}
+                            </td>
+                            <td>
+                                @if ($order_item->status != 'draft')
+                                    {{ hCurrency($order_item->grand_total) }}
+                                @endif
+                            </td>
                         </tr>
                         
                     @endforeach

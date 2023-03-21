@@ -20,18 +20,18 @@ return new class extends Migration
             $table->foreignIdFor(Customer::class)->nullable()->constrained();
 
             $table->smallInteger('type')->default(0);
-            $table->string('status');
+            $table->string('status')->default(0); // 0: Draft - 1: New - 2: Checkout - 3: Paid - 4: Failed - 5: Shipped - 6: Delivered - 7: Returned - 8: Complete
             $table->string('status_update_by');
 
-            $table->float('sub_total')->nullable()->default(0);
-            $table->float('item_discount')->nullable()->default(0);
-            $table->float('tax')->nullable()->default(0);
-            $table->float('shipping')->nullable()->default(0);
+            $table->bigInteger('sub_total')->nullable()->default(0);
+            $table->bigInteger('item_discount')->nullable()->default(0);
+            $table->bigInteger('tax')->nullable()->default(0);
+            $table->bigInteger('shipping')->nullable()->default(0);
 
-            $table->float('total')->nullable()->default(0);
+            $table->bigInteger('total')->nullable()->default(0);
             $table->string('promo')->nullable()->default(null);
-            $table->float('discount')->nullable()->default(0);
-            $table->float('grand_total')->nullable()->default(0);
+            $table->bigInteger('discount')->nullable()->default(0);
+            $table->bigInteger('grand_total')->nullable()->default(0);
 
             $table->timestamps();
         });

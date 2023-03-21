@@ -77,8 +77,8 @@ class ProductSeeder extends Seeder
         Artisan::call('vietnamzone:import');
 
         Location::create([
-            'name'      =>  'Kho hàng mặc định',
-            'type'      =>  '{"value": "warehouse", "label": "Kho"}',
+            'name'      =>  'Kho hàng tổng',
+            'type'      =>  '{"value": "depot", "label": "Tổng kho"}',
         ]);
 
         Supplier::create([

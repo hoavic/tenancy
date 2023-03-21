@@ -5,7 +5,9 @@
 
 @aware(['header', 'footer'])
 
-<div {{ $attributes->merge(['class' => 'modal-wrapper']) }}
+<div 
+    id="modal-{{ rand(100, 999) }}"
+    {{ $attributes->merge(['class' => 'modal-wrapper']) }}
     
     @isset ($wireKey)
         x-data="{}"

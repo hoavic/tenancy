@@ -1,6 +1,7 @@
 @aware(['left', 'right'])
 
 <div
+    id="alert-{{ rand(100, 999) }}"
     {{ $attributes->merge(['class' => 'alert']) }}
     x-data="{
         show: true,

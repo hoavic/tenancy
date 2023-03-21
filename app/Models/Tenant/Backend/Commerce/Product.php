@@ -89,6 +89,41 @@ class Product extends Model
         ];
     }
 
+    //inventory
+
+    public function getInventoryAmount()
+    {
+        return $this->items->sum(function ($item) {
+            return $item->quantity*$item->price;
+        });
+    }
+
+    public function getInventoryQuantity()
+    {
+        return $this->items->sum(function ($item) {
+            return $item->quantity;
+        });
+    }
+
+    public function getIventoryMediumPrice()
+    {
+        return $this->getInventoryAmount() / $this->getInventoryQuantity();
+    }
+
+    public function getInventorySold()
+    {
+        return $this->items->sum(function ($item) {
+            return $item->sold;
+        });
+    }
+
+    public function getInventory()
+    {
+        return $this->items->sum(function ($item) {
+            return $item->quantity - $item->sold;
+        });
+    }
+
     //Relationship
 
     public function orders()

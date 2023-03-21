@@ -3,6 +3,7 @@
 namespace App\Models\Tenant\Backend;
 
 use App\Models\Tenant\Backend\Commerce\Customer;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -29,6 +30,25 @@ class Order extends Model
         'grand_total',
 
     ];
+
+    public function getTotalPrice()
+    {
+        return $this->items->sum(function ($item) {
+            return $item->quantity * $item->price;
+        });
+    }
+
+    public function getTotalDiscount()
+    {
+        return $this->items->sum(function ($item) {
+            return $item->quantity * $item->discount;
+        });
+    }
+
+    public function getTotalQuantity()
+    {
+        return $this->items->sum('quantity');
+    }
 
     public function subTotalFormated()
     {
