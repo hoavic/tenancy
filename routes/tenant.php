@@ -7,6 +7,7 @@ use App\Http\Controllers\Tenant\MediaController;
 use App\Http\Controllers\Tenant\PostController;
 use App\Http\Controllers\Tenant\CategoryController;
 use App\Http\Controllers\Tenant\ProfileController;
+use App\Http\Livewire\Tenant\Backend\Commerce\AttributeManager;
 use App\Http\Livewire\Tenant\Backend\Commerce\BrandManager;
 use App\Http\Livewire\Tenant\Backend\Commerce\CreateProduct;
 use App\Http\Livewire\Tenant\Backend\Commerce\ShowProductCategories;
@@ -124,6 +125,7 @@ Route::middleware([
         Route::get('product_categories/{id}/edit', ShowProductCategories::class)->name('ten.product_categories.edit');
 
         Route::get('brands', BrandManager::class)->name('ten.brands.index');
+        Route::get('attributes', AttributeManager::class)->name('ten.attributes.index');
     
     });
 

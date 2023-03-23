@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Tenant\Backend\Inventory;
 
 use App\Models\Tenant\Backend\Commerce\Product;
-use App\Models\Tenant\Backend\Item;
+use App\Models\Tenant\Backend\Inventory\Item;
 use App\Models\Tenant\Backend\Order;
 use App\View\Components\TenAppLayout;
 use Kjmtrue\VietnamZone\Models\District;

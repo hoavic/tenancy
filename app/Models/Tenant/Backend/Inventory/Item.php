@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Tenant\Backend;
+namespace App\Models\Tenant\Backend\Inventory;
 
 use App\Models\Tenant\Backend\Commerce\Brand;
 use App\Models\Tenant\Backend\Commerce\Product;
@@ -9,7 +9,6 @@ use App\Models\Tenant\Backend\Inventory\Supplier;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\DB;
 
 class Item extends Model
 {

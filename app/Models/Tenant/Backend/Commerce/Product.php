@@ -2,7 +2,7 @@
 
 namespace App\Models\Tenant\Backend\Commerce;
 
-use App\Models\Tenant\Backend\Item;
+use App\Models\Tenant\Backend\Inventory\Item;
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,9 +17,6 @@ class Product extends Model
 
     protected $table='products';
     protected $fillable=[
-
-        'SKU',
-        'supplier_product_id',
 
         'name',
         'description',
@@ -126,12 +123,22 @@ class Product extends Model
 
     //Relationship
 
+    public function attributes(): HasMany
+    {
+        return $this->hasMany(Attribute::class);
+    }
+
+    public function attribute_options(): HasMany
+    {
+        return $this->hasMany(AttributeValue::class);
+    }
+
     public function orders()
     {
         return $this->belongsToMany(Order::class);
     }
 
-    public function items():HasMany
+    public function items(): HasMany
     {
         return $this->hasMany(Item::class);
     }

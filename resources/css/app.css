@@ -25,6 +25,13 @@ h1, h2, h3, h4, h5, h6 {
     margin: 1em 0;
 }
 
+svg.icon {
+    max-width: 30px;
+    max-height: 30px;
+    fill: #999;
+    display: inline-block;
+}
+
 p {
     margin: 1em 0;
 }
@@ -130,8 +137,6 @@ button[disabled] {
 }
 
 .app-grid {
-    display: grid;
-    grid-template-columns: 265px auto;
     margin-top: 35px;
 }
 
@@ -141,15 +146,42 @@ button[disabled] {
 }
 
 .app-main {
-    padding: 0 2em;
+    padding: 0 1em;
 }
 
 .sidebar {
-    box-shadow: 0 0 21px 0 rgb(89 102 122 / 10%);
-    color: gray;
-    padding: 0 0.5em;
-    z-index: 9;
-    min-height: calc(100vh - 38px);
+    display: none;
+}
+
+.app-sticky-submit {
+    position: sticky;
+    bottom: 0;
+    margin: 1em 0;
+    padding: 1em 0;
+}
+.app-sticky-submit>button {
+    width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+    .app-grid {
+        display: grid;
+        grid-template-columns: 265px auto;
+    }
+
+    .sidebar {
+        display: block;
+        box-shadow: 0 0 21px 0 rgb(89 102 122 / 10%);
+        color: gray;
+        padding: 0 0.5em;
+        z-index: 9;
+        min-height: calc(100vh - 38px);
+    }
+
+    .app-sticky-submit>button {
+        width: auto;
+        min-width: 200px;
+    }
 }
 
 .block-menu {
@@ -367,12 +399,6 @@ button[disabled] {
 /*
 ** Tenant css*/
 
-.create-grid {
-    display: grid;
-    grid-template-columns: auto 300px;
-    gap:1em
-}
-
 .create-bar {
     height: calc(100vh - 88px);
     overflow-y: auto;
@@ -386,9 +412,6 @@ button[disabled] {
 
 .cate-grid {
     margin: 2em 0;
-    display: grid;
-    grid-template-columns: 300px auto;
-    gap: 2em
 }
 
 .sub-item {
@@ -402,16 +425,6 @@ button[disabled] {
     visibility: visible;
 }
 
-.media-grid {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: 1em;
-}
-
-.media-item {
-
-}
-
 .media-title {
     font-size: 0.9em;
     color: #6b7280;
@@ -422,6 +435,26 @@ button[disabled] {
     -webkit-line-clamp: 1; /* number of lines to show */
             line-clamp: 1; 
     -webkit-box-orient: vertical;
+}
+
+@media only screen and (min-width: 768px) {
+    .create-grid {
+        display: grid;
+        grid-template-columns: auto 300px;
+        gap:1em
+    }
+
+    .cate-grid {
+        display: grid;
+        grid-template-columns: 300px auto;
+        gap: 2em
+    }
+
+    .media-grid {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 1em;
+    }
 }
 
 .media-model {

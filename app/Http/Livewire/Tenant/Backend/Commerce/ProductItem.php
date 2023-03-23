@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Http\Livewire\Tenant\Backend\Inventory;
+namespace App\Http\Livewire\Tenant\Backend\Commerce;
 
 use App\Models\Tenant\Backend\Commerce\Product;
-use App\Models\Tenant\Backend\Inventory\Item
-use App\Models\Tenant\Backend\Order;
+use App\Models\Tenant\Backend\Inventory\Location;
+use App\Models\Tenant\Backend\Inventory\Supplier;
+use App\Models\Tenant\Backend\Inventory\Item;
 use Livewire\Component;
 
-class ItemManager extends Component
+class ProductItem extends Component
 {
+
     public Product $product;
+    public $items;
     public Item $item;
-    public Order $order;
     public Item $itemBeingDeleted;
-    /* public $locations; */
-/*     public $suppliers; */
-    public $supplier_id;
-    public $location_id;
+    public $locations;
+    public $suppliers;
     public bool $confirmingItemDeletion = false;
 
     protected $rules = [
@@ -24,7 +24,7 @@ class ItemManager extends Component
         'item.brand_id'  => 'required|integer',
         'item.order_id'  => 'required|integer',
         'item.supplier_id'  => 'required|integer',
-        /* 'item.location_id'  => 'nullable|integer', */
+        'item.location_id'  => 'nullable|integer',
         'item.SKU'  => 'nullable|string',
 
         'item.MRP'  => 'required|min_digits:0',
@@ -38,10 +38,11 @@ class ItemManager extends Component
     public function mount()
     {
         $this->item = new Item();
-/*         $this->suppliers = Supplier::all(); */
-       /*  $this->locations = Location::all(); */
-        $this->item->supplier_id = $this->supplier_id;
-        $this->item->location_id = $this->location_id;
+        $this->items[] = $this->item;
+        $this->suppliers = Supplier::all();
+        $this->locations = Location::all();
+        $this->item->supplier_id = 1;
+        $this->item->location_id = 1;
         $this->item->quantity = 1;
         $this->item->discount = 0;
     }
@@ -113,6 +114,6 @@ class ItemManager extends Component
 
     public function render()
     {
-        return view('livewire..tenant.backend.inventory.item-manager');
+        return view('livewire..tenant.backend.commerce.product-item');
     }
 }

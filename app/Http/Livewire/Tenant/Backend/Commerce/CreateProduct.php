@@ -5,12 +5,11 @@ namespace App\Http\Livewire\Tenant\Backend\Commerce;
 use App\Models\Tenant\Backend\Commerce\Brand;
 use App\Models\Tenant\Backend\Commerce\Product;
 use App\Models\Tenant\Backend\Commerce\ProductCategory;
+use App\Models\Tenant\Backend\Inventory\Item;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use Illuminate\Support\Str;
 
 class CreateProduct extends Component
 {
@@ -29,9 +28,13 @@ class CreateProduct extends Component
 
     public Media $featured_image;
 
+    public Item $item;
+
+    public $items;
+
     protected $rules = [
-        'product.SKU' => 'nullable|string',
-        'product.supplier_product_id' => 'nullable|string',
+/*         'product.SKU' => 'nullable|string',
+        'product.supplier_product_id' => 'nullable|string', */
 
         'product.featured_id' => 'nullable|integer',
         'product.name' => 'required|string',
@@ -40,6 +43,7 @@ class CreateProduct extends Component
 
         'product.status' => 'nullable|string',
         'product.slug' => 'nullable|string',
+        'product.type'  => 'required|string',
 
         'product.price' => 'nullable|integer|between:0,9999999999.99',
         'product.discount' => 'nullable|integer|between:0,9999999999.99',
@@ -61,7 +65,7 @@ class CreateProduct extends Component
 
     ];
 
-    protected $listeners = ['updateFeaturedByEmit'];
+    protected $listeners = ['updateFeaturedByEmit', 'storeProductAndPushToAttribute'];
     
 
     public function mount(Request $request)
@@ -96,9 +100,11 @@ class CreateProduct extends Component
             $this->product = new Product();
             $this->product->is_publish = true;
             $this->product->status = 'public';
-
+            $this->product->type = 'basic';
             $this->product->brand_id = 1;
             $this->product_category_ids = array(1);
+
+            $this->items = array();
             
         }
         
@@ -113,7 +119,6 @@ class CreateProduct extends Component
         $this->featured_image = $value;
         $this->product->featured_id = $this->featured_image->id;
     }
-
 
     public function storeProduct()
     {
@@ -144,12 +149,20 @@ class CreateProduct extends Component
 
             $this->submitLabel = "Cập nhật";
 
+            $this->product->refresh();
+
         } catch (\Exception $ex) {
 
-            session()->flash('error', $this->submitLabel.' sản phẩm không thành công.');
+            session()->flash('error', $this->submitLabel.' sản phẩm không thành công.'.$ex);
 
         }
 
+    }
+
+    public function storeProductAndPushToAttribute() {
+        $this->product->status = 'draft';
+        $this->storeProduct();
+        $this->emit('parentCreate', $this->product);
     }
 
     public function render()

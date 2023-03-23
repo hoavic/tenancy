@@ -46,9 +46,9 @@
                                 </div></td>
                             <td>{{ json_decode($location_item->type)->label }}</td>
                             <td>{{ $location_item->addressFull() }}</td>
-                            <td>{{ $location_item->items->count() ?? 0 }}</td>
-                            <td>{{ $location_item->items->sum('quantity') ?? 0 }}</td>
-                            <td>{{ hCurrency(($location_item->items->sum('price') * $location_item->items->sum('quantity')) ?? 0) }}</td>
+                            <td>{{ $location_item->stock->items->count() ?? 0 }}</td>
+                            <td>{{ $location_item->stock->items->sum('quantity') ?? 0 }}</td>
+                            <td>{{ hCurrency(($location_item->stock->items->sum('price') * $location_item->stock->items->sum('quantity')) ?? 0) }}</td>
                         </tr>
                         
                     @endforeach

@@ -3,10 +3,13 @@
 namespace Database\Seeders\Tenant;
 
 use App\Models\Tenant;
+use App\Models\Tenant\Backend\Commerce\Attribute;
+use App\Models\Tenant\Backend\Commerce\AttributeValue;
 use App\Models\Tenant\Backend\Commerce\Brand;
 use App\Models\Tenant\Backend\Commerce\Product;
 use App\Models\Tenant\Backend\Inventory\Location;
 use App\Models\Tenant\Backend\Commerce\ProductCategory;
+use App\Models\Tenant\Backend\Inventory\Stock;
 use App\Models\Tenant\Backend\Inventory\Supplier;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -76,9 +79,13 @@ class ProductSeeder extends Seeder
 
         Artisan::call('vietnamzone:import');
 
-        Location::create([
+        $location = Location::create([
             'name'      =>  'Kho hàng tổng',
             'type'      =>  '{"value": "depot", "label": "Tổng kho"}',
+        ]);
+
+        Stock::create([
+            'location_id' => $location->id,
         ]);
 
         Supplier::create([
@@ -88,7 +95,21 @@ class ProductSeeder extends Seeder
             'ranking'       => 'A',
         ]);
 
-        
+        $size = Attribute::create([
+            'name' => 'Size',
+            'visual' => 'text',
+        ]);
+
+        $sizeValues = ['S', 'M', 'L', 'XL', 'XXL'];
+
+        foreach($sizeValues as $value) 
+        {
+            AttributeValue::create([
+                'attribute_id' => $size->id,
+                'label' => $value,
+                'value' => $value,
+            ]);
+        }
 
     }
 }

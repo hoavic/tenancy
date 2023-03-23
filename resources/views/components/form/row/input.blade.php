@@ -3,6 +3,7 @@
     'key',
     'label',
     'type' => 'text',
+    'placeholder' => '',
     'row',
     'required' => false,
     'step' => null,
@@ -19,7 +20,7 @@
     @endif
     
 
-    <x-form.input :wire:model.lazy="$wireKey" type="{{ $type }}" key="{{ $key }}" :step="$step" :required="$required"></x-form.input>
+    <x-form.input :wire:model.lazy="$wireKey" type="{{ $type }}" key="{{ $key }}" :step="$step" :required="$required" :placeholder="$placeholder"></x-form.input>
 
     {{ $slot }}
     

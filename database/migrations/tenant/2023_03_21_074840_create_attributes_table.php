@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Tenant\Backend\Commerce\Product;
-use App\Models\Tenant\Backend\Commerce\ProductMeta;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,15 +14,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_meta_values', function (Blueprint $table) {
+        Schema::create('attributes', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(ProductMeta::class)->constrained()->cascadeOnDelete();
-            $table->string('value');
-            $table->string('label')->nullable();
-            
-            $table->timestamps();
+            /* $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete(); */
+            $table->string('name')->unique();
+            $table->string('group')->nullable();
+            $table->enum('visual', ['text', 'color', 'image'])->default('text');
+
         });
     }
 
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_meta_values');
+        Schema::dropIfExists('attributes');
     }
 };

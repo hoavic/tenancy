@@ -7,9 +7,6 @@
     
     <form wire:submit.prevent="storeProduct" class="relative">
         @csrf
-        <div class="sticky top-8 p-4 h-14 bg-white text-right border-b border-gray-100">
-            <x-button.primary type="submit" id="saveproduct">{{ $submitLabel }}</x-button.primary>
-        </div>
 
         <div class="create-grid">
             <div class="create-main">
@@ -18,17 +15,11 @@
                     <input type="text" wire:model="product.name" id="name" name="name" class="w-full border-0 font-bold" placeholder="Tiêu đề (Tên sản phẩm)...">
                 </x-box.default>
 
-
-                <div class="my-4 p-2">
-                    <p class="input-flex"><label for="is_publish">Hiển thị sản phẩm này:</label><input wire:model="product.is_publish" type="checkbox" name="is_publish" id="is_publish" /></p>
-                    <p class="input-flex"><label for="SKU">SKU:</label><input wire:model="product.SKU" type="text" name="SKU" id="SKU" /></p>
-                    <p class="input-flex"><label for="supplier_product_id">Mã sản phẩm (từ nhà cung cấp):</label><input wire:model="product.supplier_product_id" type="text" name="supplier_product_id" id="supplier_product_id" /></p>
-                    <p class="input-flex"><label for="quantity">Kho hàng:</label><input wire:model="product.quantity" type="number" name="quantity" id="quantity" /></p>
-                </div>
+                <x-form.row.input type="checkbox" wireKey="product.is_publish" key="is_publish" label="Hiển thị sản phẩm này:" row="flex"></x-form.row.input>
 
                 {{-- Excerpt --}}
                 <x-box.with-title>
-                    <x-slot name="title">Viết mô tả rút gọn (tùy chọn)</x-slot>
+                    <x-slot name="title">Mô tả sản phẩm</x-slot>
                     <x-slot name="content">
                         <textarea wire:model.defer="product.short_description" id="short_description" class="w-full"
                         name="short_description"></textarea>
@@ -36,23 +27,21 @@
 
                 </x-box.with-title>
 
-                <x-box.with-title>
+                <x-form.row.select wireKey="product.type" key="type" label="Loại sản phẩm">
+                    <option value="basic">Đơn giản</option>
+                    <option value="has_attribute">Có thuộc tính</option>
+                    <option value="has_variation">Có biến thể</option>
+                    <option value="affiliate">Liên kết ngoài</option>
+                    <option value="download">Tải về</option>
+                </x-form.row.select>
 
-                    <x-slot name="title">Thiết lập sản phẩm</x-slot>
+{{--                 @if ($product->type === 'basic')
+                    @include('livewire.tenant.backend.commerce.create-product.basic')
+                @endif --}}
 
-                    <x-slot name="content">
+                @livewire('tenant.backend.commerce.attribute-manager', ['product' => $product])
 
-                        <x-form.row.input row="flex" wireKey="product.price" key="price" label="Giá bán"></x-form.row.input>
-
-                        <x-form.row.input row="flex" wireKey="product.discount" key="discount" label="Giá khuyến mãi"></x-form.row.input>
-
-                        <x-form.row.input row="flex" type="datetime-local" wireKey="product.start_at" key="start_at" label="Bắt đầu"></x-form.row.input>
-
-                        <x-form.row.input row="flex" type="datetime-local" wireKey="product.end_at" key="end_at" label="Kết thúc"></x-form.row.input>
-
-                    </x-slot>
-
-                </x-box.with-title>
+                @livewire('tenant.backend.commerce.product-item')
         
                 <div class="my-4">
                     <label for="content">Mô tả sản phẩm</label>
@@ -83,6 +72,7 @@
             <div class="create-bar bg-white p-4">
     
                 <div class="create-bar-block">
+
                     <span class="font-bold">Trạng thái và Hiển thị</span>
 
                     <x-form.row.select row="grid" wireKey="product.status" key="status" label="Trạng thái" blankoption=false>
@@ -216,7 +206,7 @@
     
             </div>
         </div>
-    
+        <div class="app-sticky-submit"><x-button.primary type="submit" id="saveproduct">{{ $submitLabel }}</x-button.primary></div>
     </form>
     @livewireScripts
 </div>

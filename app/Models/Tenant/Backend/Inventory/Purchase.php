@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\Tenant\Backend\Commerce;
+namespace App\Models\Tenant\Backend\Inventory;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductMeta extends Model
+class Purchase extends Model
 {
     use HasFactory;
 }

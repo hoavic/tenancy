@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>
             @if (isset($title))
                         {{ $title." | " }}
@@ -18,16 +18,14 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-            <div class="app-top-nav">
-                @include('tenant.backend.includes.nav')
-            </div>
+
             <div class="app-grid">
 
                 @include('tenant.backend.includes.sidebar')
 
-                <div class="app-container bg-gray-100">
+                <div class="app-container">
 
-                    
+                    @include('tenant.backend.includes.action-nav')
 
                     <main class="app-main">
                         <!-- Page Heading -->

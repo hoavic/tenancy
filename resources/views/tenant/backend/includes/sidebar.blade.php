@@ -88,6 +88,11 @@
                             {{ __('Thương hiệu') }}
                         </x-nav-link>
                     </li>
+                    <li class="nav-item">
+                        <x-nav-link :href="route('ten.attributes.index')" :active="request()->routeIs('ten.attributes.index')">
+                            {{ __('Thuộc tính') }}
+                        </x-nav-link>
+                    </li>
                     <li class="nav-item"><a href="#" class="nav-link">Từ khóa</a></li>
                 </ul>
             </div>

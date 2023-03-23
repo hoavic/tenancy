@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Tenant\Backend\Inventory;
 
 use App\Models\Tenant\Backend\Commerce\Product;
-use App\Models\Tenant\Backend\Item;
 use App\View\Components\TenAppLayout;
 use Carbon\Carbon;
 use Livewire\Component;

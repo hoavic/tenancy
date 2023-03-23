@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\Tenant\Backend\Commerce\Product;
+use App\Models\Tenant\Backend\Inventory\Item;
+use App\Models\Tenant\Backend\Inventory\Stock;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,15 +15,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_metas', function (Blueprint $table) {
-
+        Schema::create('item_stock', function (Blueprint $table) {
             $table->bigIncrements('id');
-
-            $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete();
-            $table->string('name');
-            $table->enum('visual', ['text', 'color', 'image'])->default('text');
-            
-            $table->timestamps();
+            $table->foreignIdFor(Item::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Stock::class)->constrained()->cascadeOnDelete();
+            $table->integer('quantity');
         });
     }
 
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_metas');
+        Schema::dropIfExists('item_stock');
     }
 };
