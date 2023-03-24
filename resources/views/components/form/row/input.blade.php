@@ -1,9 +1,10 @@
 @props([
     'wireKey' => null,
-    'key',
+    'key' => null,
     'label',
+    'value' => null,
     'type' => 'text',
-    'placeholder' => '',
+    'placeholder' => null,
     'row',
     'required' => false,
     'step' => null,
@@ -20,7 +21,16 @@
     @endif
     
 
-    <x-form.input :wire:model.lazy="$wireKey" type="{{ $type }}" key="{{ $key }}" :step="$step" :required="$required" :placeholder="$placeholder"></x-form.input>
+    <x-form.input 
+        :wire:model.lazy="$wireKey" 
+        type="{{ $type }}" 
+        :key="$key" 
+        :step="$step" 
+        :required="$required" 
+        :value="$value" 
+        :placeholder="$placeholder"
+        >
+    </x-form.input>
 
     {{ $slot }}
     

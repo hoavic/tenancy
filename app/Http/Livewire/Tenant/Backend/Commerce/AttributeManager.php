@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Tenant\Backend\Commerce;
 
 use App\Models\Tenant\Backend\Commerce\Attribute;
 use App\Models\Tenant\Backend\Commerce\AttributeValue;
+use App\View\Components\Tenant\BackendLayout;
 use App\View\Components\TenAppLayout;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -13,67 +14,115 @@ class AttributeManager extends Component
 
     use WithPagination;
 
-    public $attributes;
+    public $submitLabel;
+    public $selectedEles = [];
+    public $actionType = '';
+
+    public $search = '';
+    public $perPage = 5;
+
     public Attribute $attribute;
-    public Attribute $attributeBeingDeleted;
 
     public $showAddValue = false;
-    public $showEditModal = false;
+    public $modalShowed = false;
+
+    public $modalDeleteShowed = false;
+
     public Attribute $attributeSelected;
     public AttributeValue $attributeValue;
 
     protected $rules = [
+
+        'selectedEles.*' => 'integer',
+        'actionType'    => 'string',
+        'search' => 'string',
+        'perPage' => 'integer',
+
         'attribute.visual' => 'required|string',
         'attribute.name' => 'required|string',
         'attribute.group' => 'nullable|string',
 
+        'attributeValue.attribute_id' => 'nullable|integer',
         'attributeValue.label' => 'nullable|string',
-        'attributeValue.value' => 'required|string',
+        'attributeValue.value' => 'nullable|string',
     ];
 
     public function mount() {
-        $this->loadAttributes();
+
         $this->attribute = new Attribute();
     }
 
-    public function loadAttributes()
-    {
-        $this->attributes = Attribute::all();
+    public function topAction() {
+
+        $this->validateMultiple(['selectedEles', 'actionType']);
+
+        if(empty($this->selectedEles) || empty($this->actionType)) { return;}
+
+        if ($this->actionType === 'delete') 
+        {
+            foreach($this->selectedEles as $ele)
+            {
+                $this->delete($ele);
+            }  
+        }
     }
 
-    public function showCreateModal()
-    {
+    protected function validateMultiple($fields){
+        foreach($fields as $field){
+            $this->validateOnly( $field);
+        }
+    }
 
+    public function updatingSearch()
+    {
+        $this->resetPage('commentsPage');
     }
 
     public function create() {
-        $this->save();
+        $this->submitLabel = 'Thêm mới';
+        $this->showModal();
         $this->attribute = new Attribute();
     }
 
     public function edit($id)
     {
+        $this->submitLabel = 'Cập nhật';
+        $this->showModal();
         $this->attribute = Attribute::find($id);
-        $this->showEditModal = true;
     }
 
-    public function save() 
+    public function showModal()
+    {
+        $this->modalShowed = true;
+    }
+
+    public function hideModal()
+    {
+        $this->modalShowed = false;
+    }
+
+    public function store() 
     {
         $this->validate();
+        $this->attribute->save();
+        session()->flash('success', 'Thành công');
+        $this->submitLabel = 'Cập nhật';
+        $this->hideModal();
         try {    
-            $this->attribute->save();
-            $this->loadAttributes();
-            session()->flash('success', 'Thành công');
 
         } catch (\Exception $ex) {
             session()->flash('error', 'Hieern thij xlooi'.$ex);
         }
+    }
 
+    public function confirmDelete()
+    {
+        $this->modalDeleteShowed = true;
     }
     
     public function delete($id) {
         Attribute::destroy($id);
-        $this->loadAttributes();
+        session()->flash('success', 'Xóa thành công!');
     }
 
     //Value
@@ -87,13 +136,15 @@ class AttributeManager extends Component
 
     public function storeValue()
     {
-        $this->validateOnly($this->attributeValue);
         $this->attributeValue->save();
         $this->showAddValue = false;
     }
 
     public function render()
     {
-        return view('livewire..tenant.backend.commerce.attribute-manager')->layout(TenAppLayout::class);
+        $search = '%'.$this->search.'%';
+        return view('livewire..tenant.backend.commerce.attribute-manager', [
+            'attributes' => Attribute::where('name','like', $search)->paginate($this->perPage),
+        ])->layout(BackendLayout::class);
     }
 }

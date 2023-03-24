@@ -9,5 +9,11 @@ class AttributeValue extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'label',
+        'value',
+        'attribue_id',
+    ];
+
     public $timestamps = false;
 }

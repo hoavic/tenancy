@@ -13,6 +13,12 @@ class Attribute extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'name',
+        'group',
+        'visual'
+    ];
+
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);

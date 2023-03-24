@@ -6,8 +6,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
-        "blade-ui-kit/blade-icons": "^1.5",
-        "blade-ui-kit/blade-zondicons": "^1.4",
         "consoletvs/charts": "6.*",
         "cviebrock/eloquent-sluggable": "9.0.0",
         "guzzlehttp/guzzle": "^7.2",

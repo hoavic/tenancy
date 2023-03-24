@@ -37,8 +37,9 @@
 
         <div class="block">
             <h2>Đơn hàng mới nhất</h2>
-            <table class="my-4 bg-gray-100 shadow">
-                <thead class="bg-gray-300">
+
+            <x-table>
+                <x-slot name="thead">
                     <tr>
                         <th>#</th>
                         <th>Mã hàng</th>
@@ -47,18 +48,18 @@
                         <th>Nhân viên</th>
                         <th>Tổng tiền</th>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>SKU0021</td>
-                        <td>2023-03-08 12:09</td>
-                        <td>B213</td>
-                        <td>Nguyen Thi Mai</td>
-                        <td>10.234.000đ</td>
-                    </tr>
-                </tbody>
-            </table>
+                </x-slot>
+
+                <tr>
+                    <td>1</td>
+                    <td>SKU0021</td>
+                    <td>2023-03-08 12:09</td>
+                    <td>B213</td>
+                    <td>Nguyen Thi Mai</td>
+                    <td>10.234.000đ</td>
+                </tr>
+                
+            </x-table>
         </div>
 
     </div>

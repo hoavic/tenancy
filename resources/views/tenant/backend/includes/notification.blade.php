@@ -1,3 +1,11 @@
+{{-- @if($errors->any())
+    @foreach ($errors->all() as $error)
+        <x-alert.error>
+            {{ $error }}
+        </x-alert.error>
+    @endforeach
+@endif --}}
+
 @if(session()->has('success'))
     <x-notification.success><div>{{ session()->get('success') }}</div></x-notification.success>
 @endif
