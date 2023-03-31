@@ -4,40 +4,28 @@ namespace App\Http\Livewire\Tenant\Backend\Commerce;
 
 use App\Models\Tenant\Backend\Commerce\Attribute;
 use App\Models\Tenant\Backend\Commerce\AttributeValue;
+use App\Traits\Tenant\Backend\WithDeleteConfirm;
+use App\Traits\Tenant\Backend\WithModal;
+use App\Traits\Tenant\Backend\WithTopAction;
 use App\View\Components\Tenant\BackendLayout;
-use App\View\Components\TenAppLayout;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class AttributeManager extends Component
 {
 
-    use WithPagination;
+    use WithPagination, WithTopAction, WithModal, WithDeleteConfirm;
 
     public $submitLabel;
-    public $selectedEles = [];
-    public $actionType = '';
-
-    public $search = '';
-    public $perPage = 5;
 
     public Attribute $attribute;
 
     public $showAddValue = false;
-    public $modalShowed = false;
-
-    public $modalDeleteShowed = false;
 
     public Attribute $attributeSelected;
     public AttributeValue $attributeValue;
 
     protected $rules = [
-
-        'selectedEles.*' => 'integer',
-        'actionType'    => 'string',
-        'search' => 'string',
-        'perPage' => 'integer',
-
         'attribute.visual' => 'required|string',
         'attribute.name' => 'required|string',
         'attribute.group' => 'nullable|string',
@@ -52,32 +40,6 @@ class AttributeManager extends Component
         $this->attribute = new Attribute();
     }
 
-    public function topAction() {
-
-        $this->validateMultiple(['selectedEles', 'actionType']);
-
-        if(empty($this->selectedEles) || empty($this->actionType)) { return;}
-
-        if ($this->actionType === 'delete') 
-        {
-            foreach($this->selectedEles as $ele)
-            {
-                $this->delete($ele);
-            }  
-        }
-    }
-
-    protected function validateMultiple($fields){
-        foreach($fields as $field){
-            $this->validateOnly( $field);
-        }
-    }
-
-    public function updatingSearch()
-    {
-        $this->resetPage('commentsPage');
-    }
-
     public function create() {
         $this->submitLabel = 'Thêm mới';
         $this->showModal();
@@ -89,16 +51,6 @@ class AttributeManager extends Component
         $this->submitLabel = 'Cập nhật';
         $this->showModal();
         $this->attribute = Attribute::find($id);
-    }
-
-    public function showModal()
-    {
-        $this->modalShowed = true;
-    }
-
-    public function hideModal()
-    {
-        $this->modalShowed = false;
     }
 
     public function store() 
@@ -115,14 +67,24 @@ class AttributeManager extends Component
         }
     }
 
-    public function confirmDelete()
-    {
-        $this->modalDeleteShowed = true;
-    }
-    
-    public function delete($id) {
-        Attribute::destroy($id);
+    public function delete() {
+        Attribute::destroy($this->deleteId);
+        $this->hideConfirmModal();
         session()->flash('success', 'Xóa thành công!');
+    }
+
+    public function render()
+    {
+        $search = '%'.$this->search.'%';
+        return view('livewire..tenant.backend.commerce.attribute-manager', [
+            'attributes' => Attribute::where('name','like', $search)->paginate($this->perPage),
+        ])->layout(BackendLayout::class);
+    }
+
+    protected function validateMultiple($fields){
+        foreach($fields as $field){
+            $this->validateOnly( $field);
+        }
     }
 
     //Value
@@ -138,13 +100,5 @@ class AttributeManager extends Component
     {
         $this->attributeValue->save();
         $this->showAddValue = false;
-    }
-
-    public function render()
-    {
-        $search = '%'.$this->search.'%';
-        return view('livewire..tenant.backend.commerce.attribute-manager', [
-            'attributes' => Attribute::where('name','like', $search)->paginate($this->perPage),
-        ])->layout(BackendLayout::class);
     }
 }

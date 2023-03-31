@@ -1,10 +1,9 @@
 @props([
-    'key' => null,
     'wireKey',
     'maxWidth',
 ])
 
-<x-new-modal {{ $attributes }} :wireKey="$wireKey">
+<x-new-modal  {{ $attributes }} :wireKey="$wireKey">
     <x-slot name="header">
         <h3>Cảnh báo</h3>
     </x-slot>
@@ -14,6 +13,6 @@
 
     <x-slot name="footer">
         <x-button.secondary wireKey="$set('{{ $wireKey }}', false)">Hủy</x-button.secondary>
-        <x-button.primary wireKey="delete({{ $key }})">Xác nhận</x-button.primary>
+        <x-button.primary type="submit" wireKey="delete()">Xác nhận</x-button.primary>
     </x-slot>
 </x-new-modal>

@@ -21,10 +21,9 @@ return new class extends Migration
 
             $table->smallInteger('type')->default(0);
             $table->string('status')->default(0); // 0: Draft - 1: New - 2: Checkout - 3: Paid - 4: Failed - 5: Shipped - 6: Delivered - 7: Returned - 8: Complete
-            $table->string('status_update_by');
+            $table->string('update_by')->nullable();
 
             $table->bigInteger('sub_total')->nullable()->default(0);
-            $table->bigInteger('item_discount')->nullable()->default(0);
             $table->bigInteger('tax')->nullable()->default(0);
             $table->bigInteger('shipping')->nullable()->default(0);
 

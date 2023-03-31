@@ -12,7 +12,7 @@ class ProductItem extends Component
 {
 
     public Product $product;
-    public $items;
+    public $items = array();
     public Item $item;
     public Item $itemBeingDeleted;
     public $locations;
@@ -29,7 +29,6 @@ class ProductItem extends Component
 
         'item.MRP'  => 'required|min_digits:0',
         'item.price'  => 'required|min_digits:0',
-        'item.discount'  => 'required|min_digits:0',
         'item.quantity'  => 'required|min_digits:0',
     ];
 
@@ -37,42 +36,7 @@ class ProductItem extends Component
 
     public function mount()
     {
-        $this->item = new Item();
-        $this->items[] = $this->item;
-        $this->suppliers = Supplier::all();
-        $this->locations = Location::all();
-        $this->item->supplier_id = 1;
-        $this->item->location_id = 1;
-        $this->item->quantity = 1;
-        $this->item->discount = 0;
-    }
-
-    public function updatedItemMRP()
-    {
-        if($this->item->MRP == null) {
-            $this->item->discount = 0;
-        }
-
-        if($this->item->MRP == 0) {
-            $this->item->price = $this->item->discount = $this->item->MRP;
-        }
- 
-        $this->item->price = $this->item->MRP - $this->item->discount;
-
-    }
-
-    public function updatedItemDiscount()
-    {
-        if($this->item->discount == null) {
-            $this->item->discount = 0;
-        }
-
-        if($this->item->discount > $this->item->MRP) {
-            $this->item->MRP = $this->item->discount;
-        }
-
-        $this->item->price = $this->item->MRP - $this->item->discount;
-
+        $this->items = $this->product->items;
     }
 
     public function updatedItemPrice()

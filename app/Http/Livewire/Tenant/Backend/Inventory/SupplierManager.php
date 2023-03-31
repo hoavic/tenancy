@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Tenant\Backend\Inventory;
 
 use App\Models\Tenant\Backend\Inventory\Supplier;
+use App\View\Components\Tenant\BackendLayout;
 use App\View\Components\TenAppLayout;
 use Kjmtrue\VietnamZone\Models\District;
 use Kjmtrue\VietnamZone\Models\Province;
@@ -73,7 +74,7 @@ class SupplierManager extends Component
 
     public function render()
     {
-        return view('livewire..tenant.backend.inventory.supplier-manager')->layout(TenAppLayout::class);
+        return view('livewire..tenant.backend.inventory.supplier-manager')->layout(BackendLayout::class);
     }
 
     public function openModal()

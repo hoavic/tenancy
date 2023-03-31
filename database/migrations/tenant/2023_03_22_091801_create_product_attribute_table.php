@@ -16,6 +16,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('product_attribute', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Attribute::class)->constrained()->cascadeOnDelete();
         });

@@ -1,5 +1,5 @@
 <div>
-    @livewireStyles
+
     <x-slot name="title">{{ $submitLabel }} Sản phẩm</x-slot>
 
     @include('tenant.backend.includes.error')
@@ -14,6 +14,12 @@
                 <x-box.default>
                     <input type="text" wire:model="product.name" id="name" name="name" class="w-full border-0 font-bold" placeholder="Tiêu đề (Tên sản phẩm)...">
                 </x-box.default>
+
+                <div class="flex gap-4">
+                    <x-button.text>Cơ bản</x-button.text>
+                    <x-button.text>Nâng cao</x-button.text>
+                    <x-button.text>SEO</x-button.text>
+                </div>
 
                 <x-form.row.input type="checkbox" wireKey="product.is_publish" key="is_publish" label="Hiển thị sản phẩm này:" row="flex"></x-form.row.input>
 
@@ -30,7 +36,7 @@
                 <x-form.row.select wireKey="product.type" key="type" label="Loại sản phẩm">
                     <option value="basic">Đơn giản</option>
                     <option value="has_attribute">Có thuộc tính</option>
-                    <option value="has_variation">Có biến thể</option>
+                    {{-- <option value="has_variation">Có biến thể</option> --}}
                     <option value="affiliate">Liên kết ngoài</option>
                     <option value="download">Tải về</option>
                 </x-form.row.select>
@@ -39,33 +45,20 @@
                     @include('livewire.tenant.backend.commerce.create-product.basic')
                 @endif --}}
 
-                @livewire('tenant.backend.commerce.attribute-manager', ['product' => $product])
+                @if ($product->type === 'has_attribute')
+                    {{-- @include('livewire.tenant.backend.commerce.create-product.has_attribute') --}}
+                    {{-- {{ dd($product->attributes) }} --}}
+                    @livewire('tenant.backend.commerce.product.product-attribute-manager', ['product' => $product])
+                @endif 
 
-                @livewire('tenant.backend.commerce.product-item')
+                {{-- @livewire('tenant.backend.commerce.attribute-manager', ['product' => $product]) --}}
+
+                @livewire('tenant.backend.commerce.product.product-item-manager', ['product' => $product, 'items' => $product->items])
         
                 <div class="my-4">
                     <label for="content">Mô tả sản phẩm</label>
                     <textarea class="mt-2 rounded w-full border border-gray-300 h-56" wire:model.defer="product.content" id="content" name="content"></textarea>
                 </div>
-
-                {{-- SEO --}}
-                <x-box.with-title>
-                    <x-slot name="title">Thiết lập SEO (tùy chọn)</x-slot>
-                    <x-slot name="content">
-                        <p class="input-flex">
-                            <label for="meta_title">Tiêu đề</label>
-                            <input type="text" wire:model.defer="product.meta_title" id="meta_title" name="meta_title"/>
-                        </p>
-                        <p class="input-flex">
-                            <label for="meta_keywords">Từ khóa</label>
-                            <input type="text" wire:model.defer="product.meta_keywords" id="meta_keywords" name="endmeta_keywords_at"/>
-                        </p>
-                        <label for="meta_description">Mô tả</label>
-                        <textarea wire:model.defer="product.meta_description" id="meta_description" class="w-full"
-                        name="meta_description"></textarea>
-                    </x-slot>
-
-                </x-box.with-title>
 
             </div>
             
@@ -208,5 +201,4 @@
         </div>
         <div class="app-sticky-submit"><x-button.primary type="submit" id="saveproduct">{{ $submitLabel }}</x-button.primary></div>
     </form>
-    @livewireScripts
 </div>

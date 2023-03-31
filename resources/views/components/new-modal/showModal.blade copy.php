@@ -1,17 +1,16 @@
 @props([
     'tag' => 'div',
-    'wireKey' => null,
-    'maxWidth' => null,
+    'wireKey',
+    'maxWidth',
 ])
 
 @aware(['header', 'footer'])
 
-<div 
-    id="modal-{{ $wireKey }}"
+<div x-cloak
+    id="modal--{{ $wireKey }}"
     {{ $attributes->merge(['class' => 'modal-wrapper']) }}
     
     @isset ($wireKey)
-        x-cloak
         x-data="{}"
         x-show="$wire.{{ $wireKey }}"
     @endisset
@@ -34,6 +33,9 @@
                     </svg>
                 </span>
             @endisset
+            
+            <x-form.error-mess></x-form.error-mess>
+
             {{ $slot }}
         </div>
 

@@ -1,12 +1,14 @@
 <div>
-    <x-new-modal wireKey="isOpen">
+    <x-new-modal wireKey="modalShowed">
 
-        <h2 class="m-0 text-center">
-            <span class="uppercase">Phiếu nhập hàng #{{ $order->id }}</span>
-            @if (!empty($order->status))
-                <span class="text-gray-400">({{ $order->status }})</span>
-            @endif
-        </h2>
+        <x-slot name="header">
+            <h2 class="m-0 text-center">
+                <span class="uppercase">Phiếu nhập hàng #{{ $order->id }}</span>
+                @if (!empty($order->status))
+                    <span class="text-gray-400">({{ $order->status }})</span>
+                @endif
+            </h2>
+        </x-slot>
 
         <div class="grid grid-cols-2 gap-4">
 
@@ -15,7 +17,6 @@
                     @foreach ($suppliers as $supplier)
                         <option 
                             value="{{ $supplier->id }}"
-        {{--                     {{ dd($supplier_id) }} --}}
                             @if ($supplier_id === $supplier->id)
                                 selected
                             @endif
@@ -23,52 +24,48 @@
                             {{ $supplier->company_name }}
                         </option>
                     @endforeach
-                    
                 @endif
             </x-form.row.select>
+
             <div class="my-4"><x-button.secondary wire:click.prevent="showAddItem">Thêm sản phẩm</x-button.secondary></div>
-            
 
         </div>
 
         @if ($isShowAddItem)
-            @include('livewire.tenant.backend.inventory.purchase-order.add-item')
+            @include('livewire.tenant.backend.inventory.purchase.add-item')
         @endif
 
         @if (!empty($items))
-            <div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Giá niêm yết</th>
-                            <th>Chiết khấu</th>
-                            <th>Giá nhập</th>
-                            <th>Số lượng</th>
-                            <th>Thành tiền</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @include('livewire.tenant.backend.inventory.purchase-order.item-loop')
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th></th>
-                            <th>Tổng</th>
-                            <th></th>
-                            <th>{{ hCurrency($order->item_discount) }}</th>
-                            <th></th>
-                            <th>{{ $order->getTotalQuantity() }}</th>
-                            <th>{{ hCurrency($order->sub_total) }}</th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá niêm yết</th>
+                        <th>Chiết khấu</th>
+                        <th>Giá nhập</th>
+                        <th>Số lượng</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @include('livewire.tenant.backend.inventory.purchase.item-loop')
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th>Tổng</th>
+                        <th></th>
+                        <th>{{ hCurrency($order->item_discount) }}</th>
+                        <th></th>
+                        <th>{{ $order->getTotalQuantity() }}</th>
+                        <th>{{ hCurrency($order->sub_total) }}</th>
+                    </tr>
+                </tfoot>
+            </table>
         @endif
 
         <form wire:submit.prevent="create">
-            
 
             <div class="grid grid-cols-2 gap-4">
 
@@ -123,8 +120,6 @@
                     <x-button.primary wire:click.prevent="store">{{ $submitLabel }}</x-button.primary>               
                 </div>
             </div>
-
-
         
         </form>
     </x-new-modal>

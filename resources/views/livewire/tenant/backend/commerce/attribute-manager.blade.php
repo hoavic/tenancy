@@ -38,7 +38,7 @@
                         </td>
                         <td>
                             <x-button.edit wireKey="edit({{ $attribute_item->id }})"></x-button.edit>
-                            <x-button.delete wireKey="delete({{ $attribute_item->id }})" onclick="confirmation();"></x-button.delete>
+                            <x-button.delete wireKey="confirmDelete({{ $attribute_item->id }})"></x-button.delete>
 
                         </td>
                     </tr>
@@ -67,11 +67,10 @@
 
     </x-table>
     {{ $attributes->links() }}
-    {{-- <p>SelectedEles: {{ var_export($selectedEles) }}</p> --}}
 
     {{-- create - edit --}}
     
-    <x-new-modal.showModal id="showModal" wireKey="modalShowed">
+    <x-new-modal.showModal tag="form" id="showModal" wireKey="modalShowed">
 
         <x-slot name="header">
             <h3>{{ $submitLabel }} Thuộc tính</h3>
@@ -86,13 +85,9 @@
             <option value="color">Color</option>
             <option value="image">Image</option>
         </x-form.row.select>
-
-        <x-slot name="footer">
-                <x-button.secondary wire:click.prevent="$set('modalShowed', false)">Hủy</x-button.secondary>
-                <x-button.primary wire:click.prevent="store()">Lưu</x-button.primary>
-        </x-slot>
+        
     </x-new-modal.showModal>
 
-    {{-- <x-new-modal.delete-confirm wireKey="modalDeleteShowed"></x-new-modal.delete-confirm> --}}
+    <x-new-modal.delete-confirm wire:ignore.self wireKey="modalDeleteShowed"></x-new-modal.delete-confirm>
 
 </div>

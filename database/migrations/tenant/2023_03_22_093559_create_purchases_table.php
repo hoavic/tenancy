@@ -28,7 +28,11 @@ return new class extends Migration
             $table->bigInteger('sub_total')->nullable()->default(0);
             $table->bigInteger('tax')->nullable()->default(0);
             $table->bigInteger('shipping')->nullable()->default(0);
-            $table->bigInteger('total')->nullable()->default(0);
+
+            $table->string('promo')->nullable();
+            $table->bigInteger('discount')->nullable()->default(0);
+
+            $table->bigInteger('grand_total')->nullable()->default(0);
 
             $table->timestamps();
         });

@@ -9,6 +9,7 @@ use App\Models\Tenant\Backend\Commerce\Brand;
 use App\Models\Tenant\Backend\Commerce\Product;
 use App\Models\Tenant\Backend\Inventory\Location;
 use App\Models\Tenant\Backend\Commerce\ProductCategory;
+use App\Models\Tenant\Backend\Inventory\Item;
 use App\Models\Tenant\Backend\Inventory\Stock;
 use App\Models\Tenant\Backend\Inventory\Supplier;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -62,9 +63,14 @@ class ProductSeeder extends Seeder
             'published_at' => now(),
             'slug'     => 'san-pham-mau',
             'guid'      => '/san-pham-mau',
+            'type'      => 'basic',
         ]);
 
         $product->product_categories()->sync(array(1));
+
+        $item = Item::create([
+            'product_id'    => $product->id,
+        ]);
 
         $product2 = Product::create([
             'name'     => 'Sản phẩm demo',
@@ -73,9 +79,14 @@ class ProductSeeder extends Seeder
             'published_at' => now(),
             'slug'     => 'san-pham-demo',
             'guid'      => '/san-pham-demo',
+            'type'      => 'basic',
         ]);
 
         $product2->product_categories()->sync(array(1));
+
+        $item2 = Item::create([
+            'product_id'    => $product2->id,
+        ]);
 
         Artisan::call('vietnamzone:import');
 
@@ -106,6 +117,38 @@ class ProductSeeder extends Seeder
         {
             AttributeValue::create([
                 'attribute_id' => $size->id,
+                'label' => $value,
+                'value' => $value,
+            ]);
+        }
+
+        $ram = Attribute::create([
+            'name' => 'RAM',
+            'visual' => 'text',
+        ]);
+
+        $ramValues = ['1G', '2G', '3G', '4G', '5G', '6G', '8G', '16G', '32G', '64G'];
+
+        foreach($ramValues as $value) 
+        {
+            AttributeValue::create([
+                'attribute_id' => $ram->id,
+                'label' => $value,
+                'value' => $value,
+            ]);
+        }
+
+        $bonho = Attribute::create([
+            'name' => 'Bộ nhớ',
+            'visual' => 'text',
+        ]);
+
+        $bonhoValues = ['246GB', '512GB', '1TB', '2TB'];
+
+        foreach($bonhoValues as $value) 
+        {
+            AttributeValue::create([
+                'attribute_id' => $bonho->id,
                 'label' => $value,
                 'value' => $value,
             ]);

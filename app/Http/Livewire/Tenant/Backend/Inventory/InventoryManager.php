@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Tenant\Backend\Inventory;
 
 use App\Models\Tenant\Backend\Commerce\Product;
+use App\View\Components\Tenant\BackendLayout;
 use App\View\Components\TenAppLayout;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -75,6 +76,6 @@ class InventoryManager extends Component
 
     public function render()
     {
-        return view('livewire..tenant.backend.inventory.inventory-manager')->layout(TenAppLayout::class);
+        return view('livewire..tenant.backend.inventory.inventory-manager')->layout(BackendLayout::class);
     }
 }

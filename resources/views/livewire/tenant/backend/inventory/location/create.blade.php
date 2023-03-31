@@ -1,5 +1,10 @@
 <div>
     <x-new-modal wireKey="isOpen">
+
+        <x-slot name="header">
+            <h3>{{ $submitLabel }} địa điểm</h3>
+        </x-slot>
+
         <form wire:submit.prevent="create">
             
             <x-form.row.input wireKey="location.name" key="name" label="Tên địa điểm" row="grid"></x-form.row.input>

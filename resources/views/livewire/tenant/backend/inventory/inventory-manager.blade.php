@@ -2,8 +2,6 @@
     <x-slot name="title">Tình trạng tồn kho</x-slot>
     <x-slot name="header">Tình trạng tồn kho</x-slot>
 
-@livewireStyles()
-
     @include('tenant.backend.includes.error')
     @include('tenant.backend.includes.notification')
 
@@ -28,7 +26,7 @@
                 <tr class="border-b border-gray-300">
                     <th><input type="checkbox" name="" class="rounded"/></th>
                     <th>Tên sản phẩm</th>
-                    <th>Giá Nhập</th>
+                    {{-- <th>Giá Nhập</th> --}}
                     <th>Số lượng nhập</th>
                     <th>Giá trị nhập</th>
                     <th>Đã bán / xuất</th>
@@ -48,9 +46,9 @@
 
                                     <button wire:click.prevent="delete({{ $product->id }})">Xóa</button>
                                 </div></td>
-                            <td>{{ hCurrency($product->getIventoryMediumPrice()) }}</td>
-                            <td>{{ $product->getInventoryQuantity() }}</td>
-                            <td>{{ hCurrency($product->getInventoryAmount()) }}</td>
+                            {{-- <td>{{ hCurrency($product->getIventoryMediumPrice()) }}</td> --}}
+                            <td>{{ $product->getTotalQuantity() }}</td>
+                            <td>{{ hCurrency($product->getTotalPurchaseAmount()) }}</td>
                             <td>{{ $product->getInventorySold() }}</td>
                             <td>{{ $product->getInventory() }}</td>
                         </tr>
@@ -62,5 +60,4 @@
         </table>
     </div>
 
-@livewireScripts()
 </div>

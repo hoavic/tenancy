@@ -15,6 +15,7 @@ use App\Http\Livewire\Tenant\Backend\Commerce\ShowProducts;
 use App\Http\Livewire\Tenant\Backend\GlobalSetting;
 use App\Http\Livewire\Tenant\Backend\Inventory\InventoryManager;
 use App\Http\Livewire\Tenant\Backend\Inventory\LocationManager;
+use App\Http\Livewire\Tenant\Backend\Inventory\PurchaseManager;
 use App\Http\Livewire\Tenant\Backend\Inventory\PurchaseOrderManager;
 use App\Http\Livewire\Tenant\Backend\Inventory\SupplierManager;
 use App\Http\Livewire\Tenant\Backend\Reporting;
@@ -67,7 +68,7 @@ Route::middleware([
         Route::get('/inventory', InventoryManager::class)->name('ten.inventory');
         Route::get('/location', LocationManager::class)->name('ten.location');
         Route::get('/supplier', SupplierManager::class)->name('ten.supplier');
-        Route::get('/purchase-order', PurchaseOrderManager::class)->name('ten.purchase.order');
+        Route::get('/purchases', PurchaseManager::class)->name('ten.purchase.order');
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('ten.profile.edit');
         Route::get('/profile/update-password', [ProfileController::class, 'editPass'])->name('ten.profile.pass.edit');

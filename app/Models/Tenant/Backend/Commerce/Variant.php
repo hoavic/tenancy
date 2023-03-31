@@ -5,29 +5,25 @@ namespace App\Models\Tenant\Backend\Commerce;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Attribute extends Model
+class Variant extends Model
 {
     use HasFactory;
 
-    protected $table = 'attributes';
-
-    public $timestamps = false;
-
-    protected $fillable = [
-        'name',
-        'group',
-        'visual'
-    ];
+    protected $table = 'variants';
 
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
     }
 
-    public function attribute_values(): HasMany
+    public function product_attribute(): BelongsTo
     {
-        return $this->hasMany(AttributeValue::class);
+        return $this->belongsTo(ProductAttribute::class);
+    }
+
+    public function attribute_value(): BelongsTo
+    {
+        return $this->belongsTo(AttributeValue::class);
     }
 }

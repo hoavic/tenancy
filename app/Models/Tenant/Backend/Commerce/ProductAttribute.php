@@ -7,27 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Attribute extends Model
+class ProductAttribute extends Model
 {
     use HasFactory;
 
-    protected $table = 'attributes';
-
-    public $timestamps = false;
-
-    protected $fillable = [
-        'name',
-        'group',
-        'visual'
-    ];
+    protected $table = 'product_attribute';
 
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
     }
 
-    public function attribute_values(): HasMany
+    public function attribute(): BelongsTo
     {
-        return $this->hasMany(AttributeValue::class);
+        return $this->belongsTo(Attribute::class);
     }
+
+    public function product_attribute_values(): HasMany
+    {
+        return $this->hasMany(ProductAttributeValue::class);
+    }
+
 }

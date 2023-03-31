@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Tenant\Backend\Commerce;
 use App\Models\Tenant\Backend\Commerce\Brand;
 use App\Models\Tenant\Backend\Commerce\Product;
 use App\Models\Tenant\Backend\Commerce\ProductCategory;
-use App\Models\Tenant\Backend\Inventory\Item;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,10 +27,6 @@ class CreateProduct extends Component
 
     public Media $featured_image;
 
-    public Item $item;
-
-    public $items;
-
     protected $rules = [
 /*         'product.SKU' => 'nullable|string',
         'product.supplier_product_id' => 'nullable|string', */
@@ -45,15 +40,15 @@ class CreateProduct extends Component
         'product.slug' => 'nullable|string',
         'product.type'  => 'required|string',
 
-        'product.price' => 'nullable|integer|between:0,9999999999.99',
+/*         'product.price' => 'nullable|integer|between:0,9999999999.99',
         'product.discount' => 'nullable|integer|between:0,9999999999.99',
         'product.start_at' => 'nullable|date:Y-m-d H:i:s',
         'product.end_at' => 'nullable|date:Y-m-d H:i:s',
 
         'product.shop' => 'nullable|string',
-        'product.brand_id' => 'nullable|integer',
-        'product.quantity' => 'nullable|integer',
+        'product.quantity' => 'nullable|integer', */
 
+        'product.brand_id' => 'nullable|integer',
 
         'product.meta_title' => 'nullable|string',
         'product.meta_keywords' => 'nullable|string',
@@ -103,9 +98,6 @@ class CreateProduct extends Component
             $this->product->type = 'basic';
             $this->product->brand_id = 1;
             $this->product_category_ids = array(1);
-
-            $this->items = array();
-            
         }
         
     }

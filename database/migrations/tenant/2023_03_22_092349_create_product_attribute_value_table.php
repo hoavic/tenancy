@@ -1,7 +1,8 @@
 <?php
 
 use App\Models\Tenant\Backend\Commerce\AttributeValue;
-use App\Models\Tenant\Backend\Inventory\Item;
+use App\Models\Tenant\Backend\Commerce\Product;
+use App\Models\Tenant\Backend\Commerce\ProductAttribute;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +16,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('item_attribute_value', function (Blueprint $table) {
-            $table->foreignIdFor(Item::class)->constrained()->cascadeOnDelete();
+        Schema::create('product_attribute_value', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(ProductAttribute::class)->constrained('product_attribute')->cascadeOnDelete();
             $table->foreignIdFor(AttributeValue::class)->constrained()->cascadeOnDelete();
         });
     }
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('item_attribute_value');
+        Schema::dropIfExists('product_attribute_value');
     }
 };

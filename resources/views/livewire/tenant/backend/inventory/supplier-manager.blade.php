@@ -2,8 +2,6 @@
     <x-slot name="title">Nhà Cung Cấp</x-slot>
     <x-slot name="header">Nhà Cung Cấp</x-slot>
 
-@livewireStyles()
-
     @include('tenant.backend.includes.error')
     @include('tenant.backend.includes.notification')
 
@@ -58,6 +56,5 @@
             </tbody>
         </table>
     </div>
-
-@livewireScripts()
+    
 </div>

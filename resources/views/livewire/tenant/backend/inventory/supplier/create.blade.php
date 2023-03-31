@@ -1,5 +1,8 @@
 <div>
     <x-new-modal wireKey="isOpen">
+        <x-slot name="header">
+            <h3>{{ $submitLabel }} nhà cung cấp</h3>
+        </x-slot>
         <form wire:submit.prevent="create">
 
             <x-form.row.input wireKey="supplier.company_name" key="company_name" label="Nhà cung cấp*" row="grid"></x-form.row.input>

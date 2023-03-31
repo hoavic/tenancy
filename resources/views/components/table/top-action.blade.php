@@ -16,8 +16,8 @@
     </form>
     
     <div class="form-row">
-        <label for="searchPagi">Tìm kiếm</label>
-        <input type="text" wire:model="searchPagi" id="searchPagi" name="searchPagi">
+        <label for="search">Tìm kiếm</label>
+        <input type="text" wire:model="search" id="search" name="search">
     </div>
 
     <x-button.primary wire:click.prevent="create">Thêm</x-button.primary>

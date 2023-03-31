@@ -18,8 +18,4 @@
         } catch ($ex) {}
     }
 
-    function confirmation(){
-        var result = confirm("Are you sure to delete?");
-    }
-
 </script>

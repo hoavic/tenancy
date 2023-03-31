@@ -255,6 +255,26 @@ input.form-input.selectEle {
     fill: #e11d48;
 }
 
+.btn.btn-top-delete {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    display: flex;
+    border: 1px solid;
+    border-radius: 40px;
+    background: #fff;
+}
+
+.btn.btn-top-delete:hover {
+    border-color: red;
+    background-color: #fff;
+}
+
+.btn-top-delete>svg {
+    width: 10px;
+    height: 10px;
+}
+
 .alert {
     background-color: #eee;
     color: #666;
@@ -398,7 +418,7 @@ input.form-input.selectEle {
 
 .app-container {
     background-color: #f8f7fa;
-/*     min-height: calc(100vh - 125px); */
+    min-height: calc(100vh - 90px);
 }
 
 .app-main {
@@ -408,9 +428,6 @@ input.form-input.selectEle {
 .sidebar {
     display: none;
     background-color: #fff;
-    animation-duration: 300ms;
-    animation-name: slidein-left-to-right;
-/*     animation-timing-function: ease-in-out; */
     overflow: auto;
     max-height: 100vh;
 }
@@ -510,6 +527,8 @@ input.form-input.selectEle {
         box-shadow: 0 0 21px 0 rgb(89 102 122 / 10%);
         color: gray;
         z-index: 99;
+        position: sticky;
+        top: 0;
     }
 
     .app-main {
@@ -533,6 +552,8 @@ input.form-input.selectEle {
 
 @media only screen and (max-width: 768px) {
     .sidebar.show {
+        animation-duration: 300ms;
+        animation-name: slidein-left-to-right;
         display: block;
         position: absolute;
         z-index: 99;

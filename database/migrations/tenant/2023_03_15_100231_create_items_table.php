@@ -17,9 +17,11 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->bigIncrements('id');
             
-            $table->string('code');
+            $table->string('sku')->unique()->nullable();
+            $table->string('barcode')->unique()->nullable();
             $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete();
-            $table->integer('price');
+            $table->bigInteger('price')->default(0);
+            $table->tinyInteger('quantity')->default(0);
 
             $table->timestamps();
         });

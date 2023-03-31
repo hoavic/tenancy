@@ -22,13 +22,18 @@ return new class extends Migration
             $table->bigInteger('user_id')->default(1);
 
             $table->bigInteger('featured_id')->nullable();
-            $table->text('name');
+            $table->string('name')->unique();
             $table->longText('description')->nullable();
             $table->tinyText('short_description')->nullable();
             $table->string('status');
             $table->string('slug')->nullable()->unique();
             $table->string('guid');
             $table->string('type')->default('basic');
+
+/*             $table->bigInteger('price')->default(0);
+            $table->bigInteger('discount')->default(0);
+            $table->dateTime('start_at')->nullable();
+            $table->dateTime('end_at')->nullable(); */
 
             /* $table->integer('shop')->nullable()->default(0); */
 

@@ -4,6 +4,7 @@ namespace App\Models\Tenant\Backend\Inventory;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -11,9 +12,9 @@ class Stock extends Model
 {
     use HasFactory;
 
-    public function stock(): HasOne
+    public function location(): BelongsTo
     {
-        return $this->hasOne(Location::class);
+        return $this->belongsTo(Location::class);
     }
 
     public function items(): BelongsToMany
