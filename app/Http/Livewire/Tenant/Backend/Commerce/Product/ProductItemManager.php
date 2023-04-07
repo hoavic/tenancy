@@ -14,30 +14,26 @@ class ProductItemManager extends Component
     public $items;
 
     protected $rules = [
-        'items.*.product_id'  => 'required|integer',
         'items.*.sku'  => 'nullable|string',
         'items.*.barcode'  => 'nullable|string',
         'items.*.price'  => 'required|min_digits:0',
-        'items.*.quantity'  => 'required|min_digits:0',
     ];
 
-    protected $listeners = ['refreshComponent' => '$refresh'];
+    protected $listeners = ['saveItem', 'refreshComponent' => '$refresh'];
 
 /*     public function mount()
     {
         $this->items = Item::where('product_id', '=', $this->product->id)->get();
     } */
 
-    public function save()
+    public function saveItem()
     {
         $this->validate();
 
         foreach ($this->items as $index => $item) {
             $this->validate([
                 "items.$index.sku" => ['nullable', 'string', Rule::unique('items', 'sku')->ignoreModel($item)],
-                "items.$index.barcode" => ['nullable', 'string', Rule::unique('items', 'barcode')->ignoreModel($item)]
-            ], [
-                "items.$index.name.unique" => 'Duplicated.'
+                "items.$index.barcode" => ['nullable', 'string', Rule::unique('items', 'barcode')->ignoreModel($item)],
             ]);
             
             $item->save();

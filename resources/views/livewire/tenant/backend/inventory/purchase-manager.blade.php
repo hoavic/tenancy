@@ -18,7 +18,8 @@
                 <th>Thời gian</th>
                 <th>Mã phiếu</th>
                 <th>Trạng thái</th>
-                <th>Số sản phẩm</th>
+                <th>Mặt hàng</th>
+                <th>Số lượng</th>
                 <th>Thành tiền</th>
             </tr>
         </thead>
@@ -42,6 +43,7 @@
                         <td>
                             {{ $purchase_item->purchaseItems->count() }}
                         </td>
+                        <td>{{ $purchase_item->getTotalQuantity() }}</td>
                         <td>
                             {{ hCurrency($purchase_item->grand_total) }}
                         </td>

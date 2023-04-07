@@ -19,12 +19,12 @@ return new class extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->bigIncrements('id');
             
-            /* $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete(); */
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Supplier::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Stock::class)->constrained()->cascadeOnDelete();
 
             $table->string('status')->default('created');
-            $table->string('update_by')->nullable();
+            $table->integer('update_by')->nullable();
             $table->bigInteger('sub_total')->nullable()->default(0);
             $table->bigInteger('tax')->nullable()->default(0);
             $table->bigInteger('shipping')->nullable()->default(0);
@@ -35,6 +35,7 @@ return new class extends Migration
             $table->bigInteger('grand_total')->nullable()->default(0);
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

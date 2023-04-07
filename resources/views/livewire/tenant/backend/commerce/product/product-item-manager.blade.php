@@ -18,8 +18,14 @@
                 <div class="item-row grid grid-cols-2 gap-x-4">
                     <x-form.row.input wireKey="items.{{ $loop->index }}.sku" key="sku" label="Mã sản phẩm" row="grid"/>
                     <x-form.row.input wireKey="items.{{ $loop->index }}.barcode" key="barcode" label="Barcode" row="grid"/>
-                    <x-form.row.input type="number" wireKey="items.{{ $loop->index }}.price" key="price" label="Giá" row="grid"/>
-                    <x-form.row.input type="number" wireKey="items.{{ $loop->index }}.quantity" key="quantity" label="Tồn kho" row="grid"/>
+                    <x-form.row.input type="number" wireKey="items.{{ $loop->index }}.price" key="price" label="Giá bán" row="grid"/>
+                    {{-- <x-form.row.input type="number" wireKey="items.{{ $loop->index }}.quantity" key="quantity" label="Tồn kho" row="grid"/> --}}
+                    <div class="form-row form-row-grid">
+                        <label>Tồn kho</label>
+                        <span>{{ $item->currentQuantity() }} 
+                            - <x-button.text>Nhập hàng</x-button.text>
+                        </span>
+                    </div>
             
                 </div>
             </div>

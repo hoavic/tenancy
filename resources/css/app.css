@@ -12,8 +12,6 @@ body {
     overflow-x: hidden;
 }
 
-
-
 table {
     display: table;
     border-collapse: collapse;
@@ -332,7 +330,29 @@ input.form-input.selectEle {
     border-radius: 40px;
 }
 
-
+.comming-soon {
+    position: relative;
+    display: inline-block;
+}
+.comming-soon>svg {
+    height: 15px;
+    width: 15px;
+    margin-bottom: 2px;
+}
+.comming-soon>.tooltip {
+    display: none;
+}
+.comming-soon:hover>.tooltip {
+    position: absolute;
+    display: inline-block;
+    background: #ffbc00;
+    font-size: 12px;
+    padding: 2px 5px;
+    border-radius: 4px;
+    white-space: nowrap;
+    left: 20px;
+    top: 2px;
+}
 
 /* Layout CSS */
 
@@ -366,8 +386,12 @@ input.form-input.selectEle {
 }
 
 .top-nav .nav-link:hover,
-.top-nav .nav-link-active {
-    background: rgb(255 255 255 / 15%);
+.top-nav .nav-link-active,
+.action-nav .nav-link:hover,
+.action-nav .nav-link-active {
+    color: #fff;
+    background: #4776E6;
+    background: linear-gradient(to right, #8E54E9, #4776E6);
 }
 
 .action-nav {

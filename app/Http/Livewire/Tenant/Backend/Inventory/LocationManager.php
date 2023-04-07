@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Tenant\Backend\Inventory;
 
 use App\Models\Tenant\Backend\iNVENTORY\Location;
+use App\Models\Tenant\Backend\Inventory\Stock;
+use App\View\Components\Tenant\BackendLayout;
 use App\View\Components\TenAppLayout;
 use Kjmtrue\VietnamZone\Models\District;
 use Kjmtrue\VietnamZone\Models\Province;
@@ -67,7 +69,7 @@ class LocationManager extends Component
 
     public function render()
     {
-        return view('livewire..tenant.backend.inventory.location-manager')->layout(TenAppLayout::class);
+        return view('livewire..tenant.backend.inventory.location-manager')->layout(BackendLayout::class);
     }
 
     public function openModal()
@@ -99,6 +101,14 @@ class LocationManager extends Component
 
         try {
             $this->location->save();
+            
+            if (is_null($this->location->stock)) {
+                /* dd($this->location->stock); */
+                Stock::create([
+                    'location_id' => $this->location->id,
+                ]);
+            }
+
             $this->closeModal();
             $this->resetLocationFields();
             session()->flash('success', $this->submitLabel.' địa điểm thành công!');

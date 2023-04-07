@@ -17,7 +17,7 @@
         @csrf
         @method('patch')
         
-        <img src=" {{ dd($user->getFirstMediaUrl('avatar', 'thumb')) }} " / width="120px">
+        <img src=" {{ $user->getFirstMediaUrl('avatar', 'thumb') }} " / width="120px">
         <div class="mb-3">
             <label>Image:</label>
             <input type="file" name="avatar" class="form-control">

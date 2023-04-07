@@ -19,12 +19,13 @@ return new class extends Migration
             $table->bigIncrements('id');
             
             $table->foreignIdFor(Purchase::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Item::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Item::class)->constrained();
 
             $table->bigInteger('price')->nullable()->default(0);
             $table->integer('quantity')->nullable()->default(0);
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

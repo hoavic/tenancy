@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('label')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

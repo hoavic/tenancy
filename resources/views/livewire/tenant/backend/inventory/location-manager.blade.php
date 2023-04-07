@@ -2,8 +2,6 @@
     <x-slot name="title">Địa điểm</x-slot>
     <x-slot name="header">Địa điểm</x-slot>
 
-@livewireStyles()
-
     @include('tenant.backend.includes.notification')
 
     <div class="">
@@ -21,7 +19,7 @@
                     <th>Tên địa điểm</th>
                     <th>Loại địa điểm</th>
                     <th>Địa chỉ</th>
-                    <th>Mặt hàng</th>
+{{--                     <th>Mặt hàng</th> --}}
                     <th>Tổng số lượng</th>
                     <th>Tổng giá trị</th>
                 </tr>
@@ -46,9 +44,10 @@
                                 </div></td>
                             <td>{{ json_decode($location_item->type)->label }}</td>
                             <td>{{ $location_item->addressFull() }}</td>
-                            <td>{{ $location_item->stock->items->count() ?? 0 }}</td>
-                            <td>{{ $location_item->stock->items->sum('quantity') ?? 0 }}</td>
-                            <td>{{ hCurrency(($location_item->stock->items->sum('price') * $location_item->stock->items->sum('quantity')) ?? 0) }}</td>
+                            {{-- {{ dd($location_item->stock->currentQuantity()) }} --}}
+                           {{--  <td></td> --}}
+                            <td>{{ hFormat($location_item->stock->currentQuantity()) }}</td>
+                            <td>{{ hCurrency($location_item->stock->getTotalPurchaseAmount()) }}</td>
                         </tr>
                         
                     @endforeach
@@ -58,5 +57,4 @@
         </table>
     </div>
 
-@livewireScripts()
 </div>

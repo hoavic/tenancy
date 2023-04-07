@@ -3,15 +3,17 @@
 namespace App\Http\Livewire\Tenant\Backend\Inventory;
 
 use App\Models\Tenant\Backend\Commerce\Product;
+use App\Traits\Tenant\Backend\WithTopAction;
 use App\View\Components\Tenant\BackendLayout;
 use App\View\Components\TenAppLayout;
 use Carbon\Carbon;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class InventoryManager extends Component
 {
 
-    public $products;
+    use WithPagination, WithTopAction;
 
     public $beginning;
     public $ending;
@@ -38,7 +40,7 @@ class InventoryManager extends Component
                 ->whereDate('created_at', '<=', $this->ending);
         }])->get(); */
 
-        $this->productFillter();
+        /* $this->productFillter(); */
         
     }
 
@@ -55,27 +57,31 @@ class InventoryManager extends Component
 
     public function productFillter() 
     {
-        try{
+
+        if (empty($this->beginning)) {
+            return Product::with('items')->get();
+        }
+
+        return Product::whereHas('items', function ($query) {
+            return $query->whereDate('created_at', '>=', $this->beginning)
+                ->whereDate('created_at', '<=', $this->ending);
+        })->get();
+/*         try{
 
             $this->validate();
 
-            if (empty($this->beginning)) {
-                $this->products = Product::with('items')->get();
-                return;
-            }
 
-            $this->products = Product::whereHas('items', function ($query) {
-                return $query->whereDate('created_at', '>=', $this->beginning)
-                    ->whereDate('created_at', '<=', $this->ending);
-            })->get();
         } catch (\Exception $ex) {
             session()->flash('error', $ex);
-        }
+        } */
 
     }
 
     public function render()
     {
-        return view('livewire..tenant.backend.inventory.inventory-manager')->layout(BackendLayout::class);
+        $product = $this->productFillter();
+        return view('livewire..tenant.backend.inventory.inventory-manager', [
+            'products' => Product::paginate($this->perPage),
+        ])->layout(BackendLayout::class);
     }
 }

@@ -10,6 +10,8 @@ use App\Http\Controllers\Tenant\ProfileController;
 use App\Http\Livewire\Tenant\Backend\Commerce\AttributeManager;
 use App\Http\Livewire\Tenant\Backend\Commerce\BrandManager;
 use App\Http\Livewire\Tenant\Backend\Commerce\CreateProduct;
+use App\Http\Livewire\Tenant\Backend\Commerce\OrderManager;
+use App\Http\Livewire\Tenant\Backend\Commerce\PosManager;
 use App\Http\Livewire\Tenant\Backend\Commerce\ShowProductCategories;
 use App\Http\Livewire\Tenant\Backend\Commerce\ShowProducts;
 use App\Http\Livewire\Tenant\Backend\GlobalSetting;
@@ -50,7 +52,7 @@ Route::middleware([
     })->name('ten.home');
 
     Route::group([
-        'middleware' => ['ten.auth', 'ten.verified'],
+        'middleware' => ['ten.auth'],
         'prefix'    =>  'web-admin',
     ], function() {
     
@@ -68,7 +70,9 @@ Route::middleware([
         Route::get('/inventory', InventoryManager::class)->name('ten.inventory');
         Route::get('/location', LocationManager::class)->name('ten.location');
         Route::get('/supplier', SupplierManager::class)->name('ten.supplier');
-        Route::get('/purchases', PurchaseManager::class)->name('ten.purchase.order');
+        Route::get('/purchases', PurchaseManager::class)->name('ten.purchase');
+        Route::get('/orders', OrderManager::class)->name('ten.order');
+        Route::get('/pos', PosManager::class)->name('ten.pos');
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('ten.profile.edit');
         Route::get('/profile/update-password', [ProfileController::class, 'editPass'])->name('ten.profile.pass.edit');

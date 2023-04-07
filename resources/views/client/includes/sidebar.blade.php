@@ -1,13 +1,12 @@
 <aside x-data="{ open: false }" class="sidebar">
     <!-- Primary Navigation Menu -->
-    <div class="">
-        <!-- Logo -->
-        <div class="text-center p-4 h-16">
+
+        <div class="sidebar-header">
             <a class="font-bold text-2xl uppercase text-blue-800" href="{{ route('dashboard') }}">
                 Trang Client
             </a>
         </div>
-        <div class="flex flex-col">
+        <div class="sidebar-main">
             <div class="block-menu">
                 <div class="menu-label">
                     <span>Tổng quan</span>
@@ -95,5 +94,5 @@
                 </ul>
             </div>  
         </div>
-    </div>
+
 </aside>

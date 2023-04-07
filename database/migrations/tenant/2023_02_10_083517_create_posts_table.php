@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('type')->default('post');
 
             $table->timestamps();
+            $table->softDeletes();
 
             $table->string('comment_status')->default('open');
             $table->bigInteger('comment_count')->default(0);

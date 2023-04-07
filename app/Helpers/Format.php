@@ -17,5 +17,6 @@ function hFormat($number, $decimal = 0)
 
 function hCurrency($number, $currency = ' đ')
 {
+    if(is_null($number)) {return null;}
     return hFormat($number) . $currency;
 }

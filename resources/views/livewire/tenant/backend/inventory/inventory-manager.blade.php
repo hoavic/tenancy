@@ -34,6 +34,7 @@
                 </tr>
             </thead>
             <tbody>
+                {{-- {{ dd($products) }} --}}
                 @if ($products)
 
                     @foreach ($products as $product)
@@ -47,10 +48,10 @@
                                     <button wire:click.prevent="delete({{ $product->id }})">Xóa</button>
                                 </div></td>
                             {{-- <td>{{ hCurrency($product->getIventoryMediumPrice()) }}</td> --}}
-                            <td>{{ $product->getTotalQuantity() }}</td>
+                            <td>{{ hFormat($product->getTotalPurchaseQuantity()) }}</td>
                             <td>{{ hCurrency($product->getTotalPurchaseAmount()) }}</td>
-                            <td>{{ $product->getInventorySold() }}</td>
-                            <td>{{ $product->getInventory() }}</td>
+                            <td>{{ hFormat($product->getTotalSoldQuantity()) }}</td>
+                            <td>{{ hFormat($product->currentQuantity()) }}</td>
                         </tr>
                         
                     @endforeach

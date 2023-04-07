@@ -143,6 +143,8 @@ class CreateProduct extends Component
 
             $this->product->refresh();
 
+            $this->emit('saveItem');
+
         } catch (\Exception $ex) {
 
             session()->flash('error', $this->submitLabel.' sản phẩm không thành công.'.$ex);

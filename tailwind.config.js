@@ -17,4 +17,10 @@ module.exports = {
     },
 
     plugins: [require('@tailwindcss/forms')],
+
+    safelist: [
+        'grid-cols-3',
+        'grid-cols-5',
+
+      ]
 };

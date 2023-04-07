@@ -14,16 +14,14 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-            <div class="app-top-nav">
-                @include('includes.nav')
-            </div>
+
             <div class="app-grid">
 
                 @include('client.includes.sidebar')
 
-                <div class="app-container">
+                <div id="appContainer" class="app-container">
 
-                    
+                    @include('includes.nav')
 
                     <main class="app-main">
                         <!-- Page Heading -->

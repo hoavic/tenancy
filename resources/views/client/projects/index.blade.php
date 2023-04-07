@@ -70,7 +70,7 @@
         </form>
     </div>
 
-    <h2 class="my-8 font-bold text-xl">Danh sách Tenancy</h2>
+    <h2 class="my-8 font-bold text-xl">Danh sách Dự án</h2>
 
     <div class="my-4 p-8 bg-white rounded-2xl shadow">
         <table class="">
@@ -102,18 +102,18 @@
                 
                 @foreach ($tenants as $tenant)
                     {{-- {{ dd($tenant) }} --}}
-                    @php
+{{--                     @php
                         $domain = App\Http\Controllers\ProjectController::getDomain($tenant->id);
-                    @endphp
+                    @endphp --}}
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $tenant->name }}</td>
-                        <td><a href="{{ $domain }}" target="_blank">{{ $domain }}</a></td>
+                        <td><a href="{{ $tenant->getDomain() }}" target="_blank">{{ $tenant->getDomain() }}</a></td>
                         <td>Hoạt động</td>
                         <td>
                             <a href="#" class="p-2 inline-block bg-gray-200 text-gray-500 font-bold text-sm shadow rounded-2xl">Ẩn</a>
                             <a href="#" class="p-2 inline-block bg-gray-200 text-gray-500 font-bold text-sm shadow rounded-2xl">Hiện</a>
-                            @can('edit project')
+                            
                             <x-dropdown>
                                 <x-slot name="trigger">
                                     <button>
@@ -123,22 +123,24 @@
                                     </button>
                                 </x-slot>
                                 <x-slot name="content">
+                                    @can('edit project')
                                     <x-dropdown-link :href="route('client.projects.edit', $tenant)">
                                         {{ __('Sửa') }}
                                     </x-dropdown-link>
-                                    @can('delete project')
-                                        <form method="POST" action="{{ route('client.projects.destroy', $tenant) }}">
-                                            @csrf
-                                            @method('delete')
-                                            <x-dropdown-link :href="route('client.projects.destroy', $tenant)" onclick="event.preventDefault(); this.closest('form').submit();">
-                                                {{ __('Delete') }}
-                                            </x-dropdown-link>
-                                        </form>
                                     @endcan
+
+                                    <form method="POST" action="{{ route('client.projects.destroy', $tenant) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <x-dropdown-link :href="route('client.projects.destroy', $tenant)" onclick="event.preventDefault(); this.closest('form').submit();">
+                                            {{ __('Delete') }}
+                                        </x-dropdown-link>
+                                    </form>
+
 
                                 </x-slot>
                             </x-dropdown>
-                        @endcan
+
                         </td>
                     </tr>
 

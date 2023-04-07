@@ -22,11 +22,25 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         ];
     }
 
+
+    public function getDomain()
+    {
+        $domain = $this->domains[0];
+
+        if(empty($domain)) {return null;}
+
+        if($domain->domain_type === 'subdomain') {
+            return 'http://'.$domain->domain.'.'.config('tenancy.central_domains')[0];
+        }
+
+        return 'http://'.$domain->domain;
+    }
+
+    // relataion
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
-
 
 }

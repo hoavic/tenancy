@@ -44,8 +44,11 @@ return new class extends Migration
             $table->string('meta_description')->nullable();
 
             $table->boolean('is_publish');
-            $table->dateTime('published_at');    
+            $table->dateTime('published_at');   
+
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

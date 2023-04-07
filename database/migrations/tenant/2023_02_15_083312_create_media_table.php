@@ -27,6 +27,7 @@ class CreateMediaTable extends Migration
             $table->unsignedInteger('order_column')->nullable()->index();
 
             $table->nullableTimestamps();
+            $table->softDeletes();
         });
     }
 }

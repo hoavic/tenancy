@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Tenant\Backend\Order;
+use App\Models\Tenant\Backend\Commerce\Order;
 use App\Models\Tenant\Backend\Commerce\Product;
 use App\Models\Tenant\Backend\Inventory\Item;
 use Illuminate\Database\Migrations\Migration;
@@ -19,18 +19,19 @@ return new class extends Migration
         Schema::create('order_items', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->foreignIdFor(Product::class)->constrained();
+          /*   $table->foreignIdFor(Product::class)->constrained(); */
             $table->foreignIdFor(Item::class)->constrained();
-            $table->foreignIdFor(Order::class)->constrained();
-
-            $table->string('SKU');
+            $table->foreignIdFor(Order::class)->constrained()->cascadeOnDelete();
+            /* $table->string('SKU'); */
+            
             $table->bigInteger('price')->default(0);
             $table->bigInteger('discount')->default(0);
             $table->smallInteger('quantity')->default(0);
 
-            $table->text('note');
+            $table->text('note')->nullable()->default(null);
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

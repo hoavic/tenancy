@@ -32,35 +32,6 @@
                 </ul>
             </div>
 
-            <!-- Địa điểm -->
-            <div class="block-menu">
-                <div class="menu-label">
-                    <a href="{{ route('ten.location') }}">Quản lý Kho</a>
-                </div>
-                <ul class="menu">
-                    <li class="nav-item">
-                        <x-nav-link :href="route('ten.inventory')" :active="request()->routeIs('ten.inventory')">
-                            {{ __('Tồn kho') }}
-                        </x-nav-link>
-                    </li>
-                    <li class="nav-item">
-                        <x-nav-link :href="route('ten.location')" :active="request()->routeIs('ten.location')">
-                            {{ __('Quản lý Địa điểm') }}
-                        </x-nav-link>
-                    </li>
-                    <li class="nav-item">
-                        <x-nav-link :href="route('ten.supplier')" :active="request()->routeIs('ten.supplier')">
-                            {{ __('Nhà cung cấp') }}
-                        </x-nav-link>
-                    </li>
-                    <li class="nav-item">
-                        <x-nav-link :href="route('ten.purchase.order')" :active="request()->routeIs('ten.purchase.order')">
-                            {{ __('Nhập hàng') }}
-                        </x-nav-link>
-                    </li>
-                </ul>
-            </div>
-
             <!-- Sản phẩm -->
             <div class="block-menu">
                 <div class="menu-label">
@@ -93,7 +64,39 @@
                             {{ __('Thuộc tính') }}
                         </x-nav-link>
                     </li>
-                    <li class="nav-item"><a href="#" class="nav-link">Từ khóa</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Từ khóa <x-html.comming-soon/></a></li>
+                </ul>
+            </div>
+
+            <!-- Địa điểm -->
+            <div class="block-menu">
+                <div class="menu-label">
+                    <a href="{{ route('ten.location') }}">Quản lý Kho</a>
+                </div>
+                <ul class="menu">
+                    <li class="nav-item">
+                        <x-nav-link :href="route('ten.inventory')" :active="request()->routeIs('ten.inventory')">
+                            {{ __('Tồn kho') }}
+                        </x-nav-link>
+                    </li>
+                    <li class="nav-item">
+                        <x-nav-link :href="route('ten.location')" :active="request()->routeIs('ten.location')">
+                            {{ __('Quản lý Địa điểm') }}
+                        </x-nav-link>
+                    </li>
+                    <li class="nav-item">
+                        <x-nav-link :href="route('ten.supplier')" :active="request()->routeIs('ten.supplier')">
+                            {{ __('Nhà cung cấp') }}
+                        </x-nav-link>
+                    </li>
+                    <li class="nav-item">
+                        <x-nav-link :href="route('ten.purchase')" :active="request()->routeIs('ten.purchase')">
+                            {{ __('Nhập hàng') }}
+                        </x-nav-link>
+                    </li>
+
+                    <li class="nav-item"><a href="#" class="nav-link">Thu - Chi <x-html.comming-soon/></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Công nợ <x-html.comming-soon/></a></li>
                 </ul>
             </div>
 
@@ -104,21 +107,17 @@
                 </div>
                 <!-- Navigation Links -->
                 <ul class="menu">
-                    <li class="nav-item"><a href="#" class="nav-link">Tất cả đơn hàng</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Thống kê</a></li>
-                </ul>
-            </div>
-
-            <!-- Kho hàng -->
-            <div class="block-menu">
-                <div class="menu-label">
-                    <a href="#">Quản lý Kho hàng</a>
-                </div>
-                <!-- Navigation Links -->
-                <ul class="menu">
-                    <li class="nav-item"><a href="#" class="nav-link">Tồn kho</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Thu - Chi</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Công nợ</a></li>
+                    <li class="nav-item">
+                        <x-nav-link :href="route('ten.order')" :active="request()->routeIs('ten.order')">
+                            {{ __('Tất cả đơn hàng') }}
+                        </x-nav-link>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link">Thống kê <x-html.comming-soon/></a></li>
+                    <li class="nav-item">
+                        <x-nav-link :href="route('ten.pos')" :active="request()->routeIs('ten.pos')">
+                            {{ __('POS') }}
+                        </x-nav-link>
+                    </li>
                 </ul>
             </div>
 
@@ -132,7 +131,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('ten.posts.index') }}">Tất cả bài viết</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('ten.posts.create') }}">Thêm bài viết mới</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('ten.categories.index') }}">Chuyên mục</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Từ khóa</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Từ khóa <x-html.comming-soon/></a></li>
                 </ul>
             </div>
 
@@ -143,8 +142,8 @@
                 </div>
                 <!-- Navigation Links -->
                 <ul class="menu">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('ten.dashboard') }}">Quản lý giao diện</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('ten.setting') }}">Chỉnh sửa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('ten.dashboard') }}">Quản lý giao diện <x-html.comming-soon/></a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('ten.setting') }}">Chỉnh sửa <x-html.comming-soon/></a></li>
                 </ul>
             </div>
 
@@ -177,13 +176,13 @@
             <!-- Tài khoản -->
             <div class="block-menu">
                 <div class="menu-label">
-                    <a href="#">Tài khoản</a>
+                    <a href="#">Quản lý tài khoản</a>
                 </div>
                 <!-- Navigation Links -->
                 <ul class="menu">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('ten.profile.edit') }}">Cập nhật thông tin</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('ten.profile.pass.edit') }}">Thay đổi Mật khẩu</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('ten.profile.del.edit') }}">Xóa tài khoản</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('ten.profile.edit') }}">Danh sách tài khoản <x-html.comming-soon/></a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('ten.profile.pass.edit') }}">Quản lý vai trò <x-html.comming-soon/></a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('ten.profile.del.edit') }}">Quản lý quền <x-html.comming-soon/></a></li>
                 </ul>
             </div>
         </div>

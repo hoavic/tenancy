@@ -14,10 +14,11 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia, Sluggable;
+    use HasFactory, SoftDeletes, InteractsWithMedia, Sluggable;
 
     protected $fillable = [
         'user_id',

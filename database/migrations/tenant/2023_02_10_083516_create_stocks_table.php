@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('quantity')->nullable()->default(0);
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

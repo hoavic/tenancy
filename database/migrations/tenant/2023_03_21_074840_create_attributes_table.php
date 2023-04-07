@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('group')->nullable();
             $table->enum('visual', ['text', 'color', 'image'])->default('text');
 
+            $table->softDeletes();
         });
     }
 

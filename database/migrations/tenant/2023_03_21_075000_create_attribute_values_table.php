@@ -22,6 +22,8 @@ return new class extends Migration
             $table->foreignIdFor(Attribute::class)->constrained()->cascadeOnDelete();
             $table->string('label')->nullable();
             $table->string('value');
+
+            $table->softDeletes();
         });
     }
 

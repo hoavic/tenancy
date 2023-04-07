@@ -17,14 +17,14 @@ class ProjectController extends Controller
     public function index()
     {
         //
-        $tenants = Tenant::with('user')->latest()->get();
+        $tenants = Tenant::where('user_id', '=', Auth::id())->latest()->get();
         
         return view('client.projects.index',[
             'tenants' => $tenants,
         ]);
     }
 
-    public static function getDomain($tenant_id) {
+/*     public static function getDomain($tenant_id) {
         $domain_arr = Domain::where('tenant_id', $tenant_id)->first();
 
         if (empty($domain_arr)) {return;}
@@ -34,7 +34,7 @@ class ProjectController extends Controller
             $domain = $domain_arr->domain.'.'.config('tenancy.central_domains')[0];
         }
         return 'http://'.$domain;
-    }
+    } */
 
     /**
      * Show the form for creating a new resource.

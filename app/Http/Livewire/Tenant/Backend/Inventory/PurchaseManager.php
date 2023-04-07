@@ -9,6 +9,7 @@ use App\Traits\Tenant\Backend\WithDeleteConfirm;
 use App\Traits\Tenant\Backend\WithModal;
 use App\Traits\Tenant\Backend\WithTopAction;
 use App\View\Components\Tenant\BackendLayout;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -26,15 +27,11 @@ class PurchaseManager extends Component
 
     protected $rules = [
 
-        'purchase.status'   => 'nullable|string',
-        'purchase.update_by'   => 'nullable|string',
-        'purchase.sub_total'    => 'required|numeric',
         'purchase.tax'     => 'required|integer',
         'purchase.shipping'     => 'required|integer',
 
         'purchase.promo'   => 'nullable|string',
         'purchase.discount'     => 'nullable|numeric',
-        'purchase.grand_total'     => 'required|numeric',
 
         'purchase.supplier_id'       => 'required|integer',
         'purchase.stock_id'       => 'required|integer',
@@ -62,8 +59,9 @@ class PurchaseManager extends Component
         $this->showModal();
         $this->submitLabel = "Thêm mới";
         $this->purchase = new Purchase();
+        $this->purchase->user_id = Auth::id();
         $this->purchase->status = 'draft';
-        $this->purchase->update_by = 'Admin';
+        $this->purchase->update_by = Auth::id();
         $this->purchase->tax = 10;
         $this->purchase->shipping = 0;
         $this->purchase->sub_total = 0;

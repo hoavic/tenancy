@@ -14,18 +14,17 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-            <div class="app-top-nav">
-                @include('includes.nav')
-            </div>
+
             <div class="app-grid">
 
                 @include('admin.includes.sidebar')
 
-                <div class="app-container">
+                <div id="appContainer" class="app-container">
 
-                    
+                    @include('includes.nav')
 
                     <main class="app-main">
+
                         <!-- Page Heading -->
                         @if (isset($header))
                             <header class="">
@@ -35,9 +34,9 @@
                         {{ $slot }}
                     </main>
 
-                    @include('includes.footer')
+                   
                 </div>
             </div>
-
+            @include('includes.footer')
     </body>
 </html>

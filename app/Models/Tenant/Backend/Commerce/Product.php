@@ -10,11 +10,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Product extends Model
 {
-    use HasFactory, Sluggable;
+    use HasFactory, SoftDeletes, Sluggable;
 
     protected $table='products';
     
@@ -90,17 +91,10 @@ class Product extends Model
 
     //inventory
 
-    public function getInventoryAmount()
+    public function getTotalPurchaseQuantity()
     {
         return $this->items->sum(function ($item) {
-            return $item->quantity*$item->price;
-        });
-    }
-
-    public function getTotalQuantity()
-    {
-        return $this->items->sum(function ($item) {
-            return $item->getTotalQuantity();
+            return $item->getTotalPurchaseQuantity();
         });
     }
 
@@ -111,17 +105,24 @@ class Product extends Model
         });
     }
 
-    public function getInventorySold()
+    public function getTotalSoldQuantity()
     {
         return $this->items->sum(function ($item) {
-            return $item->sold;
+            return $item->getTotalSoldQuantity();
         });
     }
 
-    public function getInventory()
+    public function getTotalSoldAmount()
     {
         return $this->items->sum(function ($item) {
-            return $item->quantity - $item->sold;
+            return $item->getTotalSoldAmount();
+        });
+    }
+
+    public function currentQuantity()
+    {
+        return $this->items->sum(function ($item) {
+            return $item->currentQuantity();
         });
     }
 

@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="top-nav">
+<nav x-data="{ open: false }" class="action-nav">
     <!-- Navigation Links -->
     <ul class="flex items-center">
         @auth

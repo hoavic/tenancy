@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('guid');
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
