@@ -27,18 +27,18 @@
 
             @csrf
 
-            <div class="flex gap-4 my-4 items-center">
+            <div class="flex flex-wrap  gap-4 my-4 items-center">
                 <label class="font-bold">Đặt tên</label>
                 <input class="rounded-2xl" type="text" name="name"/>
             </div>
 
             <div class="my-4">
                 <p class="font-bold">Cấp quyền</p>
-                <div class="flex gap-4 my-4 items-center">
+                <div class="flex flex-wrap gap-4 my-4 items-center">
                     @if ($permissions)
                         @foreach ($permissions as $permission)
 
-                            <div class="flex gap-4 my-4 items-center">
+                            <div class="flex flex-wrap gap-4 my-4 items-center">
                                 <input type="checkbox" id="staff-{{ $permission->id }}" name="permissions" value="{{ $permission->name }}"/><label for="staff-{{ $permission->id }}">{{ $permission->label }}</label>
                             </div>
                         @endforeach
@@ -50,7 +50,7 @@
 
             </div>
 
-            <div class="flex gap-4 my-4 items-center">
+            <div class="flex flex-wrap gap-4 my-4 items-center">
                 
                 <input class="py-2 px-6 rounded-lg shadow-2xl uppercase bg-yellow-500 text-white font-bold"
                     type="submit" value="Tạo loại tại khoản mới"/>

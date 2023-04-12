@@ -1,12 +1,9 @@
-<aside id="sidebar" x-data="{ open: false }" class="sidebar">
+<aside 
+    x-cloak
+    id="sidebar" class="sidebar" >
     <!-- Primary Navigation Menu -->
 
     <!-- Logo -->
-    <div class="sidebar-header">
-        <a class="font-bold text-2xl uppercase text-blue-800" href="{{ route('home') }}">
-            AI Bán hàng
-        </a>
-    </div>
 
     <div class="sidebar-main">
         <div class="block-menu">
@@ -60,38 +57,25 @@
                 </li>
                 <li class="nav-item"><a href="#" class="nav-link">Thiết lập Quyền</a></li>
             </ul>
-        </div> 
-        
-        <!-- Tài khoản -->
+        </div>
+
+        <!-- PLan & Subs -->
         <div class="block-menu">
             <div class="menu-label">
-                <span>Tài khoản của tôi</span>
+                <span>Plan & Subs</span>
             </div>
             <!-- Navigation Links -->
             <ul class="menu">
-                <li class="nav-item">
-                    <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
-                        {{ __('Cập nhật thông tin') }}
-                    </x-nav-link>
-                </li>
-                <li class="nav-item">
-                    <x-nav-link :href="route('profile.pass.edit')" :active="request()->routeIs('profile.pass.edit')">
-                        {{ __('Thay đổi Mật khẩu') }}
-                    </x-nav-link>
-                </li>
-                <li class="nav-item">
-                    <x-nav-link :href="route('profile.del.edit')" :active="request()->routeIs('profile.del.edit')">
-                        {{ __('Xóa tài khoản') }}
-                    </x-nav-link>
-                </li>
+                <li class="nav-item"><a class="nav-link" href="#">Danh sách gói</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Quản lý Subs</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Quản lý Plan</a></li>
             </ul>
-        </div>
-
+        </div> 
 
         <!-- Hỗ trợ -->
         <div class="block-menu">
             <div class="menu-label">
-                <span>Yêu cầu Hỗ trợ</span>
+                <span>Danh sách cần hỗ trợ</span>
             </div>
             <!-- Navigation Links -->
             <ul class="menu">

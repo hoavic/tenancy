@@ -11,17 +11,20 @@
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/admin/style.scss', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
+    <body class="antialiased">
 
-            <div class="app-grid">
+            <div x-data="{showSidebar: false}" 
+
+                :class="{'showSidebar' : showSidebar, '': !showSidebar}" 
+                class="app-grid">
 
                 @include('admin.includes.sidebar')
 
                 <div id="appContainer" class="app-container">
 
-                    @include('includes.nav')
+                    @include('admin.includes.nav')
 
                     <main class="app-main">
 
@@ -37,6 +40,6 @@
                    
                 </div>
             </div>
-            @include('includes.footer')
+            {{-- @include('admin.includes.footer') --}}
     </body>
 </html>

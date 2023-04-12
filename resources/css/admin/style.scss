@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@import '../_basic';
+@import '../variable';
+
+@mixin menu-item-hover {
+    color: var(--primary-color);
+}
+
+@mixin flex-gap-item-center {
+    display: flex;
+/*     gap: var(--spacing); */
+    align-items: center;
+}
+
+//keyframe
+
+@keyframes fade-up {
+    from {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+     
+    to {
+        transform: translateY(0);
+        opacity: 100;
+    }
+}
+
+//layout
+/* Layout CSS */
+
+.admin-nav {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    background-color: #fff;
+}
+
+.nav-link {
+    padding: 3px 10px;
+    border-radius: 8px;
+    display: block;
+    color: #515154;
+    transition: background, padding 200ms ease-in-out;
+}
+
+.nav-link-active {
+    font-weight: bold;
+}
+
+.app-grid {
+    display: flex;
+}
+
+.app-title {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #333;
+    margin-top: 0;
+}
+
+.app-container {
+    background-color: #f8f7fa;
+    min-height: calc(100vh - 90px);
+    flex: 1;
+    transition: all 300ms ease-in-out;
+    max-width: 100%;
+}
+
+.app-main {
+    padding: 1em;
+}
+
+.sidebar {
+    background-color: #fff;
+    overflow: auto;
+    max-height: 100vh;
+    width: 0;
+    transition: all 300ms ease-in-out;
+    white-space: nowrap;
+    position: fixed;
+    top:0;
+    left: 0;
+    bottom: 0;
+}
+
+.showSidebar>.sidebar {
+    width: 280px;
+    padding: 0 1em;
+    margin-top: 60px;
+    box-shadow: 1px 1px 1px #000;
+}
+
+/* width */
+.sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+.sidebar::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+}
+
+/* Handle */
+.sidebar::-webkit-scrollbar-thumb {
+    background: #999; 
+}
+
+/* Handle on hover */
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: #666; 
+}
+
+.menu-label {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0.5em 0;
+    color: rgb(116, 116, 116);
+    font-size: 0.9em;
+}
+
+// element
+
+
+@media only screen and (min-width: 768px) {
+
+}
+
+@media only screen and (max-width: 768px) {
+
+
+}
+
+@media only screen and (min-width: 1024px) {
+    .admin-nav {
+        position: fixed;
+        left: 0;
+        right: 0;
+        border-bottom: 1px solid #eee;
+    }
+    .sidebar {
+        width: 280px;
+        padding: 1em;
+        opacity: 1;
+        margin-top: 60px;
+    }
+    .app-container {
+        margin-left: 280px;
+        margin-top: 60px;
+        padding: 1em 2em;
+    }
+}

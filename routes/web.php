@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('guest.home');
 })->name('home');
 
 
@@ -49,16 +49,16 @@ Route::group([
     ], function() {
     
         Route::get('/', function() {
-            return redirect(route('dashboard'));
+            return redirect(route('client.dashboard'));
         });
     
         Route::get('/dashboard', function () {
             return view('client.dashboard');
-        })->name('dashboard');
+        })->name('client.dashboard');
     
         Route::get('/setting', function() {
             return view('client.setting');
-        })->name('setting');
+        })->name('client.setting');
     
         Route::resource('projects', ProjectController::class, [
             'names' => [

@@ -30,12 +30,12 @@
 
                 @csrf
 
-                <div class="flex gap-4 my-4 items-center">
+                <div class="flex flex-wrap gap-4 my-4 items-center">
                     <label class="font-bold">Họ và tên</label>
                     <input class="rounded-2xl" type="text" name="name"/>
                 </div>
 
-                <div class="flex gap-4 my-4 items-center">
+                <div class="flex flex-wrap gap-4 my-4 items-center">
                     <label class="font-bold">Đại chỉ email</label>
                     <input class="rounded-2xl" type="text" name="email"/>
                 </div>
@@ -43,11 +43,11 @@
                 <div class="my-4">
                     <p class="font-bold">Loại tài khoản</p>
 
-                    <div class="flex gap-4">
+                    <div class="flex flex-wrap gap-4">
                         @if ($roles)
                             @foreach ($roles as $role)
 
-                                <div class="flex gap-4 my-4 items-center">
+                                <div class="flex flex-wrap gap-4 my-4 items-center">
                                     <input type="checkbox" id="staff-{{ $role->id }}" name="role" value="{{ $role->name }}"/><label for="staff-{{ $role->id }}">{{ $role->name }}</label><span>
                                 </div>
                             @endforeach
@@ -59,7 +59,7 @@
 
                 </div>
 
-                <div class="flex gap-4 my-4 items-center">
+                <div class="flex flex-wrap gap-4 my-4 items-center">
                     
                     <input class="py-2 px-6 rounded-lg shadow-2xl uppercase bg-yellow-500 text-white font-bold"
                         type="submit" value="Tạo tài khoản mới"/>
@@ -70,7 +70,7 @@
 
     <h2 class="my-8 font-bold text-xl">Danh sách tài khoản</h2>
 
-    <div class="my-4 p-8 bg-white rounded-2xl shadow">
+    <div class="table-responsive my-4 p-8 bg-white rounded-2xl shadow">
         <table class="">
             <thead>
                 <tr>

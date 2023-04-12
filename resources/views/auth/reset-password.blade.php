@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-blank-layout>
     <form method="POST" action="{{ route('password.store') }}">
         @csrf
 
@@ -32,8 +32,8 @@
 
         <div class="flex items-center justify-end mt-4">
             <x-primary-button>
-                {{ __('Reset Password') }}
+                {{ __('Đặt lại mật khẩu') }}
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</x-blank-layout>

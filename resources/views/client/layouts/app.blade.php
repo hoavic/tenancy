@@ -11,29 +11,32 @@
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/client/style.scss', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
+    <body class="antialiased">
 
-            <div class="app-grid">
+        <div x-data="{showSidebar: false}" 
 
+            :class="{'showSidebar' : showSidebar, '': !showSidebar}" 
+            class="app-grid">
+            
                 @include('client.includes.sidebar')
 
                 <div id="appContainer" class="app-container">
 
-                    @include('includes.nav')
+                    @include('client.includes.nav')
 
                     <main class="app-main">
                         <!-- Page Heading -->
                         @if (isset($header))
-                            <header class="">                       
+                            <header class="flex">                       
                                     {{ $header }}
                             </header>
                         @endif
                         {{ $slot }}
                     </main>
 
-                    @include('includes.footer')
+                    @include('client.includes.footer')
                 </div>
             </div>
 

@@ -1,4 +1,7 @@
-<x-guest-layout>
+<x-blank-layout>
+
+    <x-slot name="header">Đăng nhập {{ config('app.name') }}</x-slot>
+
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -32,21 +35,21 @@
             </label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
+        <p class="text-center">
+            <x-button.primary type="submit" class="w-full py-6">
+                {{ __('Đăng nhập') }}
+            </x-button.primary>
+        </p>
+
+        @if (Route::has('password.request'))
+            <p class="text-center">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
                     {{ __('Quên mật khẩu?') }}
                 </a>
-            @endif
-            
-            <x-primary-button class="ml-3">
-                {{ __('Đăng nhập') }}
-            </x-primary-button>
-        </div>
-
+            </p>
+        @endif
         
-        <div class="text-center  mt-2">
-            <p class="text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Bạn chưa có tài khoản? <a class="underline " href="{{ route('register') }}">Đăng ký ngay</a></p>
-        </div>
+        <p class="text-center text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Bạn chưa có tài khoản? <a class="underline " href="{{ route('register') }}">Đăng ký ngay</a></p>
+
     </form>
-</x-guest-layout>
+</x-blank-layout>

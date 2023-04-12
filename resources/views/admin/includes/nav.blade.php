@@ -1,9 +1,22 @@
-<nav x-data="{ open: false }" class="action-nav">
+<nav x-data="{ open: false }" class="admin-nav">
+
+    <div class="px-4 flex items-center">
+        <a class="font-bold text-2xl uppercase text-blue-800" href="{{ route('admin.dashboard') }}">
+            Trang Admin
+        </a>
+    </div>
+
+    <button @click="showSidebar = ! showSidebar" class="p-4 lg:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+        </svg>
+    </button>
+
     <!-- Navigation Links -->
-    <ul class="flex items-center">
+    <ul class="hidden lg:flex lg:items-center ">
         @auth
             <li class="top-item nav-item">
-                <x-nav-link :href="route('dashboard')" :active="request()->route()->getPrefix() === '/ai-client'">
+                <x-nav-link :href="route('client.dashboard')" :active="request()->route()->getPrefix() === '/ai-client'">
                     {{ __('Trang khách hàng') }}
                 </x-nav-link>
             </li>
@@ -22,7 +35,7 @@
 
 
     <!-- Settings Dropdown -->
-    <div class="hidden sm:flex sm:items-center sm:ml-6">
+    <div class="hidden lg:flex lg:items-center lg:ml-6">
         <x-dropdown width="48">
             <x-slot name="trigger">
                 <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md 
