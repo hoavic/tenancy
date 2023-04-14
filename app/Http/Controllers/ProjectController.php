@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tenant;
+use Bpuig\Subby\Models\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Stancl\Tenancy\Database\Models\Domain;
@@ -18,9 +19,10 @@ class ProjectController extends Controller
     {
         //
         $tenants = Tenant::where('user_id', '=', Auth::id())->latest()->get();
-        
+        $plans = Plan::all();
         return view('client.projects.index',[
             'tenants' => $tenants,
+            'plans'     => $plans,
         ]);
     }
 
@@ -59,7 +61,8 @@ class ProjectController extends Controller
             'project_name' => 'required|string|max:255',
             'domain_type' => 'required|string|max:255',
             'project_domain' => 'required|string|max:255',
-            'plan' => 'required|string|max:255',
+         /*    'plan' => 'required|string|max:255', */
+            'plan_id' => 'required|integer',
         ]);
 
         
@@ -85,7 +88,7 @@ class ProjectController extends Controller
         }   */  
 
         $domain_type = $validated['domain_type'];
-        $plan = $validated['plan'];
+        /* $plan = $validated['plan']; */
 
 /*         if ($domain_type === 'subdomain') {
             $domain = $validated['project_domain'].'.tenancy.test';
@@ -94,9 +97,15 @@ class ProjectController extends Controller
         $tenant = $request->user()->tenants()->create([
             'name' => $validated['project_name'],
             'status' => 'publish',
-            'plan' => $plan,
+/*             'plan' => $plan, */
             'user_id' => Auth::id()
         ]);
+
+        $plan = Plan::find($validated['plan_id']);
+
+        if(empty($plan)) {return;}
+
+        $tenant->newSubscription($plan->tag, $plan, $plan->name, $plan->description);
 
         $tenant->domains()->create([
             'domain' => $domain,

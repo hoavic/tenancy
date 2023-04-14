@@ -48,13 +48,20 @@
 
             <div class="flex flex-wrap gap-4 my-4 items-center">
                 <span class="font-bold">Chọn gói:</span>
-                <input type="radio" id="free" name="plan" value="free" checked/><label for="free"><strong>Cơ bản (Miễn phí)</strong></label>
+{{--                 <input type="radio" id="free" name="plan" value="free" checked/><label for="free"><strong>Cơ bản (Miễn phí)</strong></label>
                 <span>|</span>
                 <input type="radio"  id="startup" name="plan" value="startup"/><label for="startup">Startup (1$/tháng)</label>
                 <span>|</span>
                 <input type="radio"  id="higher" name="plan" value="higher"/><label for="higher">Higher (5$/tháng)</label>
                 <span>|</span>
-                <input type="radio"  id="professional" name="plan" value="professional"/><label for="professional">Professional (9$/tháng)</label>
+                <input type="radio"  id="professional" name="plan" value="professional"/><label for="professional">Professional (9$/tháng)</label> --}}
+
+                @if (!empty($plans))
+                    @foreach ($plans as $plan)
+                        <input type="radio" id="{{ $plan->tag }}" name="plan_id" value="{{ $plan->id }}"/><label for="{{ $plan->tag }}">{{ $plan->name }}</label>
+                        <span>|</span>
+                    @endforeach
+                @endif
             </div>
 
             <div class="flex flex-wrap gap-4 my-4 items-center">
@@ -78,6 +85,7 @@
                 <tr>
                     <th>#</th>
                     <th>Tên dự án</th>
+                    <th>Gói</th>
                     <th>Địa chỉ</th>
                     <th>Tình trạng</th>
                     <th>Hành động</th>
@@ -88,13 +96,30 @@
                 @if (empty($tenants))
                     <tr><td colspan="5">Bạn chưa có dự án nào. Hãy tạo dự án đầu tiên.</td></tr>
                 @endif
+
+ 
                 
                 @foreach ($tenants as $tenant)
+
+                    @php
+                        $redirectUrl = '/web-admin/dashboard';
+                        $domain = $tenant->getDomain();
+
+                       /*  dd($domain) */
+                        $token = tenancy()->impersonate($tenant, Auth::id(), $redirectUrl);
+                       /*  dd(Auth::user()) */
+                    @endphp    
 
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $tenant->name }}</td>
-                        <td><a href="{{ $tenant->getDomain() }}" target="_blank">{{ $tenant->getDomain() }}</a></td>
+                        <td>
+                            @if (!empty($tenant->subscriptions->count()))
+                                {{ $tenant->subscription()->name }}
+                            @endif
+                        </td>
+{{--                         <td><a href="{{ $domain }}/impersonate/{{ $token->token }}" target="_blank">{{ $tenant->getDomain() }}</a></td> --}}
+                        <td><a href="quick-login/?project={{ $tenant->domains[0]->domain }}" target="_blank">{{ $tenant->getDomain() }}</a></td>
                         <td>Hoạt động</td>
                         <td>
                             <a href="#" class="p-2 inline-block bg-gray-200 text-gray-500 font-bold text-sm shadow rounded-2xl">Ẩn</a>

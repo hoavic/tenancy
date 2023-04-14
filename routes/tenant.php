@@ -24,6 +24,7 @@ use App\Http\Livewire\Tenant\Backend\Reporting;
 
 
 use Illuminate\Support\Facades\Route;
+use Stancl\Tenancy\Features\UserImpersonation;
 /* use Stancl\Tenancy\Middleware\InitializeTenancyByDomain; */
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
@@ -45,6 +46,12 @@ Route::middleware([
     InitializeTenancyByDomainOrSubdomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
+
+    Route::get('/impersonate/{token}', function ($token) {
+        return UserImpersonation::makeResponse($token);
+    });
+
+
     Route::get('/', function () {
         /* dd(\App\Models\User::all()); */
         /* return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id'); */

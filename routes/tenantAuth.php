@@ -11,6 +11,7 @@ use App\Http\Controllers\TenantAuth\TenantRegisteredUserController;
 use App\Http\Controllers\TenantAuth\TenantVerifyEmailController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByRequestData;
+use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 Route::middleware('ten.guest')->group(function () {
     Route::get('register', [TenantRegisteredUserController::class, 'create'])
@@ -36,7 +37,11 @@ Route::middleware('ten.guest')->group(function () {
                 ->name('ten.password.store');
 });
 
-Route::middleware('ten.auth', InitializeTenancyByRequestData::class)->group(function () {
+Route::middleware(
+        'ten.auth', 
+        /* InitializeTenancyByRequestData::class,  */
+        PreventAccessFromCentralDomains::class,
+    )->group(function () {
     Route::get('verify-email', [TenantEmailVerificationPromptController::class, '__invoke'])
                 ->name('ten.verification.notice');
 

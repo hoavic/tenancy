@@ -22,7 +22,7 @@ class CreateTenantsTable extends Migration
             $table->foreignId('user_id');
             $table->string('name');
             $table->string('status');
-            $table->string('plan');
+            $table->string('plan')->nullable();
             $table->timestamps();
             $table->json('data')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');

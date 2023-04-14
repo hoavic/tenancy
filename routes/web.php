@@ -3,7 +3,9 @@
 use App\Http\Controllers\Admin\AccountsController;
 use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\PermissionsController;
+use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\RolesController;
+use App\Http\Controllers\Client\ImpersonateController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +49,8 @@ Route::group([
         'middleware' => ['auth', 'verified'],
     
     ], function() {
+
+        Route::get('/quick-login', [ImpersonateController::class, 'index']);
     
         Route::get('/', function() {
             return redirect(route('client.dashboard'));
@@ -104,6 +108,16 @@ Route::group([
             'edit' => 'admin.permissions.edit', 
             'update' => 'admin.permissions.update', 
             'destroy' => 'admin.permissions.destroy'
+        ]
+    ]);
+
+    Route::resource('plans', PlanController::class, [
+        'names' => [
+            'index' => 'admin.plans.index',
+            'store' => 'admin.plans.store',
+            'edit' => 'admin.plans.edit', 
+            'update' => 'admin.plans.update', 
+            'destroy' => 'admin.plans.destroy'
         ]
     ]);
 

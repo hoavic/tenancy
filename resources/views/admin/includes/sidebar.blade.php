@@ -66,7 +66,11 @@
             </div>
             <!-- Navigation Links -->
             <ul class="menu">
-                <li class="nav-item"><a class="nav-link" href="#">Danh sách gói</a></li>
+                <li class="nav-item">
+                    <x-nav-link :href="route('admin.plans.index')" :active="request()->routeIs('admin.plans.index')">
+                        {{ __('Danh sách gói') }}
+                    </x-nav-link>
+                </li>
                 <li class="nav-item"><a class="nav-link" href="#">Quản lý Subs</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Quản lý Plan</a></li>
             </ul>

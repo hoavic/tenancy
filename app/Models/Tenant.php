@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Bpuig\Subby\Traits\HasSubscriptions;
 use Stancl\Tenancy\Database\Models\Tenant as BaseTenant;
 use Stancl\Tenancy\Contracts\TenantWithDatabase;
 use Stancl\Tenancy\Database\Concerns\HasDatabase;
@@ -9,7 +10,7 @@ use Stancl\Tenancy\Database\Concerns\HasDomains;
 
 class Tenant extends BaseTenant implements TenantWithDatabase
 {
-    use HasDatabase, HasDomains;
+    use HasDatabase, HasDomains, HasSubscriptions;
 
     public static function getCustomColumns(): array
     {
@@ -30,10 +31,10 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         if(empty($domain)) {return null;}
 
         if($domain->domain_type === 'subdomain') {
-            return 'http://'.$domain->domain.'.'.config('tenancy.central_domains')[0];
+            return 'https://'.$domain->domain.'.'.config('tenancy.central_domains')[0];
         }
 
-        return 'http://'.$domain->domain;
+        return 'https://'.$domain->domain;
     }
 
     // relataion
