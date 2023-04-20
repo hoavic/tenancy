@@ -44,7 +44,7 @@
                 {{ __('Đăng nhập') }}
             </a>
 
-            <x-button.primary class="ml-4">
+            <x-button.primary type="submit" class="ml-4">
                 {{ __('Đăng ký') }}
             </x-button.primary>
         </div>
